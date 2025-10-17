@@ -91,8 +91,9 @@
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>McGill University,</span>
-            <span class="author-block"><sup>2</sup>Center for Intelligent Machines</span>
+            <span class="author-block">McGill University<sup>1</sup>,</span>
+            <span class="author-block">Center for Intelligent Machines,<sup>2</sup></span>
+            <span class="author-block">Anas Al-Houssaini<sup>3</sup></span>
           </div>
 
           <div class="column has-text-centered">
@@ -161,7 +162,7 @@
                 type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Dexsuite</span> high-performance python library for robotic reinforcement learning and datasets.
+        <span class="dnerf">Dexsuite</span>: A high-performance and flexible python library for robotic reinforcement learning and datasets.
       </h2>
     </div>
   </div>
@@ -203,12 +204,25 @@
         </div>
       </div>
     </div>
+    <br>
     <!--/ Abstract. -->
+
+    <!-- Video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-two-thirds">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/Yw6u6YkTgQ4?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Video. -->
 
   </div>
 </section>
 
-
+<!--text-->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
@@ -240,6 +254,82 @@
             Nullam pretium in nisi ut varius.
           </p>
       </div>
+    </div>
+  </div>
+</section>
+<!--/text-->
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="rows">
+    <!-- carousel -->
+    <div class="rows is-centered ">
+      <div class="row is-full-width">
+
+        <h2 class="title is-3">Results</h2>
+
+        <h3 class="title is-4">Library Demonstration</h3>
+
+        <div class="columns">
+          <div class="column has-text-centered">
+            <h3 class="title is-5">Environment Setup</h3>
+
+            Option text1
+            <div class="select is-small">
+              <select id="single-menu-demos" onchange="updateSingleVideo()">
+              <option value="123">123</option>
+              <option value="456" selected="selected">456</option>
+              </select>
+            </div>
+            Option text2 
+            <div class="select is-small">     
+              <select id="single-menu-tasks" onchange="updateSingleVideo()">
+              <option value="task1" selected="selected">task1</option>
+              <option value="task2">task2</option>
+              <option value="task3">task3</option>
+              </select>
+            </div>
+            Option text3
+            <div class="select is-small">
+              <select id="single-menu-instances" onchange="updateSingleVideo()">
+              <option value="s1">01</option>
+              <option value="s2" selected="selected">02</option>
+              <option value="s3">03</option>
+              </select>
+            </div>
+            <br/>
+
+            <video id="multi-task-result-video"
+                   muted
+                   autoplay
+                   loop
+                   width="100%">
+              <source src="media/media.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+        </br>
+
+        <h3 class="title is-4">Gripper-Manipulator combinations</h3>
+
+        <div class="columns">
+          <div class="column has-text-centered">
+            <h3 class="title is-5">Possible Combination Examples</h3>
+
+            Visualize setup for   
+            <div class="select is-small is-rounded">     
+              <select id="single-menu-qpred" onchange="updateQpredVideo()">
+              <option value="combo1" selected="selected">"combo1"</option>
+              <option value="combo2">"combo2"</option>
+              <option value="combo3">"combo3"</option>
+              </select>
+            </div>
+          </div>
+
+      </div>
+      <!--/carousel -->
     </div>
   </div>
 </section>
