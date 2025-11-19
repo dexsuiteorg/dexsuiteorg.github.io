@@ -95,6 +95,17 @@
             <!-- <span class="author-block">Center for Intelligent Machines,<sup>2</sup></span>
             <span class="author-block">Anas Al-Houssaini<sup>3</sup></span> -->
           </div>
+          <div class="partner-logos mt-4">
+            <div class="logo-row research">
+              <img class="logo-mcgill" src="static/images/partners_logo/mcgill.png" alt="McGill University logo">
+              <img class="logo-mila" src="static/images/partners_logo/mila.png" alt="Mila logo">
+            </div>
+            <div class="logo-row industry mt-3">
+              <img class="logo-hf" src="static/images/partners_logo/hf.png" alt="Hugging Face logo">
+              <img class="logo-kinova" src="static/images/partners_logo/kinova.png" alt="Kinova logo">
+              <img class="logo-manus" src="static/images/partners_logo/manus.webp" alt="Manus logo">
+            </div>
+          </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
@@ -174,7 +185,7 @@
 <div class="columns is-centered">
               <div class="column is-half">
                 <figure class="image">
-                  <img src="static/images/franka_right45.png" alt="Franka Black">
+                  <img src="static/images/environments/para_env.png" alt="Franka Black">
                 </figure>
               </div>
             </div>
@@ -296,7 +307,7 @@
           <br/>
         <div class="has-text-centered mb-5">
           <figure class="image is-inline-block">
-            <img src="/static/images/overview_1.png" alt="DexSuite overview">
+            <img src="/static/images/overview_2.png" alt="DexSuite overview">
           </figure>
         </div>
           <h3 class="title is-4">Data Collection</h3>
@@ -311,7 +322,7 @@
               and logging so additional demonstrations can be captured without writing glue code.
             </p>
           </div>
-        <h3 class="title is-4">Teleoperations</h3>
+        <h3 class="title is-4">Teleoperation</h3>
           <div class="content has-text-justified">
             <p>
               Our teleoperation UI keeps the hardware diagram and retargeting path front-and-center. The two schematics below show the controller stack (left) and the retargeting
@@ -332,7 +343,7 @@
             </div>
           </div>
 
-          <h4 class="title is-5">Vive tracker bundle</h4>
+          <h4 class="title is-5">Vive Tracker/Controller</h4>
           <div class="content has-text-justified">
             <p>Tracker clusters stream directly into Genesis while the controller trigger maps to gripper commands. Perfect for dual-arm capture.</p>
           </div>
@@ -533,11 +544,69 @@
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
+      <div class="column is-full-width has-text-centered">
+        <h2 class="title is-3">Environment Visualizer</h2>
+        <p>Pick an environment below to view its preview before diving into the table.</p>
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <div class="select is-small is-rounded">
+              <select id="single-menu-qpred">
+                <option value="pick_place_pan" selected="selected">Pick and Place Pan</option>
+                <option value="reach">Reach</option>
+                <option value="lift">Lift</option>
+                <option value="pick_place">Pick and Place</option>
+                <option value="push">Push</option>
+                <option value="stack">Stack</option>
+                <option value="pick_place_mug">Pick and Place Mug</option>
+                <option value="drill_to_point">Drill to Point</option>
+                <option value="pour_water">Pour Water</option>
+                <option value="make_coffee">Make Coffee</option>
+                <option value="spread_butter">Spread Butter</option>
+                <option value="routing_cable">Routing Cable</option>
+                <option value="bimanual_reach">Bimanual Reach</option>
+                <option value="bimanual_lift">Bimanual Lift Cube</option>
+                <option value="bimanual_push">Bimanual Push Cube</option>
+                <option value="drill_wood">Drill to Wood Block</option>
+                <option value="hand_over_pan">Hand Over Pan</option>
+                <option value="hand_over_mug">Hand Over Mug</option>
+                <option value="pick_place_pot">Pick and Place Pot</option>
+                <option value="close_sunglasses">Close Sunglasses</option>
+                <option value="pick_up_basketball">Pick Up Basketball</option>
+                <option value="opening_jar">Opening Jar</option>
+                <option value="cut_fruit">Cut Fruit</option>
+                <option value="folding_shirt">Folding Shirt</option>
+              </select>
+            </div>
+            <div class="environment-preview mt-4">
+              <figure class="image">
+                <img id="environment-preview" src="" alt="Environment preview">
+              </figure>
+              <p id="environment-preview-caption" class="has-text-weight-semibold mt-2">Pick and Place Pan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Available Environments</h2>
         <p class="content has-text-justified">
           The suite tracks single-arm and bimanual environments across three buckets: baseline setups, rigid-object tasks, and deformable-object tasks.
         </p>
+
+
+
+
+
+
+
+
+
         <div class="table-container">
           <table class="table is-fullwidth is-striped">
             <thead>
@@ -561,7 +630,6 @@
               <tr><th scope="row">Pour Water</th><td>Single</td><td>Rigid</td></tr>
               <tr><th scope="row">Make Coffee</th><td>Single</td><td>Rigid</td></tr>
               <!-- Single – Deformable -->
-              <tr><th scope="row">Cut Butter</th><td>Single</td><td>Deformable</td></tr>
               <tr><th scope="row">Spread Butter</th><td>Single</td><td>Deformable</td></tr>
               <tr><th scope="row">Routing Cable</th><td>Single</td><td>Deformable</td></tr>
 
@@ -593,91 +661,56 @@
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Benchmarks</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            Curabitur a nisl eu erat tempus laoreet.
-          </p>
-          <p>
-            Vestibulum mattis et libero iaculis accumsan.
-          </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <div class="rows">
-    <!-- carousel -->
-    <div class="rows is-centered ">
-      <div class="row is-full-width">
-
-        <h2 class="title is-3">Results</h2>
-
-
-        <h3 class="title is-4">Library Demonstration</h3>
-
-        <div class="columns">
-          <div class="column has-text-centered">
-            <h3 class="title is-5">Environment Setup</h3>
-
-            Option text1
-            <div class="select is-small">
-              <select id="single-menu-demos" onchange="updateSingleVideo()">
-              <option value="123">123</option>
-              <option value="456" selected="selected">456</option>
-              </select>
-            </div>
-            Option text2
-            <div class="select is-small">
-              <select id="single-menu-tasks" onchange="updateSingleVideo()">
-              <option value="task1" selected="selected">task1</option>
-              <option value="task2">task2</option>
-              <option value="task3">task3</option>
-              </select>
-            </div>
-            Option text3
-            <div class="select is-small">
-              <select id="single-menu-instances" onchange="updateSingleVideo()">
-              <option value="s1">01</option>
-              <option value="s2" selected="selected">02</option>
-              <option value="s3">03</option>
-              </select>
-            </div>
-            <br/>
-
-            <video id="multi-task-result-video"
-                   muted
-                   autoplay
-                   loop
-                   width="100%">
-              <source src="media/media.mp4"
-                      type="video/mp4">
-            </video>
+        <div class="content">
+          <h3 class="title is-4">Imitation Learning</h3>
+          <p>Teleoperation datasets power DexSuite’s IL suite. We ship glove-conditioned demonstrations, dataset balancing helpers, and offline evaluation scripts so you can train supervised policies before touching the simulator.</p>
+          <div class="table-container">
+            <h4 class="title is-5 has-text-left">Single-Arm</h4>
+            <table class="table is-fullwidth is-striped">
+              <thead>
+                <tr>
+                  <th>Environment</th>
+                  <th>BC</th>
+                  <th>BC-RNN</th>
+                  <th>BC-Transformer</th>
+                  <th>Diffusion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Reach</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Lift</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Stack</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row"><span>Pick and Place<br>Pan</span></th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Pick and Place Mug</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Routing Cable</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Spread Butter</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+              </tbody>
+            </table>
           </div>
-        </div>
-        </br>
-
-        <h3 class="title is-4">Gripper-Manipulator combinations</h3>
-
-        <div class="columns">
-          <div class="column has-text-centered">
-            <h3 class="title is-5">Possible Combination Examples</h3>
-
-            Visualize setup for
-            <div class="select is-small is-rounded">
-              <select id="single-menu-qpred" onchange="updateQpredVideo()">
-              <option value="combo1" selected="selected">"combo1"</option>
-              <option value="combo2">"combo2"</option>
-              <option value="combo3">"combo3"</option>
-              </select>
-            </div>
+          <div class="table-container">
+            <h4 class="title is-5 has-text-left">Bimanual</h4>
+            <table class="table is-fullwidth is-striped">
+              <thead>
+                <tr>
+                  <th>Environment</th>
+                  <th>BC</th>
+                  <th>BC-RNN</th>
+                  <th>BC-Transformer</th>
+                  <th>Diffusion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Bimanual Reach</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Bimanual Lift Cube</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Bimanual Push Cube</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Pick and Place Pot</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Pick Up Basketball</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Cut Fruit</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+              </tbody>
+            </table>
           </div>
-
+          </div>
       </div>
-      <!--/carousel -->
     </div>
   </div>
 </section>
@@ -686,15 +719,27 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            Maecenas viverra metus sit amet ipsum efficitur porttitor.
-          </p>
-          <p>
-            Praesent leo ligula, sagittis placerat semper fringilla, luctus et diam.
-          </p>
+        <h2 class="title is-3">Reinforcement Learning</h2>
+        <div class="content">
+          <p>DexSuite exposes vectorized rollouts and unified reward APIs. PPO, SAC, and Q-learning recipes arrive tuned for rigid and deformable manipulation—just swap the environment class and relaunch training.</p>
+          <div class="table-container">
+            <h4 class="title is-5 has-text-left">RL-evaluated Environments</h4>
+            <table class="table is-fullwidth is-striped">
+              <thead>
+                <tr>
+                  <th>Environment</th>
+                  <th>PPO</th>
+                  <th>SAC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Reach</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Lift</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr><th scope="row">Stack</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -706,7 +751,7 @@
     <h2 class="title">BibTeX</h2>
     <pre><code>@article{articlename,
   author    = {Names},
-  title     = {Dexsuite: tbd},
+  title     = {Dexsuite.},
   journal   = {TBD},
   year      = {2025},
 }</code></pre>

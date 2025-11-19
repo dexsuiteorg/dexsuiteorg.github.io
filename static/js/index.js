@@ -123,4 +123,41 @@ $(document).ready(function() {
       });
     }
 
+    var envSelect = document.getElementById('single-menu-qpred');
+    var envPreview = document.getElementById('environment-preview');
+    var envCaption = document.getElementById('environment-preview-caption');
+    if (envSelect && envPreview && envCaption) {
+      var envExtensions = ['.png', '.jpg', '.jpeg'];
+      function updateEnvironmentPreview() {
+        var value = envSelect.value;
+        var label = envSelect.options[envSelect.selectedIndex].text;
+        envCaption.textContent = label;
+        var basePath = 'static/images/environments/' + value;
+        var attempt = 0;
+        function tryLoad() {
+          if (attempt >= envExtensions.length) {
+            envPreview.src = '';
+            envPreview.classList.add('is-invisible');
+            envPreview.alt = label + ' preview unavailable';
+            envPreview.onerror = null;
+            return;
+          }
+          var path = basePath + envExtensions[attempt];
+          envPreview.classList.remove('is-invisible');
+          envPreview.onerror = function() {
+            attempt += 1;
+            tryLoad();
+          };
+          envPreview.onload = function() {
+            envPreview.onerror = null;
+          };
+          envPreview.src = path;
+          envPreview.alt = label + ' environment';
+        }
+        tryLoad();
+      }
+      envSelect.addEventListener('change', updateEnvironmentPreview);
+      updateEnvironmentPreview();
+    }
+
 })

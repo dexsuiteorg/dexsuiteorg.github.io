@@ -2,6 +2,74 @@ body {
   font-family: 'Noto Sans', sans-serif;
 }
 
+.partner-logos {
+  margin-top: 1.5rem;
+}
+
+.partner-logos .logo-label {
+  display: block;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.partner-logos .logo-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.partner-logos img {
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(15%);
+}
+
+.partner-logos .logo-mcgill {
+  height: 95px;
+}
+
+.partner-logos .logo-mila {
+  height: 70px;
+}
+
+.partner-logos .logo-row.industry img {
+  height: 42px;
+}
+
+.partner-logos .logo-hf {
+  height: 48px;
+}
+
+.partner-logos .logo-kinova,
+.partner-logos .logo-manus {
+  height: 40px;
+}
+
+.environment-preview figure {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 520px;
+  align-items: center;
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.environment-preview img {
+  width: 100%;
+  max-width: none;
+  max-height: 480px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
 
 
 .footer .icon-link {
