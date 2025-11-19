@@ -196,7 +196,7 @@
   </div>
 </section> -->
 
-<section class="hero is-light is-small">
+<!-- <section class="hero is-light is-small">
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
@@ -240,7 +240,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 <section class="section">
@@ -251,10 +251,15 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies urna eu ligula imperdiet eleifend vitae sed odio. Nullam viverra nibh ante, eu euismod velit tempus vitae. Maecenas vel rutrum eros. Donec vehicula, odio at porttitor sagittis, arcu nisl semper ante, id bibendum est mauris at ante. Mauris mi urna, interdum et est quis, pulvinar laoreet turpis. Donec ac neque interdum, tempor arcu venenatis, pellentesque lorem. Etiam vitae ante id leo dictum lobortis id consectetur elit. Vestibulum aliquet est massa, ac facilisis ligula gravida ut. Mauris tristique massa vitae ipsum elementum, quis laoreet ipsum luctus. Nulla semper ante libero, at cursus nulla imperdiet sed. Nunc enim ligula, consectetur in varius ut, viverra et turpis. Aenean sollicitudin nulla eget felis facilisis malesuada. Vestibulum leo odio, mollis pulvinar est sed, rhoncus placerat magna.
+            <strong>Abstract—</strong> DexSuite is a dexterity-first simulation stack that unifies manipulators, end-effectors, and task definitions under a single Genesis-based
+            interface. The framework normalizes contact parameters, workspace sampling, and controller APIs so that parallel grippers, multi-finger hands, and bimanual
+            setups can be swapped without rewriting task code. It integrates photoreal rendering, GPU-vectorized rollouts, and curated teleoperation datasets collected
+            with Manus gloves and Vive trackers.
           </p>
           <p>
-            Praesent condimentum in lacus nec tincidunt. Mauris commodo fringilla leo vitae eleifend. Maecenas lobortis suscipit sem quis varius. Suspendisse mauris ligula, fermentum nec sodales eget, dignissim ac lacus. Morbi ante quam, sodales ac placerat tempor, hendrerit non neque. Nam viverra pharetra enim, ut tincidunt felis lacinia nec. Sed imperdiet eros eu lorem pellentesque, faucibus tincidunt purus tempus. Morbi sollicitudin, purus et commodo auctor, ex dolor mattis ex, a commodo justo lectus et erat. Sed at commodo purus.
+            We provide ready-to-use benchmarks that span rigid, articulated, and deformable objects across single-arm and two-arm variants. Each benchmark includes
+            reproducible presets, calibrated object assets, and multi-modal observations, enabling meaningful comparisons between imitation learning and reinforcement
+            learning policies on dexterous manipulation tasks.
           </p>
         </div>
       </div>
@@ -284,41 +289,39 @@
       <div class="column is-full-width">
         <h2 class="title is-3">Dexsuite Framework</h2>
           <p>
-            Nunc lobortis magna non imperdiet vestibulum. Vivamus condimentum, dui vitae eleifend feugiat, purus velit pulvinar dui, ut viverra nulla augue vel odio. Suspendisse eu interdum eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus ultrices enim posuere diam luctus, eget volutpat enim sollicitudin. Proin ut eros non purus laoreet rutrum quis sit amet sem. Mauris a dolor massa. Phasellus ullamcorper sapien sit amet sapien eleifend, sed porta tellus ullamcorper. Morbi at tincidunt erat, nec egestas nisl.
+            Every environment in DexSuite inherits from a lightweight Base Environment that spins up Genesis, loads robots, configures cameras, and manages batching.
+            A Task class then defines the scene: object assets, randomization, reward shaping, and termination logic. Because the infrastructure layer stays constant,
+            swapping between manipulators, grippers, or even single-arm versus bimanual layouts only requires changing the task binding.
           </p>
           <br/>
         <div class="has-text-centered mb-5">
           <figure class="image is-inline-block">
-            <img src="/static/images/overview.png" alt="Description of the image">
+            <img src="/static/images/overview_1.png" alt="DexSuite overview">
           </figure>
         </div>
           <h3 class="title is-4">Data Collection</h3>
           <div class="content has-text-justified">
             <p>
-              Donec ipsum nunc, fringilla euismod orci non, tincidunt vestibulum sapien.
+              DexSuite ships with native teleoperation tooling so we can record expert demonstrations directly inside the framework. Vive trackers provide arm pose,
+              Manus gloves stream finger angles, and everything maps into Genesis through our ROS2 bridge. Each environment includes curated datasets collected with this setup,
+              which is how we reach 150k+ glove-conditioned frames across single-arm and bimanual variants.
             </p>
             <p>
-              Nullam pretium in nisi ut varius.
+              The same tooling is exposed to users: plug in the supported hardware, select the robot-hand pairing, and the framework handles calibration, workspace alignment,
+              and logging so additional demonstrations can be captured without writing glue code.
             </p>
           </div>
-        <div class="content has-text-justified">
-          <p>
-            Curabitur a nisl eu erat tempus laoreet.
-          </p>
-          <p>
-            Vestibulum mattis et libero iaculis accumsan.
-          </p>
-        </div>
         <h3 class="title is-4">Teleoperations</h3>
           <div class="content has-text-justified">
             <p>
-              Teleoperation explanation diagrams.
+              Our teleoperation UI keeps the hardware diagram and retargeting path front-and-center. The two schematics below show the controller stack (left) and the retargeting
+              pipeline (right); both ship with the suite so you can drop in your hardware and record data immediately.
             </p>
           </div>
           <div class="image-container">
             <div class="has-text-centered mb-5">
               <figure class="image is-inline-block">
-                <img src="/static/images/teleoperation.png" alt="teleoperation">
+                <img src="/static/images/teleoperation.png" alt="teleoperation gear">
               </figure>
             </div>
 
@@ -329,27 +332,25 @@
             </div>
           </div>
 
+          <h4 class="title is-5">Vive tracker bundle</h4>
           <div class="content has-text-justified">
-            <p>
-              Manus glove retargeting
-            </p>
+            <p>Tracker clusters stream directly into Genesis while the controller trigger maps to gripper commands. Perfect for dual-arm capture.</p>
           </div>
 
-            <div class="has-text-centered mb-5">
-              <figure class="image is-inline-block">
-                <img src="/static/videos/manusretarget.gif" alt="retargeting">
-              </figure>
-            </div>
-
-          <div class="content has-text-justified">
-            <p>
-              Vive controller gripper and arm
-            </p>
-          </div>
-
-          <div class="has-text-centered mb-5">
+          <div class="has-text-centered mb-2">
             <figure class="image is-inline-block">
               <img src="/static/videos/vivecontroller.gif" alt="vivecontroller">
+            </figure>
+          </div>
+
+          <h4 class="title is-5" style="margin-top:1.5rem;">Manus glove + GeoRT</h4>
+          <div class="content has-text-justified">
+            <p>Glove joint angles pass through GeoRT, producing jitter-free Allegro/Shadow targets that DexSuite logs natively.</p>
+          </div>
+
+          <div class="has-text-centered mb-2">
+            <figure class="image is-inline-block">
+              <img src="/static/videos/manusretarget.gif" alt="retargeting">
             </figure>
           </div>
 
@@ -363,39 +364,171 @@
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Robots</h2>
-        <h3 class="title is-4">Environments</h3>
-          <div class="content has-text-justified">
-            <p>
-              Donec ipsum nunc, fringilla euismod orci non, tincidunt vestibulum sapien.
-            </p>
-            <p>
-              Nullam pretium in nisi ut varius.
-            </p>
+        <p class="content has-text-justified">
+          DexSuite covers both modular manipulators (arm + swappable hand) and integrated robots with native grippers, so every setup from Panda + Allegro to dual-arm presets lives in one catalog.
+        </p>
+
+        <div class="robot-viewer" tabindex="0" aria-label="Robot viewer">
+          <div class="robot-viewer-stage">
+            <button class="robot-nav robot-nav-prev" type="button" aria-label="Previous robot">
+              <i class="fas fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <div class="robot-viewer-track">
+              <article class="robot-view-slide is-active" data-robot="franka" role="group" aria-roledescription="slide" aria-label="Franka Panda">
+                <h3 class="robot-view-title title is-3">Franka Panda</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/franka/franka.png" alt="Franka Panda">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="fr3" role="group" aria-roledescription="slide" aria-label="Franka FR3">
+                <h3 class="robot-view-title title is-3">Franka FR3</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/franka_fr3/franka_fr3.png" alt="Franka FR3">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="ability" role="group" aria-roledescription="slide" aria-label="Ability Hand">
+                <h3 class="robot-view-title title is-3">Ability Hand</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/ability/ability.png" alt="Ability Hand">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="allegro" role="group" aria-roledescription="slide" aria-label="Allegro Hand">
+                <h3 class="robot-view-title title is-3">Allegro Hand</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/allegro/allegro.png" alt="Allegro Hand">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="barrett" role="group" aria-roledescription="slide" aria-label="Barrett Hand">
+                <h3 class="robot-view-title title is-3">Barrett Hand</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/barrett/barrett.png" alt="Barrett Hand">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="dclaw" role="group" aria-roledescription="slide" aria-label="DClaw">
+                <h3 class="robot-view-title title is-3">DClaw</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/dclaw/dclaw.png" alt="DClaw">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="gen3" role="group" aria-roledescription="slide" aria-label="Kinova Gen3">
+                <h3 class="robot-view-title title is-3">Kinova Gen3</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/gen3/gen3.png" alt="Kinova Gen3">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="inspire" role="group" aria-roledescription="slide" aria-label="Inspire Hand">
+                <h3 class="robot-view-title title is-3">Inspire Hand</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/inspire/inspire.png" alt="Inspire Hand">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="kuka" role="group" aria-roledescription="slide" aria-label="KUKA LBR iiwa">
+                <h3 class="robot-view-title title is-3">KUKA LBR iiwa</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/kuka/kuka.png" alt="KUKA LBR iiwa">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="leap" role="group" aria-roledescription="slide" aria-label="LEAP Hand">
+                <h3 class="robot-view-title title is-3">LEAP Hand</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/leap/leap.png" alt="LEAP Hand">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="robotiq" role="group" aria-roledescription="slide" aria-label="Robotiq 2F-85">
+                <h3 class="robot-view-title title is-3">Robotiq 2F-85</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/robotiq/robotiq.png" alt="Robotiq 2F-85">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="schunk" role="group" aria-roledescription="slide" aria-label="Schunk Hand">
+                <h3 class="robot-view-title title is-3">Schunk Hand</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/schunk/schunk.png" alt="Schunk Hand">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="shadow" role="group" aria-roledescription="slide" aria-label="Shadow Hand">
+                <h3 class="robot-view-title title is-3">Shadow Hand</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/shadow/shadow.png" alt="Shadow Hand">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="so_100" role="group" aria-roledescription="slide" aria-label="SO-100">
+                <h3 class="robot-view-title title is-3">SO-100</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/so_100/so_100.png" alt="SO-100 robot">
+                </div>
+              </article>
+
+              <article class="robot-view-slide" data-robot="ur5" role="group" aria-roledescription="slide" aria-label="UR5e">
+                <h3 class="robot-view-title title is-3">UR5e</h3>
+                <div class="robot-view-media">
+                  <img src="static/images/robots/ur5/ur5.png" alt="UR5e">
+                </div>
+              </article>
+            </div>
+            <button class="robot-nav robot-nav-next" type="button" aria-label="Next robot">
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </button>
           </div>
-          <br/>
-        <h3 class="title is-4">Grippers</h3>
-          <div class="content has-text-justified">
-            <p>
-              Donec ipsum nunc, fringilla euismod orci non, tincidunt vestibulum sapien.
-            </p>
-            <p>
-              Nullam pretium in nisi ut varius.
-            </p>
+          <div class="robot-viewer-dots" role="tablist" aria-label="Select robot">
+            <button class="robot-view-dot is-active" type="button" aria-label="Franka Panda" data-target="0" aria-current="true"></button>
+            <button class="robot-view-dot" type="button" aria-label="Franka FR3" data-target="1"></button>
+            <button class="robot-view-dot" type="button" aria-label="Ability Hand" data-target="2"></button>
+            <button class="robot-view-dot" type="button" aria-label="Allegro Hand" data-target="3"></button>
+            <button class="robot-view-dot" type="button" aria-label="Barrett Hand" data-target="4"></button>
+            <button class="robot-view-dot" type="button" aria-label="DClaw" data-target="5"></button>
+            <button class="robot-view-dot" type="button" aria-label="Kinova Gen3" data-target="6"></button>
+            <button class="robot-view-dot" type="button" aria-label="Inspire Hand" data-target="7"></button>
+            <button class="robot-view-dot" type="button" aria-label="KUKA LBR iiwa" data-target="8"></button>
+            <button class="robot-view-dot" type="button" aria-label="LEAP Hand" data-target="9"></button>
+            <button class="robot-view-dot" type="button" aria-label="Robotiq 2F-85" data-target="10"></button>
+            <button class="robot-view-dot" type="button" aria-label="Schunk Hand" data-target="11"></button>
+            <button class="robot-view-dot" type="button" aria-label="Shadow Hand" data-target="12"></button>
+            <button class="robot-view-dot" type="button" aria-label="SO-100" data-target="13"></button>
+            <button class="robot-view-dot" type="button" aria-label="UR5e" data-target="14"></button>
           </div>
-          <br/>
-        <h3 class="title is-4">Manipulators</h3>
-          <div class="content has-text-justified">
-            <p>
-              Donec ipsum nunc, fringilla euismod orci non, tincidunt vestibulum sapien.
-            </p>
-            <p>
-              Nullam pretium in nisi ut varius.
-            </p>
-          </div>
+          <p class="robot-viewer-hint has-text-centered">
+            Use the arrows or dots to explore the entire DexSuite robot lineup.
+          </p>
+        </div>
+
+        <div class="robot-cta">
+          <p class="has-text-centered mb-0">
+            <strong>Mix, match, and benchmark.</strong> Toggle manipulators, hands, or full rigs with one viewer and DexSuite keeps the rest of the stack aligned.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 <!--/text-->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Bimanual</h2>
+        <p class="content has-text-justified">
+          Choose any two manipulators and any two grippers/hands—DexSuite mirrors Tool Center Points, synchronizes controllers, and keeps shared logging so the same task definition
+          runs on dual hands, dual grippers, or hybrid pairings without extra plumbing.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section">
   <div class="container is-max-desktop">
