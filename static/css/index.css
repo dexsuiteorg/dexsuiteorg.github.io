@@ -1,5 +1,26 @@
 body {
   font-family: 'Noto Sans', sans-serif;
+  font-size: 1.1875rem;
+}
+
+.title.is-1 {
+  font-size: 3.5rem;
+}
+
+.title.is-3 {
+  font-size: 2.2rem;
+}
+
+.title.is-4 {
+  font-size: 1.8rem;
+}
+
+.title.is-5 {
+  font-size: 1.3rem;
+}
+
+.title {
+  text-align: center;
 }
 
 .partner-logos {
@@ -82,6 +103,19 @@ body {
     margin-bottom: 5px;
 }
 
+.coming-soon {
+  background-color: #e5e7eb !important;
+  border-color: #d1d5db !important;
+  color: #6b7280 !important;
+  pointer-events: none;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.coming-soon .icon {
+  color: #9ca3af !important;
+}
+
 .dnerf {
   font-variant: small-caps;
 }
@@ -100,6 +134,55 @@ body {
   display: flex; /* Makes the children arrange themselves in a row */
   justify-content: space-around; /* Distributes space around the items */
   align-items: flex-start; /* Aligns items to the top if they have different heights */
+}
+
+.image-container.image-stack {
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-container.dataset-grid {
+  gap: 2rem;
+}
+
+.dataset-block {
+  flex: 1;
+  text-align: center;
+}
+
+.dataset-note {
+  text-align: center;
+  max-width: 420px;
+  margin: 1rem auto 1.5rem auto;
+  color: #4b5563;
+}
+
+.retargeting-figure img {
+  width: 115%;
+  max-width: 690px;
+}
+
+.vive-gif {
+  text-align: center;
+}
+
+.vive-gif img {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.setup-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 1.75rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  background: linear-gradient(140deg, #ffffff, #eef5ff);
+  height: 100%;
+}
+
+.setup-card p {
+  margin-top: 0.75rem;
 }
 
 .publication-title {
@@ -244,7 +327,7 @@ body {
   border-radius: 18px;
   overflow: hidden;
   background: #fff;
-  min-height: 360px;
+  min-height: 460px;
 }
 
 .robot-viewer-track {
@@ -277,7 +360,7 @@ body {
 
 .robot-view-media img {
   width: 100%;
-  max-width: 500px;
+  max-width: 640px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.12));
@@ -399,4 +482,18 @@ body {
   .robot-nav-next {
     right: calc(50% - 70px);
   }
+}
+.warning-tag {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: #f87171;
+  color: #fff;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  z-index: 999;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  letter-spacing: 0.05em;
 }
