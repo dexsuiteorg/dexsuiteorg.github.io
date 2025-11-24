@@ -166,15 +166,7 @@
                     </div>
                 </div>
             </section>
-            <section class="section">
-                <div class="columns is-centered">
-                    <div class="column is-three-quarters">
-                        <figure class="image">
-                            <img src="static/images/environments/para_env.png" alt="Franka Black">
-                        </figure>
-                    </div>
-                </div>
-            </section>
+
             <section class="section">
                 <div class="container is-max-desktop">
                     <div class="columns is-centered has-text-centered">
@@ -184,7 +176,7 @@
                                 <p>
                                     Dexterous multi-fingered hands promise far richer manipulation skills than simple parallel grippers, yet most existing benchmarks and datasets still target low-DoF end-effectors. In an era where increasingly advanced physical hands are being developed at high speed, we lack a unified, low-cost simulation and benchmarking environment to study dexterous control. We introduce
                                     <strong>Dexsuite</strong>
-                                    , a modular framework that standardizes observations, action spaces, and evaluation protocols for multi-fingered hands while remaining easily extensible to new robots, environments, and tasks. Alongside the framework, we release a curated dataset of over 150k frames of multi-modal hand interaction, collected with a Manus glove on a suite of manipulation tasks, providing high-fidelity supervision of finger motion and contact-rich interactions. DexSuite also offers benchmark tasks and baselines spanning imitation learning, reinforcement learning, and diffusion-style policies, enabling fair comparison across algorithm families and hand representations, and providing a common testbed for systematic study of robotic dexterity.
+                                    , a modular framework that standardizes observations, action spaces, and evaluation protocols for multi-fingered hands while remaining easily extensible to new robots, environments, and tasks. Alongside the framework, we release a curated dataset of over 150k frames of multi-modal hand interaction, collected with a Manus glove on a suite of manipulation tasks, providing high-fidelity supervision of finger motion and contact-rich interactions. DexSuite also offers benchmark tasks and baselines spanning imitation learning, reinforcement learning, and diffusion policies, enabling fair comparison across algorithm families and hand representations, and providing a common testbed for systematic study of robotic dexterity.
                                 </p>
                             </div>
                         </div>
@@ -636,9 +628,6 @@
                                         data-target="18"
                                     ></button>
                                 </div>
-                                <p class="robot-viewer-hint has-text-centered">
-                                    Use the arrows or dots to browse the DexSuite manipulator and gripper lineup.
-                                </p>
                             </div>
                             <div class="robot-cta">
                                 <p class="has-text-centered mb-0">
@@ -1039,9 +1028,22 @@
                     <div class="columns is-centered">
                         <div class="column is-full-width">
                             <h2 class="title is-3">Reinforcement Learning</h2>
+
+
+            <section class="section">
+                <div class="columns is-centered">
+                    <div class="column is-three-quarters">
+                        <figure class="image">
+                            <img src="static/images/environments/para_env.png" alt="Franka Black">
+                        </figure>
+                    </div>
+                </div>
+            </section>
+
+
                             <div class="content">
                                 <p>
-                                    DexSuite provides vectorized rollouts and a unified reward API. PPO and SAC recipes are tuned for rigid and deformable manipulation. Swap the environment class and relaunch training.
+                                    DexSuite provides vectorized rollouts and a unified reward API. PPO and SAC recipes are tuned for rigid and deformable manipulation.
                                 </p>
                                 <div class="table-container">
                                     <h4 class="title is-5">RL‑evaluated Environments</h4>
@@ -1082,12 +1084,12 @@
                     <h2 class="title">BibTeX</h2>
                     <pre>
                         <code>
-                            @article{articlename,
-  author    = {Names},
-  title     = {Dexsuite.},
-  journal   = {TBD},
-  year      = {2025},
-}
+  @article{articlename,
+    author    = {Anonymous},
+    title     = {Dexsuite.},
+    journal   = {TBD},
+    year      = {2025},
+  }
                         </code>
                     </pre>
                 </div>
