@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks</title>
+<meta name="description" content="DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks. 30 tasks, 10 arms, 12 end-effectors, 16 benchmark task-embodiment pairs, 4,700 episodes.">
+<meta property="og:title" content="DexSuite">
+<meta property="og:description" content="An all-in-one simulation framework for dexterous manipulation.">
+<meta property="og:image" content="assets/hero/f0200.webp">
+<link rel="icon" href="../static/images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<script>window.V2 = {"hero": {"n": 239, "hand": "assets/hero/hand", "paper": "assets/hero/paper"}, "phases": {"own": ["Robots", "Every arm.", "Robots that come with their own gripper run every task as they are."], "arm": ["Modular arms", "Every arm.", "Modular arms take any end-effector. Here, each one carries the same Robotiq 2F-85."], "hand": ["End-effectors", "Every hand.", "And every end-effector mounts on the same arm, from parallel-jaw grippers to a 22-joint hand."]}};</script>
+<script defer src="site.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="#hero">DexSuite</a>
+  <div class="links"><a href="#robots">Robots</a><a href="#dexterity">Tasks</a><a href="#data">Data</a><a href="data.html">Data viewer</a><a href="#benchmark">Benchmark</a>
+  <a class="pill" href="https://huggingface.co/dexsuite" target="_blank" rel="noopener">Get the data</a></div>
+</nav>
+
+<section id="hero">
+  <div class="sticky">
+    <canvas aria-label="A Sharpa hand spray-paints a stencil, replayed from a recorded demonstration"></canvas>
+    <div class="hero-copy">
+      <h1>DexSuite</h1>
+      <div class="hero-lines">
+        <span data-from="0" data-to="0.34">Dexterous manipulation.</span>
+        <span data-from="0.34" data-to="0.68" class="grey">Simulated, teleoperated, benchmarked.</span>
+        <span data-from="0.68" data-to="1.01">All in one framework.</span>
+      </div>
+      <div class="hero-ctas"><a class="pill big" href="https://huggingface.co/dexsuite" target="_blank" rel="noopener">Get the data</a><span class="pill big ghost disabled-ghost">Paper, coming soon</span></div>
+    </div>
+    <div class="progress"><i></i></div>
+    <div class="scroll-hint">Scroll</div>
+  </div>
+</section>
+
+<section class="pad"><div class="wrap"><p class="statement"><span class="w">DexSuite</span> <span class="w">brings</span> <span class="w">the</span> <span class="w">robot,</span> <span class="w">the</span> <span class="w">tasks,</span> <span class="w">teleoperation,</span> <span class="w">tactile</span> <span class="w">sensing,</span> <span class="w">the</span> <span class="w">data</span> <span class="w">and</span> <span class="w">the</span> <span class="w">evaluation</span> <span class="w">into</span> <span class="w">one</span> <span class="w">stack.</span> <span class="w">Any</span> <span class="w">of</span> <span class="w">its</span> <span class="w">tasks</span> <span class="w">runs</span> <span class="w">with</span> <span class="w">any</span> <span class="w">arm</span> <span class="w">and</span> <span class="w">any</span> <span class="w">hand.</span></p></div></section>
+
+<section id="robots">
+  <div class="sticky">
+    <div>
+      <p class="eyebrow" id="ph-eyebrow">Robots</p>
+      <h2 class="headline md" id="ph-title">Every arm.</h2>
+      <p class="lede" style="margin-top:18px" id="ph-lede">Robots that come with their own gripper run every task as they are.</p>
+      <ul class="hand-list" data-phase="own"><li data-i="0">ALOHA</li><li data-i="1">Kinova Gen3 Lite</li><li data-i="2">SO-100</li><li data-i="3">Trossen ViperX 300 S</li><li data-i="4">Trossen WidowX 250 S</li></ul>
+<ul class="hand-list" data-phase="arm" hidden><li data-i="5">UR5e</li><li data-i="6">UR10e</li><li data-i="7">Rethink Sawyer</li><li data-i="8">Kinova Gen3</li><li data-i="9">Franka Panda</li></ul>
+<ul class="hand-list" data-phase="hand" hidden><li data-i="10">Robotiq 2F-85</li><li data-i="11">UMI gripper</li><li data-i="12">BarrettHand</li><li data-i="13">D&#x27;Claw</li><li data-i="14">Inspire Hand</li><li data-i="15">Ability Hand</li><li data-i="16">Schunk SVH</li><li data-i="17">Allegro Hand</li><li data-i="18">LEAP Hand</li><li data-i="19">Sharpa Hand</li></ul>
+      <div class="counter">01 / 20</div>
+    </div>
+    <div class="stage"><img src="assets/robots/ib_aloha_tactile.webp" data-name="ALOHA" data-kind="Built-in gripper with tactile pads" data-phase="own" alt="ALOHA" class=on>
+<img src="assets/robots/ib_gen3_lite.webp" data-name="Kinova Gen3 Lite" data-kind="Built-in gripper" data-phase="own" alt="Kinova Gen3 Lite">
+<img src="assets/robots/ib_so_100.webp" data-name="SO-100" data-kind="Built-in gripper" data-phase="own" alt="SO-100">
+<img src="assets/robots/ib_trossen_vx300s.webp" data-name="Trossen ViperX 300 S" data-kind="Built-in gripper" data-phase="own" alt="Trossen ViperX 300 S">
+<img src="assets/robots/ib_trossen_wx250s.webp" data-name="Trossen WidowX 250 S" data-kind="Built-in gripper" data-phase="own" alt="Trossen WidowX 250 S">
+<img src="assets/robots/rb_ur5.webp" data-name="UR5e" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="UR5e">
+<img src="assets/robots/rb_ur10.webp" data-name="UR10e" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="UR10e">
+<img src="assets/robots/rb_sawyer.webp" data-name="Rethink Sawyer" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="Rethink Sawyer">
+<img src="assets/robots/rb_gen3.webp" data-name="Kinova Gen3" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="Kinova Gen3">
+<img src="assets/robots/rb_franka.webp" data-name="Franka Panda" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="Franka Panda">
+<img src="assets/robots/ee_robotiq.webp" data-name="Robotiq 2F-85" data-kind="Parallel-jaw gripper" data-phase="hand" alt="Robotiq 2F-85">
+<img src="assets/robots/ee_franka_umi_tacticle.webp" data-name="UMI gripper" data-kind="Parallel-jaw gripper with FlexiTac pads" data-phase="hand" alt="UMI gripper">
+<img src="assets/robots/ee_barrett.webp" data-name="BarrettHand" data-kind="3 fingers, 8 DoF" data-phase="hand" alt="BarrettHand">
+<img src="assets/robots/ee_dclaw.webp" data-name="D&#x27;Claw" data-kind="3 fingers, 9 DoF" data-phase="hand" alt="D&#x27;Claw">
+<img src="assets/robots/ee_inspire.webp" data-name="Inspire Hand" data-kind="5 fingers, 6 DoF" data-phase="hand" alt="Inspire Hand">
+<img src="assets/robots/ee_ability.webp" data-name="Ability Hand" data-kind="5 fingers, 6 DoF" data-phase="hand" alt="Ability Hand">
+<img src="assets/robots/ee_schunk.webp" data-name="Schunk SVH" data-kind="5 fingers, 9 DoF" data-phase="hand" alt="Schunk SVH">
+<img src="assets/robots/ee_allegro.webp" data-name="Allegro Hand" data-kind="4 fingers, 16 DoF" data-phase="hand" alt="Allegro Hand">
+<img src="assets/robots/ee_leap.webp" data-name="LEAP Hand" data-kind="4 fingers, 16 DoF" data-phase="hand" alt="LEAP Hand">
+<img src="assets/robots/ee_sharpa.webp" data-name="Sharpa Hand" data-kind="5 fingers, 22 DoF" data-phase="hand" alt="Sharpa Hand"><div class="tag"><b>ALOHA</b><span>Built-in gripper with tactile pads</span></div></div>
+  </div>
+</section>
+
+<section class="pad alt"><div class="wrap center">
+  <h2 class="headline md reveal">Everything in one place.</h2>
+  <div class="stats count-on-view">
+    <div class="stat"><b data-count="30">0</b><span>tasks</span></div>
+    <div class="stat"><b data-count="10">0</b><span>arms</span></div>
+    <div class="stat"><b data-count="12">0</b><span>end-effectors</span></div>
+    <div class="stat"><b data-count="16">0</b><span>benchmark task-embodiment pairs</span></div>
+    <div class="stat"><b data-count="4700">0</b><span>episodes</span></div>
+  </div>
+</div></section>
+
+<section class="pad" id="same"><div class="wrap">
+  <p class="eyebrow reveal">Track 1</p>
+  <h2 class="headline md reveal">Same task.<br>Any embodiment.</h2>
+  <p class="lede reveal" style="margin-top:18px">Tasks are defined once, with the same reset, observations and success check for a gripper and a hand. Here, two recorded human demonstrations of Pick &amp; Place.</p>
+  <div class="duo reveal">
+    <figure><video muted loop playsinline preload="metadata" data-sync="pp" poster="assets/clips/pickplace_umi.jpg"><source src="assets/clips/pickplace_umi.mp4" type="video/mp4"></video><figcaption><b>UMI gripper.</b> Two fingers, one command.</figcaption></figure>
+    <figure><video muted loop playsinline preload="metadata" data-sync="pp" poster="assets/clips/pickplace_allegro.jpg"><source src="assets/clips/pickplace_allegro.mp4" type="video/mp4"></video><figcaption><b>Allegro hand.</b> Sixteen joints, the same task.</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="dexterity">
+  <div class="sticky">
+    <div class="gallery-head"><p class="eyebrow">Track 2</p><h2 class="headline md">Built for real dexterity.</h2></div>
+    <div class="track"><article class="tile"><video muted loop playsinline preload="metadata" poster="assets/clips/pan_allegro.jpg"><source src="assets/clips/pan_allegro.mp4" type="video/mp4"></video>
+<h3>Move Pan</h3><p>Lift the pan off the hot plate and set it down on the mat.</p><div class="meta">Allegro hand, human teleoperation</div></article>
+<article class="tile"><video muted loop playsinline preload="metadata" poster="assets/clips/mug_allegro.jpg"><source src="assets/clips/mug_allegro.mp4" type="video/mp4"></video>
+<h3>Rack Mug</h3><p>Pick up the mug, place it in the rack and let go.</p><div class="meta">Allegro hand, human teleoperation</div></article>
+<article class="tile"><video muted loop playsinline preload="metadata" poster="assets/clips/drill_allegro.jpg"><source src="assets/clips/drill_allegro.mp4" type="video/mp4"></video>
+<h3>Drill to Point</h3><p>Pick up the drill and align its tip with the target.</p><div class="meta">Allegro hand, human teleoperation</div></article>
+<article class="tile"><video muted loop playsinline preload="metadata" poster="assets/clips/fruit_allegro.jpg"><source src="assets/clips/fruit_allegro.mp4" type="video/mp4"></video>
+<h3>Place Fruits</h3><p>Put the apple and the lemon into the bowl, one after the other.</p><div class="meta">Allegro hand, human teleoperation</div></article>
+<article class="tile"><video muted loop playsinline preload="metadata" poster="assets/clips/toast_sharpa.jpg"><source src="assets/clips/toast_sharpa.mp4" type="video/mp4"></video>
+<h3>Toast Bread</h3><p>Stand the slice in a toaster slot and push the lever down.</p><div class="meta">Sharpa hand, scripted expert</div></article></div>
+  </div>
+</section>
+
+<section class="pad alt" id="teleop"><div class="wrap">
+  <p class="eyebrow reveal">Teleoperation</p>
+  <h2 class="headline md reveal">Teleoperation, built in.</h2>
+  <div class="teleop">
+    <div class="reveal">
+      <p class="lede">Plug in a device and drive any robot. The arm follows a SpaceMouse, an HTC Vive or Meta Quest controllers, and finger motion from a webcam, a Leap Motion, Quest hand tracking or a Manus glove is mapped to whichever hand is mounted.</p>
+      <p class="chip-label">Arm</p><div class="chips"><span>SpaceMouse</span><span>HTC Vive</span><span>Meta Quest controllers</span></div>
+      <p class="chip-label">Fingers</p><div class="chips"><span>MediaPipe</span><span>Leap Motion</span><span>Meta Quest hand tracking</span><span>Manus MetaGlove Pro</span></div>
+      <p class="chip-label">Hand mapping</p><div class="chips"><span>Direct joint positions</span><span>GeoRT</span><span>DexRetargeting</span></div>
+    </div>
+    <div class="reveal"><video muted loop playsinline preload="metadata"><source src="../static/videos/manusretarget.mp4" type="video/mp4"></video></div>
+  </div>
+</div></section>
+
+<section class="pad" id="data"><div class="wrap">
+  <p class="eyebrow reveal">Dataset</p>
+  <div class="data">
+    <div class="observe">
+      <div class="big-number count-on-view" data-count="4700">0</div>
+      <h2 class="headline md" style="margin-top:6px">episodes.</h2>
+      <p class="lede" style="margin-top:18px">Every one of the 16 benchmark task-embodiment pairs, recorded at 20&nbsp;Hz with front and wrist cameras, proprioception and object states, in LeRobot format with an HDF5 export for robomimic.</p>
+      <div class="tiers"><div class="tier"><div class="row"><span>Human teleoperation</span><b>700</b></div><div class="bar"><i data-w="14.9"></i></div></div>
+<div class="tier"><div class="row"><span>Scripted experts</span><b>1,200</b></div><div class="bar"><i data-w="25.5"></i></div></div>
+<div class="tier"><div class="row"><span>Machine-generated</span><b>2,800</b></div><div class="bar"><i data-w="59.6"></i></div></div></div>
+      <div class="ctas"><a class="pill big" href="https://huggingface.co/dexsuite" target="_blank" rel="noopener">Browse on Hugging Face</a><a class="pill big ghost" href="data.html">Open the data viewer</a></div>
+    </div>
+    <div class="reveal"><img src="../static/images/paper/dataset_wheel.png" alt="Dataset composition by tier, embodiment and task" loading="lazy"></div>
+  </div>
+</div></section>
+
+<section class="pad alt" id="benchmark"><div class="wrap">
+  <p class="eyebrow reveal">Benchmark</p>
+  <h2 class="headline md reveal">Hands keep up.</h2>
+  <p class="lede reveal" style="margin-top:18px">Policies trained and evaluated on the Allegro hand match or outperform their gripper counterparts on several shared tasks.</p>
+  <div class="chart observe">
+    <div class="legend"><span><i style="background:var(--grip)"></i>Parallel-jaw gripper</span><span><i style="background:var(--hand)"></i>Allegro hand</span></div>
+    <div class="grp"><div class="name">Reach</div><div class="bars">
+<div class="hb g" data-w="100"><i data-w="100"></i><em>100%</em></div>
+<div class="hb h" data-w="97"><i data-w="97"></i><em>97%</em></div></div></div>
+<div class="grp"><div class="name">Lift</div><div class="bars">
+<div class="hb g" data-w="73"><i data-w="73"></i><em>73%</em></div>
+<div class="hb h" data-w="65"><i data-w="65"></i><em>65%</em></div></div></div>
+<div class="grp"><div class="name">Push</div><div class="bars">
+<div class="hb g" data-w="63"><i data-w="63"></i><em>63%</em></div>
+<div class="hb h" data-w="68"><i data-w="68"></i><em>68%</em></div></div></div>
+<div class="grp"><div class="name">Pick &amp; Place</div><div class="bars">
+<div class="hb g" data-w="66"><i data-w="66"></i><em>66%</em></div>
+<div class="hb h" data-w="76"><i data-w="76"></i><em>76%</em></div></div></div>
+<div class="grp"><div class="name">Stack</div><div class="bars">
+<div class="hb g" data-w="16"><i data-w="16"></i><em>16%</em></div>
+<div class="hb h" data-w="9"><i data-w="9"></i><em>9%</em></div></div></div>
+    <p class="chart-note">Best success rate (%) of five imitation learning baselines per task and embodiment, three seeds with 50 episodes each.</p>
+  </div>
+  <h3 class="headline md reveal" style="margin-top:110px;font-size:clamp(30px,3.6vw,48px)">Still far from solved.</h3>
+  <div class="hard observe"><div><b data-count="16" data-suffix="%">0%</b><span>Stack, best of any baseline, either embodiment</span></div>
+<div><b data-count="27" data-suffix="%">0%</b><span>Place Fruits, best of any baseline</span></div>
+<div><b data-count="0.7" data-suffix="%">0%</b><span>Spray Graffiti, best of any baseline</span></div>
+<div><b data-count="0" data-suffix="%">0%</b><span>Toast Bread, best of any baseline</span></div></div>
+  <p class="chart-note"><a href="../index.html#benchmark">Full results table</a></p>
+</div></section>
+
+<footer><div class="wrap center">
+  <h2 class="headline md">DexSuite</h2>
+  <p class="lede" style="margin-top:14px">An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks.</p>
+  <div class="ctas" style="justify-content:center"><span class="pill big disabled">Paper, coming soon</span><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="https://huggingface.co/dexsuite" target="_blank" rel="noopener">Data</a></div>
+  <div class="logos"><img src="../static/images/partners_logo/mcgill.png" alt="McGill University"><img src="../static/images/partners_logo/mila.png" alt="Mila"><img src="../static/images/partners_logo/hf.png" alt="Hugging Face"><img class="sm" src="../static/images/partners_logo/kinova.png" alt="Kinova"><img class="sm" src="../static/images/partners_logo/manus.webp" alt="Manus"></div>
+  <pre class="bib">@article{dexsuite2026,
+  author  = {Anonymous},
+  title   = {DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks},
+  journal = {Under review},
+  year    = {2026},
+}</pre>
+  <p class="fine">Every robot and object on this page is a Blender Cycles render of a recorded DexSuite episode, replayed open-loop from the dataset.</p>
+</div></footer>
+</body>
+</html>

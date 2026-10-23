@@ -27,6 +27,7 @@ LOCAL = Path("/efs/projects/fudi/data/task_trajectories")
 N_EPISODES = 3
 CAMS = ("obs.cameras.front.rgb", "obs.cameras.wrist.rgb")
 TCP = "obs.state.gripper.tcp_pos"
+GRIP = "obs.state.gripper.qpos"
 
 TASKS = [  # key, name, track
     ("reach", "Reach", 1), ("lift", "Lift", 1), ("push", "Push", 1), ("pick_place", "Pick & Place", 1),
@@ -109,12 +110,16 @@ def build_one(key, emb, tier, kind, loc):
             cut(vids, t0, t1, mp4)
         drel = f"data/chunk-{e['data/chunk_index']:03d}/file-{e['data/file_index']:03d}.parquet"
         if drel not in data_cache:
-            data_cache[drel] = ds.read_columns(drel, ["episode_index", TCP])
+            data_cache[drel] = ds.read_columns(drel, ["episode_index", TCP, GRIP])
         tab = data_cache[drel]
         idx = np.asarray(tab.column("episode_index").to_numpy(zero_copy_only=False)).reshape(-1)
-        tcp = np.stack(tab.column(TCP).to_numpy(zero_copy_only=False))[idx == e["episode_index"]].reshape(-1, 3)
-        tcp = tcp[::2]  # 10 Hz is plenty for the chart
-        js.write_text(json.dumps({"fps": 10, "tcp": np.round(tcp, 4).tolist()}))
+        keep = idx == e["episode_index"]
+        tcp = np.stack(tab.column(TCP).to_numpy(zero_copy_only=False))[keep].reshape(-1, 3)
+        q = np.array([np.asarray(r, float).reshape(-1) for r, k in zip(tab.column(GRIP).to_pylist(), keep) if k])
+        span = q.max(0) - q.min(0)
+        moving = span > 1e-3                     # closure = mean of the joints that move, each scaled to its range
+        grip = ((q[:, moving] - q[:, moving].min(0)) / span[moving]).mean(1) if moving.any() else np.zeros(len(q))
+        js.write_text(json.dumps({"fps": 10, "tcp": np.round(tcp[::2], 4).tolist(), "grip": np.round(grip[::2], 3).tolist()}))
         out.append({"id": cid, "episode": int(e["episode_index"]), "seconds": round(e["length"] / 20, 2)})
     return out
 

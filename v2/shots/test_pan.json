@@ -1,0 +1,5 @@
+{"scene": "/efs/projects/fudi/dexsuite_website/v2/work/replays/pan_allegro/scene.json",
+ "out": "/efs/projects/fudi/dexsuite_website/v2/work/frames/test_pan",
+ "res": [1600, 900], "samples": 64,
+ "camera": {"loc": [1.9, -1.35, 1.05], "target": [0.35, 0.0, 0.32], "lens": 40},
+ "hide_roles": ["floor", "table"], "floor_z": -0.01}

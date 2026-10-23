@@ -1,0 +1,38 @@
+{
+ "scene": "/efs/projects/fudi/dexsuite_website/v2/work/replays/pan_allegro/scene.json",
+ "out": "/efs/projects/fudi/dexsuite_website/v2/work/frames/pan_allegro",
+ "res": [
+  1600,
+  900
+ ],
+ "samples": 96,
+ "camera": {
+  "loc": [
+   2.027,
+   -1.49,
+   1.1
+  ],
+  "target": [
+   0.327,
+   -0.04,
+   0.3
+  ],
+  "lens": 38
+ },
+ "hide_roles": [
+  "floor",
+  "table"
+ ],
+ "floor_z": -0.01,
+ "floor_center": [
+  0.4,
+  0.0
+ ],
+ "materials": {
+  "hand": {
+   "color": "#2b2d32",
+   "rough": 0.42,
+   "coat": 0.25
+  }
+ }
+}

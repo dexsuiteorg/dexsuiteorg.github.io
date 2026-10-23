@@ -1,0 +1,85 @@
+{
+ "scene": "/efs/projects/fudi/dexsuite_website/v2/work/replays/spray_sharpa/scene.json",
+ "out": "/efs/projects/fudi/dexsuite_website/v2/work/frames/hero_paper",
+ "res": [
+  1600,
+  1100
+ ],
+ "samples": 96,
+ "camera": {
+  "loc": [
+   0.86,
+   -0.62,
+   0.52
+  ],
+  "target": [
+   0.52,
+   -0.12,
+   0.0
+  ],
+  "lens": 50
+ },
+ "hide_roles": [
+  "floor",
+  "table"
+ ],
+ "floor_center": [
+  0.4,
+  0.0
+ ],
+ "lights": [
+  {
+   "type": "AREA",
+   "energy": 260,
+   "size": 2.5,
+   "loc": [
+    1.4,
+    -1.6,
+    2.2
+   ],
+   "target": [
+    0.5,
+    -0.1,
+    0.3
+   ]
+  },
+  {
+   "type": "AREA",
+   "energy": 120,
+   "size": 3.0,
+   "loc": [
+    -1.6,
+    0.4,
+    1.4
+   ],
+   "target": [
+    0.5,
+    -0.1,
+    0.3
+   ]
+  },
+  {
+   "type": "AREA",
+   "energy": 300,
+   "size": 1.2,
+   "loc": [
+    0.2,
+    1.8,
+    1.6
+   ],
+   "target": [
+    0.5,
+    -0.1,
+    0.35
+   ]
+  }
+ ],
+ "shadow_catcher": false,
+ "only_roles": [
+  "object:paper"
+ ],
+ "world": {
+  "color": "#ffffff",
+  "strength": 0.4
+ }
+}

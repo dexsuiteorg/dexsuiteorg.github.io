@@ -1,0 +1,83 @@
+{
+ "scene": "/efs/projects/fudi/dexsuite_website/v2/work/replays/spray_sharpa/scene.json",
+ "out": "/efs/projects/fudi/dexsuite_website/v2/work/frames/spray_hero",
+ "res": [
+  1920,
+  1080
+ ],
+ "samples": 128,
+ "camera": {
+  "loc": [
+   1.32,
+   -1.02,
+   0.66
+  ],
+  "target": [
+   0.5,
+   -0.1,
+   0.13
+  ],
+  "lens": 40,
+  "shift_x": -0.2
+ },
+ "hide_roles": [
+  "floor",
+  "table"
+ ],
+ "floor_z": -0.006,
+ "floor_center": [
+  0.4,
+  0.0
+ ],
+ "lights": [
+  {
+   "type": "AREA",
+   "energy": 330,
+   "size": 4.0,
+   "loc": [
+    0.62,
+    -0.3,
+    3.0
+   ],
+   "target": [
+    0.5,
+    -0.1,
+    0.0
+   ]
+  },
+  {
+   "type": "AREA",
+   "energy": 110,
+   "size": 4.0,
+   "loc": [
+    -2.0,
+    0.8,
+    1.6
+   ],
+   "target": [
+    0.5,
+    0,
+    0.2
+   ]
+  },
+  {
+   "type": "AREA",
+   "energy": 260,
+   "size": 1.4,
+   "loc": [
+    -0.2,
+    2.0,
+    1.8
+   ],
+   "target": [
+    0.5,
+    0,
+    0.3
+   ]
+  }
+ ],
+ "world": {
+  "color": "#ffffff",
+  "strength": 0.3
+ }
+}

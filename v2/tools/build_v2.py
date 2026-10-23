@@ -1,0 +1,265 @@
+#!/usr/bin/env python3
+"""Write v2/index.html: the scroll-driven DexSuite page. Numbers come from the paper's sources (Overleaf clone).
+
+    python3 v2/tools/build_v2.py
+"""
+import html
+import json
+import re
+from pathlib import Path
+
+V2 = Path(__file__).resolve().parents[1]
+PAPER = Path("/efs/projects/fudi/test_stuff/paper_ol")
+TEX = (PAPER / "ral_2026.tex").read_text(encoding="utf-8")
+TABLE = (PAPER / "Dexsuite/imitation_results.tex").read_text(encoding="utf-8")
+HF = "https://huggingface.co/dexsuite"
+
+TITLE = re.search(r"\\title\{(.*?)\}", TEX).group(1)
+EPISODES = re.search(r"dataset of (\d\{,\}\d+) successful episodes", TEX).group(1).replace("{,}", ",")
+PAIRS = re.search(r"benchmark of (\d+) task-embodiment pairs", TEX).group(1)
+ARMS, EFFECTORS = re.search(r"any of its (\d+) arms paired with any of its (\d+) end-effectors", TEX).groups()
+N_TASKS = re.search(r"provides (\d+) tasks", TEX).group(1)
+TIERS = {"human": 700, "scripted": int(re.search(r"scripted tier adds (\d\{,\}\d+|\d+)", TEX).group(1).replace("{,}", "")),
+         "machine": int(re.search(r"machine-generated tier contributes (\d\{,\}\d+|\d+)", TEX).group(1).replace("{,}", ""))}
+
+
+def panels():
+    """[(tasks, rows)] of Table II, rows = list of 8 means."""
+    out = []
+    for block in re.findall(r"\\begin\{tabular\*\}.*?\\end\{tabular\*\}", TABLE, re.S):
+        lines = [l.strip() for l in block.splitlines()]
+        head = next(l for l in lines if l.startswith("\\textbf{Model"))
+        tasks = [re.sub(r"\\textbf\{(.*?)\}", r"\1", t).replace("\\&", "&").strip() for t in re.split(r"(?<!\\)&", head.rstrip("\\"))[1:]]
+        rows = []
+        for l in lines:
+            if re.match(r"(BC-G|BC-GMM|BC-T|Diffusion|ACT) \(", l):
+                rows.append([float(re.search(r"(\d+(?:\.\d+)?)", c).group(1)) for c in l.rstrip("\\").split("&")[1:]])
+        out.append((tasks, rows))
+    return out
+
+
+(P1T, P1), (P2T, P2) = panels()
+best = lambda rows, j: max(r[j] for r in rows)  # noqa: E731
+TRACK1 = [(P1T[j], best(P1, j), best(P2, j)) for j in range(5)]          # (task, gripper best, Allegro best)
+HARD = [("Stack", max(best(P1, 4), best(P2, 4)), "best of any baseline, either embodiment"),
+        ("Place Fruits", best(P2, 5), "best of any baseline"),
+        ("Spray Graffiti", best(P2, 6), "best of any baseline"),
+        ("Toast Bread", best(P2, 7), "best of any baseline")]
+
+EES = [  # key, name, kind
+    ("robotiq", "Robotiq 2F-85", "Parallel-jaw gripper"), ("umi", "UMI gripper", "Parallel-jaw gripper"),
+    ("franka_umi_tacticle", "UMI tactile gripper", "Gripper with FlexiTac pads"), ("barrett", "BarrettHand", "3 fingers, 8 DoF"),
+    ("dclaw", "D'Claw", "3 fingers, 9 DoF"), ("inspire", "Inspire Hand", "5 fingers, 6 DoF"),
+    ("ability", "Ability Hand", "5 fingers, 6 DoF"), ("schunk", "Schunk SVH", "5 fingers, 9 DoF"),
+    ("allegro", "Allegro Hand", "4 fingers, 16 DoF"), ("leap", "LEAP Hand", "4 fingers, 16 DoF"),
+    ("sharpa", "Sharpa Hand", "5 fingers, 22 DoF"), ("shadow", "Shadow Hand", "5 fingers, 24 DoF"),
+]
+ARM_NAMES = [("franka", "Franka Panda"), ("kuka", "KUKA LBR iiwa 14"), ("ur5", "UR5e"), ("ur10", "UR10e"),
+             ("sawyer", "Rethink Sawyer"), ("gen3", "Kinova Gen3"), ("lite6", "UFactory Lite 6"), ("link6", "Link6"),
+             ("z1", "Unitree Z1")]
+TILES = [  # clip, task, line, meta
+    ("pan_allegro", "Move Pan", "Lift the pan off the hot plate and set it down on the mat.", "Allegro hand, human teleoperation"),
+    ("mug_allegro", "Rack Mug", "Pick up the mug, place it in the rack and let go.", "Allegro hand, human teleoperation"),
+    ("drill_allegro", "Drill to Point", "Pick up the drill and align its tip with the target.", "Allegro hand, human teleoperation"),
+    ("fruit_allegro", "Place Fruits", "Put the apple and the lemon into the bowl, one after the other.", "Allegro hand, human teleoperation"),
+    ("toast_sharpa", "Toast Bread", "Stand the slice in a toaster slot and push the lever down.", "Sharpa hand, scripted expert"),
+]
+STATEMENT = ("DexSuite brings the robot, the tasks, teleoperation, tactile sensing, the data and the evaluation into "
+             "one stack. Any of its tasks runs with any arm and any hand.")
+
+
+def esc(s):
+    return html.escape(s, quote=True)
+
+
+def words(s):
+    return " ".join(f'<span class="w">{esc(w)}</span>' for w in s.split())
+
+
+hero_n = len(json.load(open(json.load(open(V2 / "shots/hero_hand.json"))["scene"]))["frames"])
+ROBOTS = [  # asset, name, kind, phase
+    ("ib_aloha_tactile", "ALOHA", "Built-in gripper with tactile pads", "own"),
+    ("ib_gen3_lite", "Kinova Gen3 Lite", "Built-in gripper", "own"),
+    ("ib_so_100", "SO-100", "Built-in gripper", "own"),
+    ("ib_trossen_vx300s", "Trossen ViperX 300 S", "Built-in gripper", "own"),
+    ("ib_trossen_wx250s", "Trossen WidowX 250 S", "Built-in gripper", "own"),
+    ("rb_ur5", "UR5e", "With a Robotiq 2F-85", "arm"), ("rb_ur10", "UR10e", "With a Robotiq 2F-85", "arm"),
+    ("rb_sawyer", "Rethink Sawyer", "With a Robotiq 2F-85", "arm"), ("rb_gen3", "Kinova Gen3", "With a Robotiq 2F-85", "arm"),
+    ("rb_franka", "Franka Panda", "With a Robotiq 2F-85", "arm"),
+    ("ee_robotiq", "Robotiq 2F-85", "Parallel-jaw gripper", "hand"), ("ee_franka_umi_tacticle", "UMI gripper", "Parallel-jaw gripper with FlexiTac pads", "hand"),
+    ("ee_barrett", "BarrettHand", "3 fingers, 8 DoF", "hand"), ("ee_dclaw", "D'Claw", "3 fingers, 9 DoF", "hand"),
+    ("ee_inspire", "Inspire Hand", "5 fingers, 6 DoF", "hand"), ("ee_ability", "Ability Hand", "5 fingers, 6 DoF", "hand"),
+    ("ee_schunk", "Schunk SVH", "5 fingers, 9 DoF", "hand"), ("ee_allegro", "Allegro Hand", "4 fingers, 16 DoF", "hand"),
+    ("ee_leap", "LEAP Hand", "4 fingers, 16 DoF", "hand"), ("ee_sharpa", "Sharpa Hand", "5 fingers, 22 DoF", "hand"),
+]
+PHASES = {"own": ("Robots", "Every arm.", "Robots that come with their own gripper run every task as they are."),
+          "arm": ("Modular arms", "Every arm.", "Modular arms take any end-effector. Here, each one carries the same Robotiq 2F-85."),
+          "hand": ("End-effectors", "Every hand.", "And every end-effector mounts on the same arm, from parallel-jaw grippers to a 22-joint hand.")}
+robot_imgs = "\n".join(
+    f'<img src="assets/robots/{a}.webp" data-name="{esc(n)}" data-kind="{esc(k)}" data-phase="{ph}" alt="{esc(n)}"{" class=on" if i == 0 else ""}>'
+    for i, (a, n, k, ph) in enumerate(ROBOTS))
+robot_lists = "\n".join(
+    f'<ul class="hand-list" data-phase="{ph}"{"" if ph == "own" else " hidden"}>' + "".join(f"<li data-i=\"{i}\">{esc(n)}</li>" for i, (a, n, k, p2) in enumerate(ROBOTS) if p2 == ph) + "</ul>"
+    for ph in PHASES)
+ee_imgs = "\n".join(
+    f'<img src="assets/ee/{k}.webp" data-name="{esc(n)}" data-kind="{esc(kind)}" alt="{esc(n)} on a Franka arm"{" class=on" if i == 0 else ""}>'
+    for i, (k, n, kind) in enumerate(EES))
+ee_list = "\n".join(f'<li{" class=on" if i == 0 else ""}>{esc(n)}</li>' for i, (k, n, kind) in enumerate(EES))
+arms = "\n".join(f'<figure class="reveal"><img src="assets/arms/{k}.webp" alt="{esc(n)} with an Allegro hand" loading="lazy"><figcaption>{esc(n)}</figcaption></figure>'
+                 for k, n in ARM_NAMES if (V2 / f"assets/arms/{k}.webp").exists())
+tiles = "\n".join(f'''<article class="tile"><video muted loop playsinline preload="metadata" poster="assets/clips/{c}.jpg"><source src="assets/clips/{c}.mp4" type="video/mp4"></video>
+<h3>{esc(t)}</h3><p>{esc(line)}</p><div class="meta">{esc(meta)}</div></article>''' for c, t, line, meta in TILES)
+chart = "\n".join(f'''<div class="grp"><div class="name">{esc(t)}</div><div class="bars">
+<div class="hb g" data-w="{g:g}"><i data-w="{g:g}"></i><em>{g:g}%</em></div>
+<div class="hb h" data-w="{h:g}"><i data-w="{h:g}"></i><em>{h:g}%</em></div></div></div>''' for t, g, h in TRACK1)
+hard = "\n".join(f'<div><b data-count="{v:g}" data-suffix="%">0%</b><span>{esc(t)}, {esc(note)}</span></div>' for t, v, note in HARD)
+total = sum(TIERS.values())
+tiers = "\n".join(f'''<div class="tier"><div class="row"><span>{label}</span><b>{v:,}</b></div><div class="bar"><i data-w="{100 * v / total:.1f}"></i></div></div>'''
+                  for label, v in (("Human teleoperation", TIERS["human"]), ("Scripted experts", TIERS["scripted"]),
+                                   ("Machine-generated", TIERS["machine"])))
+bib = f"""@article{{dexsuite2026,
+  author  = {{Anonymous}},
+  title   = {{{TITLE}}},
+  journal = {{Under review}},
+  year    = {{2026}},
+}}"""
+
+page = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(TITLE)}</title>
+<meta name="description" content="{esc(TITLE)}. {N_TASKS} tasks, {ARMS} arms, {EFFECTORS} end-effectors, {PAIRS} benchmark task-embodiment pairs, {EPISODES} episodes.">
+<meta property="og:title" content="DexSuite">
+<meta property="og:description" content="An all-in-one simulation framework for dexterous manipulation.">
+<meta property="og:image" content="assets/hero/f0200.webp">
+<link rel="icon" href="../static/images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<script>window.V2 = {json.dumps({"hero": {"n": hero_n, "hand": "assets/hero/hand", "paper": "assets/hero/paper"}, "phases": {k: list(v) for k, v in PHASES.items()}})};</script>
+<script defer src="site.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="#hero">DexSuite</a>
+  <div class="links"><a href="#robots">Robots</a><a href="#dexterity">Tasks</a><a href="#data">Data</a><a href="data.html">Data viewer</a><a href="#benchmark">Benchmark</a>
+  <a class="pill" href="{HF}" target="_blank" rel="noopener">Get the data</a></div>
+</nav>
+
+<section id="hero">
+  <div class="sticky">
+    <canvas aria-label="A Sharpa hand spray-paints a stencil, replayed from a recorded demonstration"></canvas>
+    <div class="hero-copy">
+      <h1>DexSuite</h1>
+      <div class="hero-lines">
+        <span data-from="0" data-to="0.34">Dexterous manipulation.</span>
+        <span data-from="0.34" data-to="0.68" class="grey">Simulated, teleoperated, benchmarked.</span>
+        <span data-from="0.68" data-to="1.01">All in one framework.</span>
+      </div>
+      <div class="hero-ctas"><a class="pill big" href="{HF}" target="_blank" rel="noopener">Get the data</a><span class="pill big ghost disabled-ghost">Paper, coming soon</span></div>
+    </div>
+    <div class="progress"><i></i></div>
+    <div class="scroll-hint">Scroll</div>
+  </div>
+</section>
+
+<section class="pad"><div class="wrap"><p class="statement">{words(STATEMENT)}</p></div></section>
+
+<section id="robots">
+  <div class="sticky">
+    <div>
+      <p class="eyebrow" id="ph-eyebrow">{PHASES["own"][0]}</p>
+      <h2 class="headline md" id="ph-title">{PHASES["own"][1]}</h2>
+      <p class="lede" style="margin-top:18px" id="ph-lede">{PHASES["own"][2]}</p>
+      {robot_lists}
+      <div class="counter">01 / {len(ROBOTS):02d}</div>
+    </div>
+    <div class="stage">{robot_imgs}<div class="tag"><b>{esc(ROBOTS[0][1])}</b><span>{esc(ROBOTS[0][2])}</span></div></div>
+  </div>
+</section>
+
+<section class="pad alt"><div class="wrap center">
+  <h2 class="headline md reveal">Everything in one place.</h2>
+  <div class="stats count-on-view">
+    <div class="stat"><b data-count="{N_TASKS}">0</b><span>tasks</span></div>
+    <div class="stat"><b data-count="{ARMS}">0</b><span>arms</span></div>
+    <div class="stat"><b data-count="{EFFECTORS}">0</b><span>end-effectors</span></div>
+    <div class="stat"><b data-count="{PAIRS}">0</b><span>benchmark task-embodiment pairs</span></div>
+    <div class="stat"><b data-count="{EPISODES.replace(',', '')}">0</b><span>episodes</span></div>
+  </div>
+</div></section>
+
+<section class="pad" id="same"><div class="wrap">
+  <p class="eyebrow reveal">Track 1</p>
+  <h2 class="headline md reveal">Same task.<br>Any embodiment.</h2>
+  <p class="lede reveal" style="margin-top:18px">Tasks are defined once, with the same reset, observations and success check for a gripper and a hand. Here, two recorded human demonstrations of Pick &amp; Place.</p>
+  <div class="duo reveal">
+    <figure><video muted loop playsinline preload="metadata" data-sync="pp" poster="assets/clips/pickplace_umi.jpg"><source src="assets/clips/pickplace_umi.mp4" type="video/mp4"></video><figcaption><b>UMI gripper.</b> Two fingers, one command.</figcaption></figure>
+    <figure><video muted loop playsinline preload="metadata" data-sync="pp" poster="assets/clips/pickplace_allegro.jpg"><source src="assets/clips/pickplace_allegro.mp4" type="video/mp4"></video><figcaption><b>Allegro hand.</b> Sixteen joints, the same task.</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="dexterity">
+  <div class="sticky">
+    <div class="gallery-head"><p class="eyebrow">Track 2</p><h2 class="headline md">Built for real dexterity.</h2></div>
+    <div class="track">{tiles}</div>
+  </div>
+</section>
+
+<section class="pad alt" id="teleop"><div class="wrap">
+  <p class="eyebrow reveal">Teleoperation</p>
+  <h2 class="headline md reveal">Teleoperation, built in.</h2>
+  <div class="teleop">
+    <div class="reveal">
+      <p class="lede">Plug in a device and drive any robot. The arm follows a SpaceMouse, an HTC Vive or Meta Quest controllers, and finger motion from a webcam, a Leap Motion, Quest hand tracking or a Manus glove is mapped to whichever hand is mounted.</p>
+      <p class="chip-label">Arm</p><div class="chips"><span>SpaceMouse</span><span>HTC Vive</span><span>Meta Quest controllers</span></div>
+      <p class="chip-label">Fingers</p><div class="chips"><span>MediaPipe</span><span>Leap Motion</span><span>Meta Quest hand tracking</span><span>Manus MetaGlove Pro</span></div>
+      <p class="chip-label">Hand mapping</p><div class="chips"><span>Direct joint positions</span><span>GeoRT</span><span>DexRetargeting</span></div>
+    </div>
+    <div class="reveal"><video muted loop playsinline preload="metadata"><source src="../static/videos/manusretarget.mp4" type="video/mp4"></video></div>
+  </div>
+</div></section>
+
+<section class="pad" id="data"><div class="wrap">
+  <p class="eyebrow reveal">Dataset</p>
+  <div class="data">
+    <div class="observe">
+      <div class="big-number count-on-view" data-count="{EPISODES.replace(',', '')}">0</div>
+      <h2 class="headline md" style="margin-top:6px">episodes.</h2>
+      <p class="lede" style="margin-top:18px">Every one of the {PAIRS} benchmark task-embodiment pairs, recorded at 20&nbsp;Hz with front and wrist cameras, proprioception and object states, in LeRobot format with an HDF5 export for robomimic.</p>
+      <div class="tiers">{tiers}</div>
+      <div class="ctas"><a class="pill big" href="{HF}" target="_blank" rel="noopener">Browse on Hugging Face</a><a class="pill big ghost" href="data.html">Open the data viewer</a></div>
+    </div>
+    <div class="reveal"><img src="../static/images/paper/dataset_wheel.png" alt="Dataset composition by tier, embodiment and task" loading="lazy"></div>
+  </div>
+</div></section>
+
+<section class="pad alt" id="benchmark"><div class="wrap">
+  <p class="eyebrow reveal">Benchmark</p>
+  <h2 class="headline md reveal">Hands keep up.</h2>
+  <p class="lede reveal" style="margin-top:18px">Policies trained and evaluated on the Allegro hand match or outperform their gripper counterparts on several shared tasks.</p>
+  <div class="chart observe">
+    <div class="legend"><span><i style="background:var(--grip)"></i>Parallel-jaw gripper</span><span><i style="background:var(--hand)"></i>Allegro hand</span></div>
+    {chart}
+    <p class="chart-note">Best success rate (%) of five imitation learning baselines per task and embodiment, three seeds with 50 episodes each.</p>
+  </div>
+  <h3 class="headline md reveal" style="margin-top:110px;font-size:clamp(30px,3.6vw,48px)">Still far from solved.</h3>
+  <div class="hard observe">{hard}</div>
+  <p class="chart-note"><a href="../index.html#benchmark">Full results table</a></p>
+</div></section>
+
+<footer><div class="wrap center">
+  <h2 class="headline md">DexSuite</h2>
+  <p class="lede" style="margin-top:14px">{esc(TITLE.split(': ', 1)[1])}.</p>
+  <div class="ctas" style="justify-content:center"><span class="pill big disabled">Paper, coming soon</span><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
+  <div class="logos"><img src="../static/images/partners_logo/mcgill.png" alt="McGill University"><img src="../static/images/partners_logo/mila.png" alt="Mila"><img src="../static/images/partners_logo/hf.png" alt="Hugging Face"><img class="sm" src="../static/images/partners_logo/kinova.png" alt="Kinova"><img class="sm" src="../static/images/partners_logo/manus.webp" alt="Manus"></div>
+  <pre class="bib">{esc(bib)}</pre>
+  <p class="fine">Every robot and object on this page is a Blender Cycles render of a recorded DexSuite episode, replayed open-loop from the dataset.</p>
+</div></footer>
+</body>
+</html>
+"""
+(V2 / "index.html").write_text(page, encoding="utf-8")
+print("v2/index.html", len(page) // 1024, "KB; hero frames", hero_n, "; track 1", TRACK1, "; hard", [(t, v) for t, v, _ in HARD])

@@ -1,0 +1,78 @@
+{
+ "scene": "/efs/projects/fudi/dexsuite_website/v2/work/replays/spray_sharpa/scene.json",
+ "out": "/efs/projects/fudi/dexsuite_website/v2/work/frames/spray_sharpa",
+ "res": [
+  1920,
+  1080
+ ],
+ "samples": 128,
+ "camera": {
+  "loc": [
+   1.25,
+   -0.95,
+   0.62
+  ],
+  "target": [
+   0.5,
+   -0.1,
+   0.12
+  ],
+  "lens": 45
+ },
+ "hide_roles": [
+  "floor",
+  "table"
+ ],
+ "floor_z": -0.006,
+ "floor_center": [
+  0.4,
+  0.0
+ ],
+ "lights": [
+  {
+   "type": "AREA",
+   "energy": 380,
+   "size": 3.0,
+   "loc": [
+    1.1,
+    -0.7,
+    2.8
+   ],
+   "target": [
+    0.5,
+    -0.05,
+    0.0
+   ]
+  },
+  {
+   "type": "AREA",
+   "energy": 90,
+   "size": 4.0,
+   "loc": [
+    -2.0,
+    0.8,
+    1.6
+   ],
+   "target": [
+    0.5,
+    0,
+    0.2
+   ]
+  },
+  {
+   "type": "AREA",
+   "energy": 280,
+   "size": 1.2,
+   "loc": [
+    -0.2,
+    2.0,
+    1.8
+   ],
+   "target": [
+    0.5,
+    0,
+    0.3
+   ]
+  }
+ ]
+}
