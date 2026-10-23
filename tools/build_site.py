@@ -158,8 +158,8 @@ for k in ORDER:
                   "stages": [STAGE_NAMES.get(s, s) for s in t["required"]]})
 
 CAROUSEL = [  # (clip, task, embodiment)
-    ("pick_place_pan_franka_allegro", "Move Pan", "Allegro hand"),
     ("spray_graffiti_sharpa", "Spray Graffiti", "Sharpa hand"),
+    ("pick_place_pan_franka_allegro", "Move Pan", "Allegro hand"),
     ("pick_place_mug_franka_allegro", "Rack Mug", "Allegro hand"),
     ("put_bread_toaster_sharpa", "Toast Bread", "Sharpa hand"),
     ("drill_to_point_franka_allegro", "Drill to Point", "Allegro hand"),
@@ -313,20 +313,18 @@ page = f"""<!DOCTYPE html>
         <div class="container is-max-desktop">
             <h2 class="title is-3">Data Collection</h2>
             <h3 class="title is-5">Teleoperation</h3>
-            <div class="content has-text-justified"><p>{TELEOP}</p></div>
-            <div class="columns is-vcentered">
-                <div class="column"><figure class="image paper-figure"><img src="static/images/paper/teleoperation_devices.png" alt="Teleoperation devices integrated in DexSuite" loading="lazy"></figure></div>
-                <div class="column"><figure class="image paper-figure"><img src="static/images/retargeting.png" alt="Direct joint mapping or geometric retargeting to the robot hand" loading="lazy"></figure></div>
+            <div class="columns is-vcentered teleop-intro">
+                <div class="column is-5">
+                    <p class="teleop-text">{TELEOP.split(" Related systems")[0]}</p>
+                    <div class="device-group"><span class="dv-label">Arm pose</span><div class="device-tags"><span>SpaceMouse</span><span>HTC Vive</span><span>Meta Quest controllers</span></div></div>
+                    <div class="device-group"><span class="dv-label">Fingers</span><div class="device-tags"><span>MediaPipe</span><span>Leap Motion</span><span>Meta Quest hand tracking</span><span>Manus MetaGlove Pro</span></div></div>
+                    <div class="device-group"><span class="dv-label">Hand mapping</span><div class="device-tags"><span>Direct joint positions</span><span>GeoRT</span><span>DexRetargeting</span></div></div>
+                </div>
+                <div class="column is-7"><figure class="image"><img src="static/images/paper/teleoperation_devices.png" alt="Teleoperation devices integrated in DexSuite" loading="lazy"></figure></div>
             </div>
-            <div class="columns">
-                <div class="column">
-                    <video class="media-video" autoplay muted loop playsinline preload="metadata"><source src="static/videos/vivecontroller.mp4" type="video/mp4"></video>
-                    <p class="media-caption">Vive tracker and controller for the wrist pose and the gripper.</p>
-                </div>
-                <div class="column">
-                    <video class="media-video" autoplay muted loop playsinline preload="metadata"><source src="static/videos/manusretarget.mp4" type="video/mp4"></video>
-                    <p class="media-caption">Manus glove to Allegro joint commands through geometric retargeting.</p>
-                </div>
+            <div class="teleop-media">
+                <figure style="flex: 2.007"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/vivecontroller.mp4" type="video/mp4"></video><figcaption>A Vive tracker sets the wrist pose and the controller opens and closes the gripper.</figcaption></figure>
+                <figure style="flex: 3.008"><video autoplay muted loop playsinline preload="metadata"><source src="static/videos/manusretarget.mp4" type="video/mp4"></video><figcaption>Manus glove keypoints are retargeted to Allegro joint commands with GeoRT.</figcaption></figure>
             </div>
             <h3 class="title is-5 mt-5">Tactile sensing</h3>
             <div class="content has-text-justified"><p>{TACTILE}</p></div>
@@ -392,9 +390,6 @@ page = f"""<!DOCTYPE html>
             <p class="table-caption">{CAPTION}</p>
             {table_html()}
 
-            <h3 class="title is-4 mt-6">Where the policies fail</h3>
-            <p class="has-text-centered dv-intro">Fifty diagnostic rollouts of the low-dimensional diffusion policy per task-embodiment pair, split by the stage in which each episode ends. Successes are in blue.</p>
-            <figure class="image paper-figure narrow"><img src="static/images/paper/task_stages.png" alt="Stage-wise outcomes of the diffusion policies" loading="lazy"></figure>
         </div>
     </section>
 

@@ -9,7 +9,7 @@
   var NS = 'http://www.w3.org/2000/svg';
   var tasks = window.DEXSUITE_TASKS || [];
   var sets = [];
-  var state = { task: 'pick_place_pan', emb: null, tier: null, ep: 0 };
+  var state = { task: 'spray_graffiti', emb: null, tier: null, ep: 0 };
   var traj = null; // {t: [...], v: [[x,y,z] cm]}
   var geom = null;
   var $ = function (id) { return document.getElementById(id); };
