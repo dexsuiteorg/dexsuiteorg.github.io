@@ -65,7 +65,7 @@ section { position: relative; }
 #hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .hero-copy { position: absolute; left: max(22px, calc((100vw - 1180px) / 2)); top: 50%; transform: translateY(-50%); z-index: 2; max-width: 520px; }
 /* the wordmark in DexSuite blue (the paper's concept figure); padding so background-clip does not cut the last glyph */
-.hero-copy h1 { font-size: clamp(60px, 8.6vw, 136px); font-weight: 700; letter-spacing: -0.05em; line-height: 0.95;
+.hero-copy h1 { font-size: clamp(56px, 7.4vw, 120px); font-weight: 700; letter-spacing: -0.05em; line-height: 0.95;
   display: inline-block; padding: 0.04em 0.1em 0.08em 0; margin: -0.04em -0.1em -0.08em 0;
   background: linear-gradient(100deg, #1468b8 0%, #289be4 60%, #45b2ee 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero-lines { position: relative; height: 3.2em; margin-top: 22px; font-size: clamp(22px, 2.4vw, 34px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
@@ -172,7 +172,7 @@ section { position: relative; }
 .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; }
 .grp { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 18px; padding: 10px 0; border-top: 1px solid #e8e8ed; }
 .grp .name { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
-.bars { display: grid; gap: 4px; }
+.bars { display: grid; gap: 4px; padding-right: 52px; }   /* room for the value at 100 % */
 .hb { position: relative; height: 14px; }
 .hb i { position: absolute; left: 0; top: 0; height: 14px; border-radius: 0 4px 4px 0; width: 0; transition: width 1.2s cubic-bezier(.2, .7, .2, 1); }
 .hb em { position: absolute; top: -2px; font-style: normal; font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; transition: left 1.2s cubic-bezier(.2, .7, .2, 1); white-space: nowrap; }
@@ -201,9 +201,13 @@ pre.bib { background: #fff; border-radius: 16px; padding: 22px; font-size: 13px;
   .hand-list li { font-size: 13px; line-height: 1.8; }
   .duo, .teleop, .data { grid-template-columns: 1fr; }
   .stats { grid-template-columns: repeat(2, 1fr); }
+  .stats .stat:last-child { grid-column: 1 / -1; }
+  .grp { grid-template-columns: 92px 1fr; gap: 12px; }
   .hard { grid-template-columns: repeat(2, 1fr); }
   .tile { flex-basis: 84vw; }
-  .hero-copy { top: auto; bottom: 90px; transform: none; }
+  .hero-copy { top: auto; bottom: 84px; transform: none; right: 22px; }
+  .hero-ctas { flex-wrap: nowrap; gap: 10px; }
+  .hero-ctas .pill.big { font-size: 15px; padding: 10px 16px; white-space: nowrap; }
   .progress { display: none; }
   .pad { padding: 96px 0; }
 }

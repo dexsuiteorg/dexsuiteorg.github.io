@@ -50,9 +50,18 @@
   function intro(force) {
     if (force || (gotFrame && gotFont)) requestAnimationFrame(function () { document.documentElement.classList.add('ready'); });
   }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { gotFont = true; intro(); }); else gotFont = true;
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { gotFont = true; copyBox = null; draw(true); intro(); }); else gotFont = true;
   setTimeout(function () { intro(true); }, 1800);
+  // the copy's box in CSS px of the hero, from the real widths (fonts included), so the scene can avoid it
+  var copyBox = null;
+  function measureCopy() {
+    var st = $('#hero .sticky').getBoundingClientRect(), c = $('.hero-copy').getBoundingClientRect(), right = 0;
+    [$('.hero-copy h1')].concat($$('.hero-lines span'), $$('.hero-ctas > *')).forEach(function (e) { right = Math.max(right, e.offsetLeft + e.offsetWidth); });
+    copyBox = { right: c.left - st.left + right, top: c.top - st.top };
+    return copyBox;
+  }
   function sizeCanvas() {
+    copyBox = null;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(canvas.clientWidth * dpr);
     canvas.height = Math.round(canvas.clientHeight * dpr);
@@ -72,10 +81,19 @@
     heroWant = want;
     if (k < 0 || (want === lastDrawn && !force)) return;
     var cw = canvas.width, ch = canvas.height, wide = cw > ch * 1.15, dpr = cw / canvas.clientWidth;
-    // wide: the scene to the right of the headline; tall: above the copy
-    var side = wide ? Math.min(ch * 0.96, cw * 0.58) : Math.min(cw * 1.02, ch * 0.56);
-    var x = wide ? cw - side - Math.max(0, (cw - 1240 * dpr) / 2) : (cw - side) / 2;
-    var y = wide ? (ch - side) / 2 + 26 * dpr : ch * 0.06;
+    var cb = copyBox || measureCopy(), M = 0.06, side, x, y;   // M: the empty margin the render keeps around hand, can and paper
+    if (wide) {   // right of the copy, never on it
+      var margin = Math.max(22, (cw / dpr - 1240) / 2) * dpr, left = (cb.right + 28) * dpr;
+      side = Math.min(ch * 0.96, 820 * dpr, cw * 0.62);
+      x = cw - margin - side * (1 - M);
+      if (x + side * M < left) { side = Math.max(side * 0.6, (cw - margin - left) / (1 - 2 * M)); x = left - side * M; }
+      y = (ch - side) / 2 + 26 * dpr;
+    } else {      // between the nav and the copy
+      var top = 56 * dpr, room = (cb.top - 16) * dpr - top;
+      side = Math.min(cw / (1 - 2 * M), room / (1 - 2 * M));
+      x = (cw - side) / 2;
+      y = top - side * M + Math.max(0, (room - side * (1 - 2 * M)) / 2);
+    }
     ctx.clearRect(0, 0, cw, ch);
     ctx.drawImage(frames.im[k], x, y, side, side);
     lastDrawn = k === want ? want : -2;   // redraw when the wanted frame arrives
