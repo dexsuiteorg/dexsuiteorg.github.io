@@ -282,8 +282,11 @@ page = f"""<!DOCTYPE html>
 
 def at_root(page):
     """The page is written with v2/-relative paths; the site root serves it, so point them into v2/ and static/."""
+    import hashlib
+    ver = lambda f: hashlib.md5((V2 / f).read_bytes()).hexdigest()[:8]  # noqa: E731  new name per deploy, so no stale CSS/JS
+    page = page.replace('href="site.css"', f'href="site.css?v={ver("site.css")}"').replace('src="site.js"', f'src="site.js?v={ver("site.js")}"')
     for a, c in (('src="assets/', 'src="v2/assets/'), ('poster="assets/', 'poster="v2/assets/'), ('"dir": "assets/', '"dir": "v2/assets/'),
-                 ('href="assets/', 'href="v2/assets/'), ('href="site.css"', 'href="v2/site.css"'), ('src="site.js"', 'src="v2/site.js"'), ('href="data.html"', 'href="v2/data.html"'),
+                 ('href="assets/', 'href="v2/assets/'), ('href="site.css', 'href="v2/site.css'), ('src="site.js', 'src="v2/site.js'), ('href="data.html"', 'href="v2/data.html"'),
                  ('"../static/', '"static/')):
         page = page.replace(a, c)
     assert "../" not in page and '"assets/' not in page, "a v2-relative path is left in the root page"
