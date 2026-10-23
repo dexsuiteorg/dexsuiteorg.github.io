@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Rendered RGBA frames (v2/work/frames) -> web assets on white (v2/assets). Safe to re-run while renders are going:
+"""Rendered RGBA frames (v2/work/frames) -> web assets (v2/assets), on white or transparent. Safe to re-run while renders are going:
 only finished frames are converted, and a clip is encoded once all of its frames exist.
 
     .venv-dexsuite/bin/python v2/tools/encode_assets.py
@@ -9,6 +9,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+import numpy as np
 from PIL import Image
 
 V2 = Path(__file__).resolve().parents[1]
@@ -98,6 +99,19 @@ def clip(name):
     print(f"clip {name}: wrote {mp4.name} ({mp4.stat().st_size // 1024} KB)")
 
 
+def hero_scene(size=1200):
+    """The hero: hand, can and paper from one fixed camera, transparent."""
+    src, out = FR / "hero_scene", AS / "hero" / "scene"
+    out.mkdir(parents=True, exist_ok=True)
+    k = 0
+    for p in sorted(src.glob("f*.png")) if src.exists() else []:
+        dst = out / (p.stem + ".webp")
+        if newer(p, dst):
+            Image.open(p).convert("RGBA").resize((size, size), Image.LANCZOS).save(dst, "WEBP", quality=80, alpha_quality=88, method=5)
+            k += 1
+    print(f"hero scene: {k} new, {len(list(out.glob('*.webp')))}/{n_frames('hero_scene')}")
+
+
 def hero_layers():
     """The hand and the paper as separate transparent sequences, composited by the page."""
     for layer, size in (("hand", (1400, 1050)), ("paper", (1280, 880))):
@@ -112,14 +126,62 @@ def hero_layers():
         print(f"hero {layer}: {k} new, {len(list(out.glob('*.webp')))}/{n_frames('hero_' + layer)}")
 
 
+def fit_on_floor(im, size=1100, fill=0.80, bottom=0.14):
+    """Trim a transparent render to its content and stand it, centred, on one baseline shared by every arm."""
+    im = im.crop(im.getchannel("A").point(lambda a: 255 if a > 8 else 0).getbbox())
+    k = min(size * fill / im.width, size * fill / im.height)
+    im = im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
+    out = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    out.alpha_composite(im, ((size - im.width) // 2, size - round(size * bottom) - im.height))
+    return out
+
+
+def edge_fade(im, s=1.0, left=0.18, bottom=0.24):
+    """The close-ups cut the arm at the left and bottom edges: fade it out there instead of a hard edge."""
+    a = np.asarray(im.getchannel("A"), np.float32)
+    h, w = a.shape
+    sm = lambda x: x * x * (3 - 2 * x)  # noqa: E731
+    mx = sm(np.clip(np.arange(w) / (left * w), 0, 1))[None, :]
+    my = sm(np.clip((h - 1 - np.arange(h)) / (bottom * h), 0, 1))[:, None]
+    im.putalpha(Image.fromarray((a * (1 - s * (1 - mx * my))).astype(np.uint8)))
+    return im
+
+
 def robots():
+    """Robot stills from the shadow-free renders (ns_*), transparent. The arms are fitted to one baseline; the hands keep
+    the shared Franka-wrist camera, so one dissolves into the next. The Franka arm shot is already framed by its camera
+    (it is the first frame of the fly-in to the wrist)."""
     out = AS / "robots"
     out.mkdir(parents=True, exist_ok=True)
-    for d in sorted(list(FR.glob("ib_*")) + list(FR.glob("rb_*")) + list(FR.glob("ee_*"))):
-        ps = sorted(d.glob("f*.png"))
-        if ps and newer(ps[0], out / f"{d.name}.webp"):
-            on_white(ps[0], (1100, 1100)).save(out / f"{d.name}.webp", "WEBP", quality=86, method=5)
+    for d in sorted(FR.glob("ns_*")):
+        ps, name = sorted(d.glob("f*.png")), d.name[3:]
+        dst = out / f"{name}.webp"
+        if ps and newer(ps[0], dst):
+            im = Image.open(ps[0]).convert("RGBA")
+            if name.startswith(("ib_", "rb_")) and name != "rb_franka":
+                im = fit_on_floor(im)
+            else:
+                im = im.resize((1100, 1100), Image.LANCZOS)
+                if name.startswith("ee_"):
+                    im = edge_fade(im)
+            im.save(dst, "WEBP", quality=88, alpha_quality=95, method=5)
     print("robots:", len(list(out.glob("*.webp"))))
+
+
+def zoom(n=40):
+    """Fly-in from the whole Franka to its wrist: frame 0 is the arm still, the last frame is the Robotiq close-up."""
+    out = AS / "robots" / "zoom"
+    out.mkdir(parents=True, exist_ok=True)
+    src = [FR / "ns_rb_franka"] + [FR / "zoom" / f"k{i:02d}" for i in range(1, n - 1)] + [FR / "ns_ee_robotiq"]
+    have = 0
+    for i, d in enumerate(src):
+        p, dst = d / "f0000.png", out / f"z{i:02d}.webp"
+        if p.exists():
+            have += 1
+            if newer(p, dst):
+                im = edge_fade(Image.open(p).convert("RGBA").resize((1100, 1100), Image.LANCZOS), s=i / (n - 1))
+                im.save(dst, "WEBP", quality=84, alpha_quality=92, method=5)
+    print(f"zoom: {have}/{n}")
 
 
 def thumbs():
@@ -140,8 +202,9 @@ def thumbs():
 
 
 if __name__ == "__main__":
-    hero_layers()
+    hero_scene()
     robots()
+    zoom()
     thumbs()
     for c in CLIPS:
         clip(c)

@@ -56,8 +56,8 @@ page = f"""<!DOCTYPE html>
 </head>
 <body class="dv-page">
 <nav class="nav">
-  <a class="brand" href="index.html">DexSuite</a>
-  <div class="links"><a href="index.html#robots">Robots</a><a href="index.html#dexterity">Tasks</a><a href="index.html#data">Data</a><a href="data.html" class="cur">Data viewer</a><a href="index.html#benchmark">Benchmark</a>
+  <a class="brand" href="../">DexSuite</a>
+  <div class="links"><a href="../#robots">Robots</a><a href="../#dexterity">Tasks</a><a href="../#data">Data</a><a href="data.html" class="cur">Data viewer</a><a href="../#benchmark">Benchmark</a>
   <a class="pill" href="{HF}" target="_blank" rel="noopener">Get the data</a></div>
 </nav>
 
@@ -119,7 +119,7 @@ page = f"""<!DOCTYPE html>
 </section>
 
 <footer class="dv-foot"><div class="wrap center">
-  <p class="fine">Episodes are cut from the LeRobot v3 videos at 20&nbsp;Hz; charts are sampled at 10&nbsp;Hz. <a href="index.html">Back to DexSuite</a></p>
+  <p class="fine">Episodes are cut from the LeRobot v3 videos at 20&nbsp;Hz; charts are sampled at 10&nbsp;Hz. <a href="../">Back to DexSuite</a></p>
 </div></footer>
 </body>
 </html>

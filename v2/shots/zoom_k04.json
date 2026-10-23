@@ -1,0 +1,94 @@
+{
+ "scene": "/efs/projects/fudi/dexsuite_website/v2/work/robots/franka__robotiq/scene.json",
+ "out": "/efs/projects/fudi/dexsuite_website/v2/work/frames/zoom/k04",
+ "res": [
+  1400,
+  1400
+ ],
+ "samples": 160,
+ "camera": {
+  "loc": [
+   1.3242307692307693,
+   -0.9816666666666666,
+   0.9083333333333333
+  ],
+  "target": [
+   0.11141025641025641,
+   0.010769230769230769,
+   0.4176923076923077
+  ],
+  "lens": 66.10320512820513,
+  "shift_x": -0.002871794871794872,
+  "shift_y": -0.038051282051282054
+ },
+ "hide_roles": [
+  "floor",
+  "table"
+ ],
+ "floor_z": 0.0,
+ "floor_center": [
+  0.4,
+  0.0
+ ],
+ "lights": [
+  {
+   "type": "AREA",
+   "energy": 520,
+   "size": 3.5,
+   "loc": [
+    0.9,
+    -1.3,
+    3.4
+   ],
+   "target": [
+    0.3,
+    0,
+    0.3
+   ]
+  },
+  {
+   "type": "AREA",
+   "energy": 110,
+   "size": 4.0,
+   "loc": [
+    -2.2,
+    0.6,
+    1.6
+   ],
+   "target": [
+    0.3,
+    0,
+    0.4
+   ]
+  },
+  {
+   "type": "AREA",
+   "energy": 300,
+   "size": 1.2,
+   "loc": [
+    -0.6,
+    2.2,
+    2.0
+   ],
+   "target": [
+    0.3,
+    0,
+    0.45
+   ]
+  }
+ ],
+ "materials": {
+  "hand": {
+   "color": "#2b2d32",
+   "rough": 0.42,
+   "coat": 0.25
+  },
+  "mount": {
+   "color": "#2b2d32",
+   "rough": 0.42,
+   "coat": 0.25
+  }
+ },
+ "shadow_catcher": false,
+ "overwrite": true
+}

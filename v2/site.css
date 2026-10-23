@@ -63,17 +63,36 @@ section { position: relative; }
 #hero { height: 340vh; }
 .sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 #hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero-copy { position: absolute; left: max(22px, calc((100vw - 1080px) / 2)); top: 50%; transform: translateY(-50%); z-index: 2; max-width: 560px; }
-.hero-copy h1 { font-size: clamp(64px, 11vw, 168px); font-weight: 700; letter-spacing: -0.05em; line-height: 0.92; }
+.hero-copy { position: absolute; left: max(22px, calc((100vw - 1180px) / 2)); top: 50%; transform: translateY(-50%); z-index: 2; max-width: 520px; }
+/* the wordmark in DexSuite blue (the paper's concept figure); padding so background-clip does not cut the last glyph */
+.hero-copy h1 { font-size: clamp(60px, 8.6vw, 136px); font-weight: 700; letter-spacing: -0.05em; line-height: 0.95;
+  display: inline-block; padding: 0.04em 0.1em 0.08em 0; margin: -0.04em -0.1em -0.08em 0;
+  background: linear-gradient(100deg, #1468b8 0%, #289be4 60%, #45b2ee 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero-lines { position: relative; height: 3.2em; margin-top: 22px; font-size: clamp(22px, 2.4vw, 34px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
 .hero-lines span { position: absolute; left: 0; top: 0; opacity: 0; transition: opacity .5s, transform .5s; transform: translateY(10px); }
 .hero-lines span.on { opacity: 1; transform: none; }
 .hero-lines span.grey { color: var(--ink-3); }
 .hero-ctas { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
 .hero-note { position: absolute; right: max(22px, calc((100vw - 1080px) / 2)); bottom: 26px; font-size: 12px; color: var(--ink-3); z-index: 2; }
-.scroll-hint { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); font-size: 12px; color: var(--ink-3); z-index: 2; transition: opacity .4s; }
+.scroll-hint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  background: none; border: 0; cursor: pointer; font: inherit; font-size: 12px; font-weight: 500; letter-spacing: .04em; color: var(--ink-2); transition: opacity .4s; }
+.scroll-hint svg { width: 34px; height: 34px; padding: 7px; border-radius: 50%; background: rgba(0, 0, 0, .05); fill: none; stroke: var(--ink); stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round; animation: bob 1.8s ease-in-out infinite; }
+.scroll-hint:hover svg { background: rgba(0, 0, 0, .09); }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 .progress { position: absolute; left: max(22px, calc((100vw - 1080px) / 2)); bottom: 30px; width: 160px; height: 2px; background: var(--mute); z-index: 2; border-radius: 2px; overflow: hidden; }
 .progress i { display: block; height: 100%; width: 0; background: var(--ink); }
+
+/* paper */
+#paper .headline { max-width: 14ch; }
+.paper-meta { font-size: 15px; line-height: 1.5; color: var(--ink-3); margin-top: 22px; max-width: 64ch; }
+.paper-meta b { color: var(--ink-2); font-weight: 500; }
+.abs { margin-top: 56px; }
+.abs summary { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; list-style: none; font-size: 15px; font-weight: 500; color: var(--blue); }
+.abs summary::-webkit-details-marker { display: none; }
+.abs summary::after { content: ""; width: 7px; height: 7px; border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform .2s; }
+.abs[open] summary::after { transform: translateY(1px) rotate(-135deg); }
+.abs p { font-size: 16px; line-height: 1.6; color: var(--ink-2); margin-top: 14px; max-width: 70ch; }
 
 /* statement */
 .statement { font-size: clamp(30px, 4.2vw, 56px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.12; max-width: 22ch; }
@@ -81,7 +100,7 @@ section { position: relative; }
 .statement .w.on { color: var(--ink); }
 
 /* end-effector sequence */
-#robots { height: 760vh; }
+#robots { height: 1000vh; }
 #robots .sticky { display: grid; grid-template-columns: minmax(280px, 0.9fr) 1.1fr; align-items: center; gap: 40px;
   width: min(1180px, calc(100vw - 44px)); margin: 0 auto; }
 .hand-list { list-style: none; margin-top: 28px; columns: 2; column-gap: 28px; }
@@ -89,9 +108,13 @@ section { position: relative; }
 .hand-list li.on { color: var(--ink); font-weight: 600; }
 .hand-list li small { font-size: 12px; color: var(--ink-3); font-weight: 400; margin-left: 6px; }
 .stage { position: relative; aspect-ratio: 1 / 1; width: 100%; max-height: 82vh; }
-.stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity .45s ease; }
-.stage img.on { opacity: 1; }
-.stage .tag { position: absolute; left: 0; bottom: 4%; font-size: 15px; color: var(--ink-2); }
+.stage img, .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; pointer-events: none; }
+.stage { isolation: isolate; }
+.stage img { will-change: opacity, transform; mix-blend-mode: plus-lighter; }
+.stage .tag { position: absolute; left: 0; bottom: 4%; font-size: 15px; color: var(--ink-2); transition: opacity .18s ease; }
+.stage .tag.swap { opacity: 0; }
+.ph-copy { transition: opacity .26s ease, transform .26s ease; }
+.ph-copy.swap { opacity: 0; transform: translateY(10px); }
 .stage .tag b { color: var(--ink); font-weight: 600; font-size: 21px; display: block; letter-spacing: -0.02em; }
 .counter { font-variant-numeric: tabular-nums; font-size: 13px; color: var(--ink-3); margin-top: 18px; letter-spacing: 0.02em; }
 
@@ -173,6 +196,7 @@ pre.bib { background: #fff; border-radius: 16px; padding: 22px; font-size: 13px;
   .nav .links a:not(.pill) { display: none; }
   #robots .sticky { grid-template-columns: 1fr; gap: 10px; padding-top: calc(var(--nav-h) + 10px); align-content: start; }
   .stage { max-height: 52vh; }
+  .stage .tag { bottom: auto; top: 100%; margin-top: 4px; }
   .hand-list { columns: 3; font-size: 14px; }
   .hand-list li { font-size: 13px; line-height: 1.8; }
   .duo, .teleop, .data { grid-template-columns: 1fr; }
@@ -180,10 +204,12 @@ pre.bib { background: #fff; border-radius: 16px; padding: 22px; font-size: 13px;
   .hard { grid-template-columns: repeat(2, 1fr); }
   .tile { flex-basis: 84vw; }
   .hero-copy { top: auto; bottom: 90px; transform: none; }
+  .progress { display: none; }
   .pad { padding: 96px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
+  .scroll-hint svg { animation: none; }
 }
 
 .pill.disabled-ghost { color: var(--ink-3) !important; border-color: var(--mute); cursor: default; }

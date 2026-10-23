@@ -2,4 +2,5 @@
 .idea
 _site
 Gemfile
-Gemfile.lockv2/work/
+Gemfile.lock
+v2/work/

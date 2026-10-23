@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Write v2/index.html: the scroll-driven DexSuite page. Numbers come from the paper's sources (Overleaf clone).
+"""Write the scroll-driven DexSuite page to the site root (index.html, assets in v2/) and a redirect at v2/index.html.
+Numbers come from the paper's sources (Overleaf clone).
 
     python3 v2/tools/build_v2.py
 """
@@ -64,6 +65,8 @@ TILES = [  # clip, task, line, meta
     ("fruit_allegro", "Place Fruits", "Put the apple and the lemon into the bowl, one after the other.", "Allegro hand, human teleoperation"),
     ("toast_sharpa", "Toast Bread", "Stand the slice in a toaster slot and push the lever down.", "Sharpa hand, scripted expert"),
 ]
+ABSTRACT = re.sub(r"\s+", " ", re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", TEX, re.S).group(1)).strip()
+ABSTRACT = ABSTRACT.replace("{,}", ",").replace("~", " ").replace("\\%", "%")
 STATEMENT = ("DexSuite brings the robot, the tasks, teleoperation, tactile sensing, the data and the evaluation into "
              "one stack. Any of its tasks runs with any arm and any hand.")
 
@@ -76,15 +79,15 @@ def words(s):
     return " ".join(f'<span class="w">{esc(w)}</span>' for w in s.split())
 
 
-hero_n = len(json.load(open(json.load(open(V2 / "shots/hero_hand.json"))["scene"]))["frames"])
+hero_n = len(json.load(open(json.load(open(V2 / "shots/hero_scene.json"))["scene"]))["frames"])
 ROBOTS = [  # asset, name, kind, phase
+    ("ib_so_100", "SO-100", "Built-in gripper", "own"),
     ("ib_aloha_tactile", "ALOHA", "Built-in gripper with tactile pads", "own"),
     ("ib_gen3_lite", "Kinova Gen3 Lite", "Built-in gripper", "own"),
-    ("ib_so_100", "SO-100", "Built-in gripper", "own"),
     ("ib_trossen_vx300s", "Trossen ViperX 300 S", "Built-in gripper", "own"),
     ("ib_trossen_wx250s", "Trossen WidowX 250 S", "Built-in gripper", "own"),
     ("rb_ur5", "UR5e", "With a Robotiq 2F-85", "arm"), ("rb_ur10", "UR10e", "With a Robotiq 2F-85", "arm"),
-    ("rb_sawyer", "Rethink Sawyer", "With a Robotiq 2F-85", "arm"), ("rb_gen3", "Kinova Gen3", "With a Robotiq 2F-85", "arm"),
+    ("rb_gen3", "Kinova Gen3", "With a Robotiq 2F-85", "arm"),
     ("rb_franka", "Franka Panda", "With a Robotiq 2F-85", "arm"),
     ("ee_robotiq", "Robotiq 2F-85", "Parallel-jaw gripper", "hand"), ("ee_franka_umi_tacticle", "UMI gripper", "Parallel-jaw gripper with FlexiTac pads", "hand"),
     ("ee_barrett", "BarrettHand", "3 fingers, 8 DoF", "hand"), ("ee_dclaw", "D'Claw", "3 fingers, 9 DoF", "hand"),
@@ -96,7 +99,8 @@ PHASES = {"own": ("Robots", "Every arm.", "Robots that come with their own gripp
           "arm": ("Modular arms", "Every arm.", "Modular arms take any end-effector. Here, each one carries the same Robotiq 2F-85."),
           "hand": ("End-effectors", "Every hand.", "And every end-effector mounts on the same arm, from parallel-jaw grippers to a 22-joint hand.")}
 robot_imgs = "\n".join(
-    f'<img src="assets/robots/{a}.webp" data-name="{esc(n)}" data-kind="{esc(k)}" data-phase="{ph}" alt="{esc(n)}"{" class=on" if i == 0 else ""}>'
+    f'<img src="assets/robots/{a}.webp" data-name="{esc(n)}" data-kind="{esc(k)}" data-phase="{ph}" alt="{esc(n)}"'
+    f'{" data-zoom=1" if a == "rb_franka" else ""}{" style=opacity:1" if i == 0 else ""}>'
     for i, (a, n, k, ph) in enumerate(ROBOTS))
 robot_lists = "\n".join(
     f'<ul class="hand-list" data-phase="{ph}"{"" if ph == "own" else " hidden"}>' + "".join(f"<li data-i=\"{i}\">{esc(n)}</li>" for i, (a, n, k, p2) in enumerate(ROBOTS) if p2 == ph) + "</ul>"
@@ -133,12 +137,12 @@ page = f"""<!DOCTYPE html>
 <meta name="description" content="{esc(TITLE)}. {N_TASKS} tasks, {ARMS} arms, {EFFECTORS} end-effectors, {PAIRS} benchmark task-embodiment pairs, {EPISODES} episodes.">
 <meta property="og:title" content="DexSuite">
 <meta property="og:description" content="An all-in-one simulation framework for dexterous manipulation.">
-<meta property="og:image" content="assets/hero/f0200.webp">
+<meta property="og:image" content="https://dexsuiteorg.github.io/v2/assets/og.jpg">
 <link rel="icon" href="../static/images/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
-<script>window.V2 = {json.dumps({"hero": {"n": hero_n, "hand": "assets/hero/hand", "paper": "assets/hero/paper"}, "phases": {k: list(v) for k, v in PHASES.items()}})};</script>
+<script>window.V2 = {json.dumps({"hero": {"n": hero_n, "dir": "assets/hero/scene"}, "phases": {k: list(v) for k, v in PHASES.items()}, "zoom": {"n": 40, "dir": "assets/robots/zoom"}})};</script>
 <script defer src="site.js"></script>
 </head>
 <body>
@@ -150,7 +154,7 @@ page = f"""<!DOCTYPE html>
 
 <section id="hero">
   <div class="sticky">
-    <canvas aria-label="A Sharpa hand spray-paints a stencil, replayed from a recorded demonstration"></canvas>
+    <canvas aria-label="A Sharpa hand picks up a spray can and paints a stencil, replayed from a recorded demonstration"></canvas>
     <div class="hero-copy">
       <h1>DexSuite</h1>
       <div class="hero-lines">
@@ -161,22 +165,27 @@ page = f"""<!DOCTYPE html>
       <div class="hero-ctas"><a class="pill big" href="{HF}" target="_blank" rel="noopener">Get the data</a><span class="pill big ghost disabled-ghost">Paper, coming soon</span></div>
     </div>
     <div class="progress"><i></i></div>
-    <div class="scroll-hint">Scroll</div>
+    <button class="scroll-hint" type="button" aria-label="Scroll down"><span>Scroll</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
   </div>
 </section>
 
-<section class="pad"><div class="wrap"><p class="statement">{words(STATEMENT)}</p></div></section>
+<section class="pad" id="paper"><div class="wrap">
+  <h2 class="headline reveal">Built for real dexterity.</h2>
+  <p class="paper-meta reveal"><b>{esc(TITLE)}</b><br>Anonymous authors, under review</p>
+  <p class="statement" style="margin-top:110px">{words(STATEMENT)}</p>
+  <details class="abs"><summary>Read the abstract</summary><p>{esc(ABSTRACT)}</p></details>
+</div></section>
 
 <section id="robots">
   <div class="sticky">
-    <div>
+    <div class="ph-copy">
       <p class="eyebrow" id="ph-eyebrow">{PHASES["own"][0]}</p>
       <h2 class="headline md" id="ph-title">{PHASES["own"][1]}</h2>
       <p class="lede" style="margin-top:18px" id="ph-lede">{PHASES["own"][2]}</p>
       {robot_lists}
       <div class="counter">01 / {len(ROBOTS):02d}</div>
     </div>
-    <div class="stage">{robot_imgs}<div class="tag"><b>{esc(ROBOTS[0][1])}</b><span>{esc(ROBOTS[0][2])}</span></div></div>
+    <div class="stage">{robot_imgs}<canvas aria-hidden="true"></canvas><div class="tag"><b>{esc(ROBOTS[0][1])}</b><span>{esc(ROBOTS[0][2])}</span></div></div>
   </div>
 </section>
 
@@ -203,7 +212,7 @@ page = f"""<!DOCTYPE html>
 
 <section id="dexterity">
   <div class="sticky">
-    <div class="gallery-head"><p class="eyebrow">Track 2</p><h2 class="headline md">Built for real dexterity.</h2></div>
+    <div class="gallery-head"><p class="eyebrow">Track 2</p><h2 class="headline md">Dexterous capability.</h2></div>
     <div class="track">{tiles}</div>
   </div>
 </section>
@@ -247,12 +256,10 @@ page = f"""<!DOCTYPE html>
   </div>
   <h3 class="headline md reveal" style="margin-top:110px;font-size:clamp(30px,3.6vw,48px)">Still far from solved.</h3>
   <div class="hard observe">{hard}</div>
-  <p class="chart-note"><a href="../index.html#benchmark">Full results table</a></p>
 </div></section>
 
 <footer><div class="wrap center">
   <h2 class="headline md">DexSuite</h2>
-  <p class="lede" style="margin-top:14px">{esc(TITLE.split(': ', 1)[1])}.</p>
   <div class="ctas" style="justify-content:center"><span class="pill big disabled">Paper, coming soon</span><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
   <div class="logos"><img src="../static/images/partners_logo/mcgill.png" alt="McGill University"><img src="../static/images/partners_logo/mila.png" alt="Mila"><img src="../static/images/partners_logo/hf.png" alt="Hugging Face"><img class="sm" src="../static/images/partners_logo/kinova.png" alt="Kinova"><img class="sm" src="../static/images/partners_logo/manus.webp" alt="Manus"></div>
   <pre class="bib">{esc(bib)}</pre>
@@ -261,5 +268,20 @@ page = f"""<!DOCTYPE html>
 </body>
 </html>
 """
-(V2 / "index.html").write_text(page, encoding="utf-8")
-print("v2/index.html", len(page) // 1024, "KB; hero frames", hero_n, "; track 1", TRACK1, "; hard", [(t, v) for t, v, _ in HARD])
+
+
+def at_root(page):
+    """The page is written with v2/-relative paths; the site root serves it, so point them into v2/ and static/."""
+    for a, c in (('src="assets/', 'src="v2/assets/'), ('poster="assets/', 'poster="v2/assets/'), ('"dir": "assets/', '"dir": "v2/assets/'),
+                 ('href="site.css"', 'href="v2/site.css"'), ('src="site.js"', 'src="v2/site.js"'), ('href="data.html"', 'href="v2/data.html"'),
+                 ('"../static/', '"static/')):
+        page = page.replace(a, c)
+    assert "../" not in page and '"assets/' not in page, "a v2-relative path is left in the root page"
+    return page
+
+
+(V2.parent / "index.html").write_text(at_root(page), encoding="utf-8")
+(V2 / "index.html").write_text('<!DOCTYPE html><meta charset="utf-8"><title>DexSuite</title>'
+                               '<meta http-equiv="refresh" content="0; url=../"><link rel="canonical" href="../">'
+                               '<a href="../">DexSuite</a>\n', encoding="utf-8")
+print("index.html", len(page) // 1024, "KB; hero frames", hero_n, "; track 1", TRACK1, "; hard", [(t, v) for t, v, _ in HARD])

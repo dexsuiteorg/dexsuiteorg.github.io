@@ -1,0 +1,90 @@
+{
+ "scene": "/efs/projects/fudi/dexsuite_website/v2/work/replays/spray_sharpa/scene.json",
+ "out": "/efs/projects/fudi/dexsuite_website/v2/work/frames/hero_scene",
+ "res": [
+  1500,
+  1500
+ ],
+ "samples": 128,
+ "camera": {
+  "loc": [
+   1.4595341300641747,
+   -0.9331087927569685,
+   0.9549999999999998
+  ],
+  "target": [
+   0.47,
+   -0.16,
+   0.23
+  ],
+  "lens": 65.9,
+  "shift_x": 0.0706,
+  "shift_y": -0.0121
+ },
+ "hide_roles": [
+  "floor",
+  "table"
+ ],
+ "floor_center": [
+  0.4,
+  0.0
+ ],
+ "lights": [
+  {
+   "type": "AREA",
+   "energy": 260,
+   "size": 2.5,
+   "loc": [
+    1.4,
+    -1.6,
+    2.2
+   ],
+   "target": [
+    0.5,
+    -0.1,
+    0.3
+   ]
+  },
+  {
+   "type": "AREA",
+   "energy": 120,
+   "size": 3.0,
+   "loc": [
+    -1.6,
+    0.4,
+    1.4
+   ],
+   "target": [
+    0.5,
+    -0.1,
+    0.3
+   ]
+  },
+  {
+   "type": "AREA",
+   "energy": 300,
+   "size": 1.2,
+   "loc": [
+    0.2,
+    1.8,
+    1.6
+   ],
+   "target": [
+    0.5,
+    -0.1,
+    0.35
+   ]
+  }
+ ],
+ "shadow_catcher": false,
+ "only_roles": [
+  "hand",
+  "object:can",
+  "object:paper"
+ ],
+ "world": {
+  "color": "#ffffff",
+  "strength": 0.35
+ },
+ "overwrite": true
+}

@@ -413,5 +413,5 @@ page = f"""<!DOCTYPE html>
 </html>
 """
 
-(SITE / "index.html").write_text(page, encoding="utf-8")
-print("index.html written:", len(page) // 1024, "KB |", TITLE, "|", EPISODES, "episodes |", PAIRS, "pairs")
+(SITE / "v1.html").write_text(page, encoding="utf-8")   # the root index.html is the v2 page now (v2/tools/build_v2.py)
+print("v1.html written:", len(page) // 1024, "KB |", TITLE, "|", EPISODES, "episodes |", PAIRS, "pairs")
