@@ -5,14 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks</title>
 <meta name="description" content="DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks. 30 tasks, 10 arms, 12 end-effectors, 16 benchmark task-embodiment pairs, 4,700 episodes.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dexsuiteorg.github.io/">
 <meta property="og:title" content="DexSuite">
-<meta property="og:description" content="An all-in-one simulation framework for dexterous manipulation.">
+<meta property="og:description" content="An all-in-one simulation framework for dexterous manipulation. 30 tasks, 10 arms, 12 end-effectors, 4,700 episodes.">
 <meta property="og:image" content="https://dexsuiteorg.github.io/v2/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DexSuite: a Sharpa hand spray-paints a stencil">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DexSuite">
+<meta name="twitter:description" content="An all-in-one simulation framework for dexterous manipulation.">
+<meta name="twitter:image" content="https://dexsuiteorg.github.io/v2/assets/og.jpg">
 <link rel="icon" href="static/images/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="v2/assets/hero/scene/f0000.webp" fetchpriority="high">
 <link rel="stylesheet" href="v2/site.css">
-<script>window.V2 = {"hero": {"n": 239, "dir": "v2/assets/hero/scene"}, "phases": {"own": ["Robots", "Every arm.", "Robots that come with their own gripper run every task as they are."], "arm": ["Modular arms", "Every arm.", "Modular arms take any end-effector. Here, each one carries the same Robotiq 2F-85."], "hand": ["End-effectors", "Every hand.", "And every end-effector mounts on the same arm, from parallel-jaw grippers to a 22-joint hand."]}, "zoom": {"n": 40, "dir": "v2/assets/robots/zoom"}};</script>
+<script>document.documentElement.classList.add('js'); window.V2 = {"hero": {"n": 239, "dir": "v2/assets/hero/scene"}, "phases": {"own": ["Robots", "Every arm.", "Robots that come with their own gripper run every task as they are."], "arm": ["Modular arms", "Every arm.", "Modular arms take any end-effector. Here, each one carries the same Robotiq 2F-85."], "hand": ["End-effectors", "Every hand.", "And every end-effector mounts on the same arm, from parallel-jaw grippers to a 22-joint hand."]}, "zoom": {"n": 40, "dir": "v2/assets/robots/zoom"}};</script>
 <script defer src="v2/site.js"></script>
 </head>
 <body>
@@ -57,25 +67,25 @@
 <ul class="hand-list" data-phase="hand" hidden><li data-i="9">Robotiq 2F-85</li><li data-i="10">UMI gripper</li><li data-i="11">BarrettHand</li><li data-i="12">D&#x27;Claw</li><li data-i="13">Inspire Hand</li><li data-i="14">Ability Hand</li><li data-i="15">Schunk SVH</li><li data-i="16">Allegro Hand</li><li data-i="17">LEAP Hand</li><li data-i="18">Sharpa Hand</li></ul>
       <div class="counter">01 / 19</div>
     </div>
-    <div class="stage"><img src="v2/assets/robots/ib_so_100.webp" data-name="SO-100" data-kind="Built-in gripper" data-phase="own" alt="SO-100" style=opacity:1>
-<img src="v2/assets/robots/ib_aloha_tactile.webp" data-name="ALOHA" data-kind="Built-in gripper with tactile pads" data-phase="own" alt="ALOHA">
-<img src="v2/assets/robots/ib_gen3_lite.webp" data-name="Kinova Gen3 Lite" data-kind="Built-in gripper" data-phase="own" alt="Kinova Gen3 Lite">
-<img src="v2/assets/robots/ib_trossen_vx300s.webp" data-name="Trossen ViperX 300 S" data-kind="Built-in gripper" data-phase="own" alt="Trossen ViperX 300 S">
-<img src="v2/assets/robots/ib_trossen_wx250s.webp" data-name="Trossen WidowX 250 S" data-kind="Built-in gripper" data-phase="own" alt="Trossen WidowX 250 S">
-<img src="v2/assets/robots/rb_ur5.webp" data-name="UR5e" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="UR5e">
-<img src="v2/assets/robots/rb_ur10.webp" data-name="UR10e" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="UR10e">
-<img src="v2/assets/robots/rb_gen3.webp" data-name="Kinova Gen3" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="Kinova Gen3">
-<img src="v2/assets/robots/rb_franka.webp" data-name="Franka Panda" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="Franka Panda" data-zoom=1>
-<img src="v2/assets/robots/ee_robotiq.webp" data-name="Robotiq 2F-85" data-kind="Parallel-jaw gripper" data-phase="hand" alt="Robotiq 2F-85">
-<img src="v2/assets/robots/ee_franka_umi_tacticle.webp" data-name="UMI gripper" data-kind="Parallel-jaw gripper with FlexiTac pads" data-phase="hand" alt="UMI gripper">
-<img src="v2/assets/robots/ee_barrett.webp" data-name="BarrettHand" data-kind="3 fingers, 8 DoF" data-phase="hand" alt="BarrettHand">
-<img src="v2/assets/robots/ee_dclaw.webp" data-name="D&#x27;Claw" data-kind="3 fingers, 9 DoF" data-phase="hand" alt="D&#x27;Claw">
-<img src="v2/assets/robots/ee_inspire.webp" data-name="Inspire Hand" data-kind="5 fingers, 6 DoF" data-phase="hand" alt="Inspire Hand">
-<img src="v2/assets/robots/ee_ability.webp" data-name="Ability Hand" data-kind="5 fingers, 6 DoF" data-phase="hand" alt="Ability Hand">
-<img src="v2/assets/robots/ee_schunk.webp" data-name="Schunk SVH" data-kind="5 fingers, 9 DoF" data-phase="hand" alt="Schunk SVH">
-<img src="v2/assets/robots/ee_allegro.webp" data-name="Allegro Hand" data-kind="4 fingers, 16 DoF" data-phase="hand" alt="Allegro Hand">
-<img src="v2/assets/robots/ee_leap.webp" data-name="LEAP Hand" data-kind="4 fingers, 16 DoF" data-phase="hand" alt="LEAP Hand">
-<img src="v2/assets/robots/ee_sharpa.webp" data-name="Sharpa Hand" data-kind="5 fingers, 22 DoF" data-phase="hand" alt="Sharpa Hand"><canvas aria-hidden="true"></canvas><div class="tag"><b>SO-100</b><span>Built-in gripper</span></div></div>
+    <div class="stage"><img src="v2/assets/robots/ib_so_100.webp" data-name="SO-100" data-kind="Built-in gripper" data-phase="own" alt="SO-100" loading="lazy" decoding="async" style=opacity:1>
+<img src="v2/assets/robots/ib_aloha_tactile.webp" data-name="ALOHA" data-kind="Built-in gripper with tactile pads" data-phase="own" alt="ALOHA" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ib_gen3_lite.webp" data-name="Kinova Gen3 Lite" data-kind="Built-in gripper" data-phase="own" alt="Kinova Gen3 Lite" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ib_trossen_vx300s.webp" data-name="Trossen ViperX 300 S" data-kind="Built-in gripper" data-phase="own" alt="Trossen ViperX 300 S" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ib_trossen_wx250s.webp" data-name="Trossen WidowX 250 S" data-kind="Built-in gripper" data-phase="own" alt="Trossen WidowX 250 S" loading="lazy" decoding="async">
+<img src="v2/assets/robots/rb_ur5.webp" data-name="UR5e" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="UR5e" loading="lazy" decoding="async">
+<img src="v2/assets/robots/rb_ur10.webp" data-name="UR10e" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="UR10e" loading="lazy" decoding="async">
+<img src="v2/assets/robots/rb_gen3.webp" data-name="Kinova Gen3" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="Kinova Gen3" loading="lazy" decoding="async">
+<img src="v2/assets/robots/rb_franka.webp" data-name="Franka Panda" data-kind="With a Robotiq 2F-85" data-phase="arm" alt="Franka Panda" loading="lazy" decoding="async" data-zoom=1>
+<img src="v2/assets/robots/ee_robotiq.webp" data-name="Robotiq 2F-85" data-kind="Parallel-jaw gripper" data-phase="hand" alt="Robotiq 2F-85" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ee_franka_umi_tacticle.webp" data-name="UMI gripper" data-kind="Parallel-jaw gripper with FlexiTac pads" data-phase="hand" alt="UMI gripper" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ee_barrett.webp" data-name="BarrettHand" data-kind="3 fingers, 8 DoF" data-phase="hand" alt="BarrettHand" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ee_dclaw.webp" data-name="D&#x27;Claw" data-kind="3 fingers, 9 DoF" data-phase="hand" alt="D&#x27;Claw" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ee_inspire.webp" data-name="Inspire Hand" data-kind="5 fingers, 6 DoF" data-phase="hand" alt="Inspire Hand" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ee_ability.webp" data-name="Ability Hand" data-kind="5 fingers, 6 DoF" data-phase="hand" alt="Ability Hand" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ee_schunk.webp" data-name="Schunk SVH" data-kind="5 fingers, 9 DoF" data-phase="hand" alt="Schunk SVH" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ee_allegro.webp" data-name="Allegro Hand" data-kind="4 fingers, 16 DoF" data-phase="hand" alt="Allegro Hand" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ee_leap.webp" data-name="LEAP Hand" data-kind="4 fingers, 16 DoF" data-phase="hand" alt="LEAP Hand" loading="lazy" decoding="async">
+<img src="v2/assets/robots/ee_sharpa.webp" data-name="Sharpa Hand" data-kind="5 fingers, 22 DoF" data-phase="hand" alt="Sharpa Hand" loading="lazy" decoding="async"><canvas aria-hidden="true"></canvas><div class="tag"><b>SO-100</b><span>Built-in gripper</span></div></div>
   </div>
 </section>
 
@@ -179,7 +189,7 @@
 <footer><div class="wrap center">
   <h2 class="headline md">DexSuite</h2>
   <div class="ctas" style="justify-content:center"><span class="pill big disabled">Paper, coming soon</span><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="https://huggingface.co/dexsuite" target="_blank" rel="noopener">Data</a></div>
-  <div class="logos"><img src="static/images/partners_logo/mcgill.png" alt="McGill University"><img src="static/images/partners_logo/mila.png" alt="Mila"><img src="static/images/partners_logo/hf.png" alt="Hugging Face"><img class="sm" src="static/images/partners_logo/kinova.png" alt="Kinova"><img class="sm" src="static/images/partners_logo/manus.webp" alt="Manus"></div>
+  <div class="logos"><img loading="lazy" src="static/images/partners_logo/mcgill.png" alt="McGill University"><img loading="lazy" src="static/images/partners_logo/mila.png" alt="Mila"><img loading="lazy" src="static/images/partners_logo/hf.png" alt="Hugging Face"><img class="sm" src="static/images/partners_logo/kinova.png" alt="Kinova"><img class="sm" src="static/images/partners_logo/manus.webp" alt="Manus"></div>
   <pre class="bib">@article{dexsuite2026,
   author  = {Anonymous},
   title   = {DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks},

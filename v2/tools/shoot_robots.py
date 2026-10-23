@@ -23,7 +23,7 @@ with sync_playwright() as pw:
     pg = b.new_page(viewport={"width": W, "height": H})
     logs = []
     pg.on("pageerror", lambda e: logs.append(f"pageerror: {e}"))
-    pg.goto("http://localhost:8770/v2/", wait_until="networkidle")
+    pg.goto("http://localhost:8770/", wait_until="networkidle")
     pg.wait_for_timeout(1500)
     top, span = pg.evaluate("(() => { const s = document.querySelector('#robots'); return [s.offsetTop, s.offsetHeight - innerHeight]; })()")
     for k in range(N):

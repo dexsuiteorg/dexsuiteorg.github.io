@@ -20,17 +20,38 @@
   // ------------------------------------------------------------------ hero: one fixed camera on hand, can and paper, scrubbed by scroll
   var hero = $('#hero'), canvas = $('#hero canvas'), ctx = canvas && canvas.getContext('2d');
   var frames = { im: [], ok: [] }, lastDrawn = -1, heroWant = 0;
+  // coarse to fine (every 16th frame first), a few requests at a time so the first frames are not queued behind the rest
   function loadFrames() {
-    var order = [];
+    var order = [], next = 0, busy = 0;
     for (var s2 = 16; s2 >= 1; s2 = Math.floor(s2 / 2)) for (var i = 0; i < V2.hero.n; i += s2) if (order.indexOf(i) < 0) order.push(i);
-    order.forEach(function (i) {
+    function pump() {
+      while (busy < 6 && next < order.length) start(order[next++]);
+    }
+    function start(i) {
       var im = new Image();
+      busy++;
       im.decoding = 'async';
-      im.onload = function () { frames.ok[i] = true; if (lastDrawn < 0 || i === heroWant) draw(true); };
+      im.onload = function () {
+        busy--;
+        frames.ok[i] = true;
+        if (i === 0) firstFrame();
+        if (lastDrawn < 0 || i === heroWant) draw(true);
+        pump();
+      };
+      im.onerror = function () { busy--; pump(); };
       im.src = V2.hero.dir + '/f' + String(i).padStart(4, '0') + '.webp';
       frames.im[i] = im;
-    });
+    }
+    pump();
   }
+  // the intro plays once the first frame is decoded and Inter is in (or after 1.8 s, whatever comes first)
+  var gotFrame = false, gotFont = false;
+  function firstFrame() { gotFrame = true; intro(); }
+  function intro(force) {
+    if (force || (gotFrame && gotFont)) requestAnimationFrame(function () { document.documentElement.classList.add('ready'); });
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { gotFont = true; intro(); }); else gotFont = true;
+  setTimeout(function () { intro(true); }, 1800);
   function sizeCanvas() {
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(canvas.clientWidth * dpr);
@@ -68,7 +89,7 @@
     var bar = $('.progress i');
     if (bar) bar.style.width = (p * 100).toFixed(1) + '%';
     var hint = $('.scroll-hint');
-    if (hint) { hint.style.opacity = p > 0.03 ? 0 : 1; hint.style.pointerEvents = p > 0.03 ? 'none' : ''; }
+    if (hint) { hint.style.opacity = p > 0.03 ? 0 : ''; hint.style.pointerEvents = p > 0.03 ? 'none' : ''; }
   }
 
   // ------------------------------------------------------------------ statement: words light up as it scrolls by
@@ -92,12 +113,18 @@
     imgs.forEach(function (im, j) { if (im.dataset.zoom) zi = j; });
     for (var j = 0; j < n - 1; j++) { w.push(j === zi ? 2.4 : 1); tot += w[j]; }
     var cv = $('.stage canvas', sec), zf = [];
-    for (var k = 0; zi >= 0 && k < V2.zoom.n; k++) {
-      var im = new Image();
-      im.decoding = 'async';
-      im.src = V2.zoom.dir + '/z' + String(k).padStart(2, '0') + '.webp';
-      zf.push(im);
-    }
+    // the fly-in frames load once the section is within a screen and a half
+    var near = new IntersectionObserver(function (en) {
+      if (!en[0].isIntersecting) return;
+      near.disconnect();
+      for (var k = 0; zi >= 0 && k < V2.zoom.n; k++) {
+        var im = new Image();
+        im.decoding = 'async';
+        im.src = V2.zoom.dir + '/z' + String(k).padStart(2, '0') + '.webp';
+        zf.push(im);
+      }
+    }, { rootMargin: '150% 0px' });
+    near.observe(sec);
     R = { sec: sec, imgs: imgs, n: n, zi: zi, w: w, tot: tot + 0.6, cv: cv, cx: cv.getContext('2d'), zf: zf,
           p: -1, raf: 0, last: 0, phase: 'own', label: 0, zk: -1 };
   }
@@ -137,7 +164,7 @@
     while (j < R.n - 2 && f > R.w[j]) { f -= R.w[j]; j++; }
     var t = clamp(f / R.w[j], 0, 1), fly = j === R.zi;
     var k = fly ? smooth(clamp((t - 0.15) / 0.85, 0, 1)) : smooth(clamp((t - 0.42) / 0.58, 0, 1));
-    fly = fly && zoomFrame(Math.round(k * (R.zf.length - 1)));
+    fly = fly && R.zf.length > 0 && zoomFrame(Math.round(k * (R.zf.length - 1)));
     R.cv.style.opacity = fly ? 1 : 0;
     // hands share the camera and the arm: a pure (additive) dissolve keeps the arm still; other robots drift sideways
     var same = R.imgs[j].dataset.phase === 'hand' && R.imgs[j + 1].dataset.phase === 'hand';

@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 
 CHROME = "/efs/projects/fudi/.pw-browsers/chromium-1243/chrome-linux64/chrome"
 args = sys.argv[1:]
-url = args[0] if args and not args[0].startswith("--") else "http://localhost:8770/v2/"
+url = args[0] if args and not args[0].startswith("--") else "http://localhost:8770/"
 W = int(args[args.index("--w") + 1]) if "--w" in args else 1440
 H = int(args[args.index("--h") + 1]) if "--h" in args else 900
 out = Path(args[args.index("--out") + 1]) if "--out" in args else Path("/efs/projects/fudi/runs/website_update_20261023/shots/v2scroll")

@@ -112,6 +112,38 @@ def hero_scene(size=1200):
     print(f"hero scene: {k} new, {len(list(out.glob('*.webp')))}/{n_frames('hero_scene')}")
 
 
+FONTS = Path("/efs/projects/fudi/scripts/analysis/hoir_pipeline_figure/fonts")
+
+
+def og_card(frame=200):
+    """1200x630 link preview: the wordmark in DexSuite blue, one line, the Sharpa hand mid-spray."""
+    from PIL import ImageDraw, ImageFont
+    S = 2                                             # draw at 2x, downsample
+    W, H = 1200 * S, 630 * S
+    card = Image.new("RGBA", (W, H), (255, 255, 255, 255))
+    im = Image.open(FR / "hero_scene" / f"f{frame:04d}.png").convert("RGBA")
+    im = im.crop(im.getchannel("A").point(lambda a: 255 if a > 8 else 0).getbbox())
+    k = min(540 * S / im.height, 470 * S / im.width)   # right of the text block, never under it
+    im = im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
+    card.alpha_composite(im, (W - im.width - 44 * S, (H - im.height) // 2))
+    big = ImageFont.truetype(str(FONTS / "Inter-Bold.ttf"), 132 * S)
+    mask = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(mask).text((72 * S, 196 * S), "DexSuite", font=big, fill=255)
+    grad = np.zeros((H, W, 3), np.float32)
+    t = np.clip((np.arange(W) - 72 * S) / (560 * S), 0, 1)[None, :, None]
+    c0, c1 = np.array([0x14, 0x68, 0xb8], np.float32), np.array([0x45, 0xb2, 0xee], np.float32)
+    grad[:] = c0 + (c1 - c0) * t
+    card.paste(Image.fromarray(grad.astype(np.uint8)), (0, 0), mask)
+    d = ImageDraw.Draw(card)
+    med = ImageFont.truetype(str(FONTS / "Inter-Medium.ttf"), 34 * S)
+    d.text((76 * S, 372 * S), "An all-in-one framework", font=med, fill=(29, 29, 31))
+    d.text((76 * S, 416 * S), "for dexterous manipulation", font=med, fill=(29, 29, 31))
+    sm = ImageFont.truetype(str(FONTS / "Inter-Medium.ttf"), 22 * S)
+    d.text((76 * S, 490 * S), "30 tasks   10 arms   12 end-effectors   4,700 episodes", font=sm, fill=(110, 110, 115))
+    card.convert("RGB").resize((1200, 630), Image.LANCZOS).save(AS / "og.jpg", quality=90)
+    print("og card written")
+
+
 def hero_layers():
     """The hand and the paper as separate transparent sequences, composited by the page."""
     for layer, size in (("hand", (1400, 1050)), ("paper", (1280, 880))):
@@ -203,6 +235,7 @@ def thumbs():
 
 if __name__ == "__main__":
     hero_scene()
+    og_card()
     robots()
     zoom()
     thumbs()

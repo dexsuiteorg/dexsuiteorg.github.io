@@ -99,7 +99,7 @@ PHASES = {"own": ("Robots", "Every arm.", "Robots that come with their own gripp
           "arm": ("Modular arms", "Every arm.", "Modular arms take any end-effector. Here, each one carries the same Robotiq 2F-85."),
           "hand": ("End-effectors", "Every hand.", "And every end-effector mounts on the same arm, from parallel-jaw grippers to a 22-joint hand.")}
 robot_imgs = "\n".join(
-    f'<img src="assets/robots/{a}.webp" data-name="{esc(n)}" data-kind="{esc(k)}" data-phase="{ph}" alt="{esc(n)}"'
+    f'<img src="assets/robots/{a}.webp" data-name="{esc(n)}" data-kind="{esc(k)}" data-phase="{ph}" alt="{esc(n)}" loading="lazy" decoding="async"'
     f'{" data-zoom=1" if a == "rb_franka" else ""}{" style=opacity:1" if i == 0 else ""}>'
     for i, (a, n, k, ph) in enumerate(ROBOTS))
 robot_lists = "\n".join(
@@ -135,14 +135,24 @@ page = f"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(TITLE)}</title>
 <meta name="description" content="{esc(TITLE)}. {N_TASKS} tasks, {ARMS} arms, {EFFECTORS} end-effectors, {PAIRS} benchmark task-embodiment pairs, {EPISODES} episodes.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dexsuiteorg.github.io/">
 <meta property="og:title" content="DexSuite">
-<meta property="og:description" content="An all-in-one simulation framework for dexterous manipulation.">
+<meta property="og:description" content="An all-in-one simulation framework for dexterous manipulation. {N_TASKS} tasks, {ARMS} arms, {EFFECTORS} end-effectors, {EPISODES} episodes.">
 <meta property="og:image" content="https://dexsuiteorg.github.io/v2/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DexSuite: a Sharpa hand spray-paints a stencil">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DexSuite">
+<meta name="twitter:description" content="An all-in-one simulation framework for dexterous manipulation.">
+<meta name="twitter:image" content="https://dexsuiteorg.github.io/v2/assets/og.jpg">
 <link rel="icon" href="../static/images/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/hero/scene/f0000.webp" fetchpriority="high">
 <link rel="stylesheet" href="site.css">
-<script>window.V2 = {json.dumps({"hero": {"n": hero_n, "dir": "assets/hero/scene"}, "phases": {k: list(v) for k, v in PHASES.items()}, "zoom": {"n": 40, "dir": "assets/robots/zoom"}})};</script>
+<script>document.documentElement.classList.add('js'); window.V2 = {json.dumps({"hero": {"n": hero_n, "dir": "assets/hero/scene"}, "phases": {k: list(v) for k, v in PHASES.items()}, "zoom": {"n": 40, "dir": "assets/robots/zoom"}})};</script>
 <script defer src="site.js"></script>
 </head>
 <body>
@@ -261,7 +271,7 @@ page = f"""<!DOCTYPE html>
 <footer><div class="wrap center">
   <h2 class="headline md">DexSuite</h2>
   <div class="ctas" style="justify-content:center"><span class="pill big disabled">Paper, coming soon</span><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
-  <div class="logos"><img src="../static/images/partners_logo/mcgill.png" alt="McGill University"><img src="../static/images/partners_logo/mila.png" alt="Mila"><img src="../static/images/partners_logo/hf.png" alt="Hugging Face"><img class="sm" src="../static/images/partners_logo/kinova.png" alt="Kinova"><img class="sm" src="../static/images/partners_logo/manus.webp" alt="Manus"></div>
+  <div class="logos"><img loading="lazy" src="../static/images/partners_logo/mcgill.png" alt="McGill University"><img loading="lazy" src="../static/images/partners_logo/mila.png" alt="Mila"><img loading="lazy" src="../static/images/partners_logo/hf.png" alt="Hugging Face"><img class="sm" src="../static/images/partners_logo/kinova.png" alt="Kinova"><img class="sm" src="../static/images/partners_logo/manus.webp" alt="Manus"></div>
   <pre class="bib">{esc(bib)}</pre>
   <p class="fine">Every robot and object on this page is a Blender Cycles render of a recorded DexSuite episode, replayed open-loop from the dataset.</p>
 </div></footer>
@@ -273,7 +283,7 @@ page = f"""<!DOCTYPE html>
 def at_root(page):
     """The page is written with v2/-relative paths; the site root serves it, so point them into v2/ and static/."""
     for a, c in (('src="assets/', 'src="v2/assets/'), ('poster="assets/', 'poster="v2/assets/'), ('"dir": "assets/', '"dir": "v2/assets/'),
-                 ('href="site.css"', 'href="v2/site.css"'), ('src="site.js"', 'src="v2/site.js"'), ('href="data.html"', 'href="v2/data.html"'),
+                 ('href="assets/', 'href="v2/assets/'), ('href="site.css"', 'href="v2/site.css"'), ('src="site.js"', 'src="v2/site.js"'), ('href="data.html"', 'href="v2/data.html"'),
                  ('"../static/', '"static/')):
         page = page.replace(a, c)
     assert "../" not in page and '"assets/' not in page, "a v2-relative path is left in the root page"

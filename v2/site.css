@@ -215,3 +215,19 @@ pre.bib { background: #fff; border-radius: 16px; padding: 22px; font-size: 13px;
 .pill.disabled-ghost { color: var(--ink-3) !important; border-color: var(--mute); cursor: default; }
 .hand-list[hidden] { display: none; }
 #hero canvas { background: #fff; }
+
+/* load-in: nothing pops; the wordmark, lines and buttons rise in once the first hero frame and the font are ready */
+.js .hero-copy h1, .js .hero-lines, .js .hero-ctas, .js .scroll-hint, .js .nav {
+  opacity: 0; transition: opacity 1.1s cubic-bezier(.2, .7, .2, 1), transform 1.1s cubic-bezier(.2, .7, .2, 1); }
+.js .hero-copy h1, .js .hero-lines, .js .hero-ctas { transform: translateY(26px); }
+.js #hero canvas { opacity: 0; transform: scale(.975); transition: opacity 1.4s ease, transform 1.8s cubic-bezier(.2, .7, .2, 1); }
+.ready .hero-copy h1, .ready .hero-lines, .ready .hero-ctas, .ready .nav, .ready #hero canvas { opacity: 1; transform: none; }
+.ready .scroll-hint { opacity: 1; }
+.ready .hero-lines { transition-delay: .12s; }
+.ready .hero-ctas { transition-delay: .24s; }
+.ready #hero canvas { transition-delay: .1s; }
+.ready .scroll-hint { transition-delay: 1s; }
+.js .nav { transition-delay: .3s; }
+@media (prefers-reduced-motion: reduce) {
+  .js .hero-copy h1, .js .hero-lines, .js .hero-ctas, .js #hero canvas { transform: none; transition: opacity .4s; }
+}
