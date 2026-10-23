@@ -280,7 +280,47 @@
       } else { v.pause(); }
     });
   }, { threshold: 0.4 });
-  $$('video').forEach(function (v) { v.muted = true; vio.observe(v); });
+  $$('video').forEach(function (v) { v.muted = true; if (!v.closest('.duo.t1')) vio.observe(v); });
+
+  // ------------------------------------------------------------------ Track 1: one task at a time, gripper and hand in sync;
+  // the tabs advance by themselves after both clips have played, until someone picks one
+  function track1() {
+    var box = $('.duo.t1');
+    if (!box || !V2.t1) return;
+    var vids = { grip: $('video[data-k="grip"]', box), hand: $('video[data-k="hand"]', box) }, tabs = $$('.t1-tabs button');
+    var cur = 0, auto = true, done = 0, shown = false;
+    function src(k, e) { return V2.clips + '/t1_' + k + '_' + e; }
+    function set(i, user) {
+      if (user) auto = false;
+      cur = i;
+      var t = V2.t1[i];
+      tabs.forEach(function (b, j) { b.classList.toggle('on', j === i); b.setAttribute('aria-selected', j === i); });
+      $('[data-k="grip-name"]', box).textContent = t.grip;
+      $('[data-k="grip-score"]', box).textContent = 'Best policy ' + t.gs + '%' + (t.fast ? '   2\u00d7 speed' : '');
+      $('[data-k="hand-score"]', box).textContent = 'Best policy ' + t.hs + '%' + (t.fast ? '   2\u00d7 speed' : '');
+      box.classList.add('swap');
+      setTimeout(function () {
+        ['grip', 'hand'].forEach(function (e) { var v = vids[e]; v.poster = src(t.key, e) + '.jpg'; v.src = src(t.key, e) + '.mp4'; v.load(); });
+        done = 0;
+        if (shown) play();
+        box.classList.remove('swap');
+      }, 260);
+    }
+    function play() { ['grip', 'hand'].forEach(function (e) { var p = vids[e].play(); if (p && p.catch) p.catch(function () {}); }); }
+    ['grip', 'hand'].forEach(function (e) {
+      vids[e].addEventListener('ended', function () {
+        if (++done < 2) return;
+        if (auto) set((cur + 1) % V2.t1.length);
+        else { done = 0; ['grip', 'hand'].forEach(function (k) { vids[k].currentTime = 0; }); play(); }
+      });
+    });
+    tabs.forEach(function (b, j) { b.addEventListener('click', function () { set(j, true); }); });
+    new IntersectionObserver(function (en) {
+      shown = en[0].isIntersecting;
+      if (shown) play(); else { vids.grip.pause(); vids.hand.pause(); }
+    }, { threshold: 0.35 }).observe(box);
+    set(0);
+  }
 
   // ------------------------------------------------------------------ loop
   var ticking = false;
@@ -298,6 +338,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     if (canvas && V2.hero) { sizeCanvas(); loadFrames(); }
     robotsInit();
+    track1();
     var hint = $('.scroll-hint');
     if (hint) hint.addEventListener('click', function () { window.scrollBy({ top: window.innerHeight * 0.9, behavior: 'smooth' }); });
     frame();

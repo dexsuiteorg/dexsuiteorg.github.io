@@ -131,8 +131,8 @@ section { position: relative; }
 
 /* same task */
 .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 60px; }
-.duo figure { background: #fff; border-radius: 22px; overflow: hidden; }
-.duo video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.duo figure { background: none; }
+.duo video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 22px; background: #fff; }
 .duo figcaption { padding: 14px 4px 0; font-size: 15px; color: var(--ink-2); }
 .duo figcaption b { color: var(--ink); font-weight: 600; }
 
@@ -186,9 +186,8 @@ section { position: relative; }
 
 /* footer */
 footer { padding: 90px 0 60px; background: var(--bg-2); }
-.logos { display: flex; flex-wrap: wrap; gap: 34px; align-items: center; justify-content: center; margin: 46px 0 40px; opacity: 0.85; }
-.logos img { height: 34px; width: auto; filter: grayscale(100%); }
-.logos img.sm { height: 18px; }
+.logos { display: flex; flex-wrap: wrap; gap: 30px 40px; align-items: center; justify-content: center; margin: 46px 0 40px; }
+.logos img { width: auto; }
 pre.bib { background: #fff; border-radius: 16px; padding: 22px; font-size: 13px; line-height: 1.55; white-space: pre-wrap; overflow-x: auto; color: var(--ink-2); }
 .fine { font-size: 12px; color: var(--ink-3); margin-top: 26px; text-align: center; }
 
@@ -235,3 +234,34 @@ pre.bib { background: #fff; border-radius: 16px; padding: 22px; font-size: 13px;
 @media (prefers-reduced-motion: reduce) {
   .js .hero-copy h1, .js .hero-lines, .js .hero-ctas, .js #hero canvas { transform: none; transition: opacity .4s; }
 }
+
+/* Track 1 task tabs */
+.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 980px; background: var(--bg-2); margin-top: 40px; }
+.seg button { font: inherit; font-size: 15px; font-weight: 500; border: 0; background: none; color: var(--ink-2); padding: 8px 18px; border-radius: 980px; cursor: pointer; transition: background .25s, color .25s; }
+.seg button.on { background: #fff; color: var(--ink); box-shadow: 0 1px 4px rgba(0, 0, 0, .1); }
+.duo.t1 { margin-top: 22px; }
+.duo.t1 video { transition: opacity .35s ease; }
+.duo.t1.swap video { opacity: 0; }
+.duo.t1 figcaption { display: flex; justify-content: space-between; align-items: baseline; }
+.duo.t1 figcaption span { font-variant-numeric: tabular-nums; color: var(--ink-3); font-size: 14px; }
+@media (max-width: 900px) { .seg button { padding: 7px 12px; font-size: 14px; } }
+
+/* full benchmark table: a light single-hue shade per cell (success rate), the numbers stay in ink */
+.results { margin-top: 36px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.res { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 2px; font-variant-numeric: tabular-nums; }
+table.res th, table.res td { padding: 9px 10px; text-align: center; font-size: 15px; white-space: nowrap; }
+table.res thead th { font-size: 13px; font-weight: 600; color: var(--ink-2); padding-bottom: 6px; }
+table.res thead th.mod { font-size: 12px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); border-bottom: 1px solid var(--mute); }
+table.res th.task { text-align: left; font-weight: 500; color: var(--ink); position: sticky; left: 0; background: var(--bg-2); z-index: 1; }
+table.res td { background: rgba(42, 120, 214, calc(0.04 + var(--a) * 0.30)); border-radius: 6px; color: var(--ink); }
+table.res td b { font-weight: 700; }
+table.res td small { font-size: 11px; color: var(--ink-3); margin-left: 3px; }
+table.res tr.grp th { text-align: left; font-size: 13px; font-weight: 600; color: var(--ink); padding: 22px 10px 6px; position: sticky; left: 0; background: var(--bg-2); }
+table.res tr.grp th span { font-weight: 500; color: var(--ink-3); margin-left: 10px; }
+table.res tbody tr:not(.grp):hover td { box-shadow: inset 0 0 0 1.5px rgba(42, 120, 214, .55); }
+
+/* the clips are white renders with soft floor shadows: fade the frame edges so no shadow ends in a hard line */
+.duo video, .tile video { border-radius: 0; background: transparent;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%), linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%), linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+  mask-composite: intersect; }

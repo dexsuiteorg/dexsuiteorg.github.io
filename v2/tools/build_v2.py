@@ -40,6 +40,58 @@ def panels():
 
 
 (P1T, P1), (P2T, P2) = panels()
+
+
+def full_table():
+    """Table II cell by cell: per panel, (tasks, [(label, [(mean, std, bold)])])."""
+    out = []
+    for block in re.findall(r"\\begin\{tabular\*\}.*?\\end\{tabular\*\}", TABLE, re.S):
+        lines = [l.strip() for l in block.splitlines()]
+        head = next(l for l in lines if l.startswith("\\textbf{Model"))
+        tasks = [re.sub(r"\\textbf\{(.*?)\}", r"\1", t).replace("\\&", "&").strip() for t in re.split(r"(?<!\\)&", head.rstrip("\\"))[1:]]
+        rows = []
+        for l in lines:
+            m = re.match(r"((?:BC-G|BC-GMM|BC-T|Diffusion|ACT) \((?:state|image)\))", l)
+            if m:
+                cells = []
+                for c in l.rstrip("\\").split("&")[1:]:
+                    v = re.search(r"\$\s*(?:\\bm\{)?(\d+(?:\.\d+)?)", c).group(1)
+                    sd = re.search(r"\\pm\\,\s*(\d+(?:\.\d+)?)", c).group(1)
+                    cells.append((float(v), float(sd), "\\bm{" in c))
+                rows.append((m.group(1), cells))
+        out.append((tasks, rows))
+    return out
+
+
+(FT1, FR1), (FT2, FR2) = full_table()
+assert FT1[:5] == FT2[:5] and len(FR1) == len(FR2) == 6
+GROUPS = [("Track 1", "Parallel-jaw gripper", 0, range(0, 5)), ("Track 1", "Allegro hand", 1, range(0, 5)),
+          ("Track 2", "Allegro hand", 0, range(5, 8)), ("Track 2", "Allegro hand", 1, range(5, 6)), ("Track 2", "Sharpa hand", 1, range(6, 8))]
+
+
+def results_table():
+    labels = [r[0] for r in FR1]
+    fmt = lambda v: f"{v:g}"  # noqa: E731
+    head = ('<thead><tr><th></th><th colspan="4" class="mod">State input</th><th colspan="2" class="mod">Image input</th></tr>'
+            '<tr><th class="task">Task</th>' + "".join(f"<th>{esc(l.split(' (')[0])}</th>" for l in labels) + "</tr></thead>")
+    body, last = [], None
+    for track, emb, panel, cols in GROUPS:
+        tasks, rows = (FT1, FR1) if panel == 0 else (FT2, FR2)
+        if (track, emb) != last:
+            body.append(f'<tr class="grp"><th colspan="7">{track}<span>{emb}</span></th></tr>')
+            last = (track, emb)
+        for j in cols:
+            tds = []
+            for _, cells in rows:
+                v, sd, bold = cells[j]
+                num = f"<b>{fmt(v)}</b>" if bold else fmt(v)
+                tds.append(f'<td style="--a:{v / 100:.2f}">{num}<small>&plusmn;{fmt(sd)}</small></td>')
+            body.append(f'<tr><th class="task">{esc(tasks[j])}</th>{"".join(tds)}</tr>')
+    return f'<table class="res">{head}<tbody>{"".join(body)}</tbody></table>'
+
+
+N_PAIRS_TABLE = sum(len(c) for _, _, _, c in GROUPS)
+assert str(N_PAIRS_TABLE) == PAIRS, (N_PAIRS_TABLE, PAIRS)
 best = lambda rows, j: max(r[j] for r in rows)  # noqa: E731
 TRACK1 = [(P1T[j], best(P1, j), best(P2, j)) for j in range(5)]          # (task, gripper best, Allegro best)
 HARD = [("Stack", max(best(P1, 4), best(P2, 4)), "best of any baseline, either embodiment"),
@@ -67,6 +119,10 @@ TILES = [  # clip, task, line, meta
 ]
 ABSTRACT = re.sub(r"\s+", " ", re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", TEX, re.S).group(1)).strip()
 ABSTRACT = ABSTRACT.replace("{,}", ",").replace("~", " ").replace("\\%", "%")
+T1 = [  # clip key, tab label, gripper used in the dataset; scores are Table II (best baseline per embodiment)
+    ("reach", "Reach", "Robotiq 2F-85"), ("lift", "Lift", "UMI gripper"), ("push", "Push", "UMI gripper"),
+    ("pickplace", "Pick & Place", "UMI gripper"), ("stack", "Stack", "UMI gripper"),
+]
 STATEMENT = ("DexSuite brings the robot, the tasks, teleoperation, tactile sensing, the data and the evaluation into "
              "one stack. Any of its tasks runs with any arm and any hand.")
 
@@ -111,6 +167,12 @@ ee_imgs = "\n".join(
 ee_list = "\n".join(f'<li{" class=on" if i == 0 else ""}>{esc(n)}</li>' for i, (k, n, kind) in enumerate(EES))
 arms = "\n".join(f'<figure class="reveal"><img src="assets/arms/{k}.webp" alt="{esc(n)} with an Allegro hand" loading="lazy"><figcaption>{esc(n)}</figcaption></figure>'
                  for k, n in ARM_NAMES if (V2 / f"assets/arms/{k}.webp").exists())
+T1_DATA = [{"key": k, "grip": g, "gs": TRACK1[j][1], "hs": TRACK1[j][2], "fast": k == "stack"} for j, (k, _, g) in enumerate(T1)]
+assert [t for t, _, _ in TRACK1] == [lab for _, lab, _ in T1], (TRACK1, T1)
+t1_tabs = "".join(f'<button type="button" role="tab" data-i="{j}"{" class=on" if j == 0 else ""}>{esc(lab)}</button>' for j, (_, lab, _) in enumerate(T1))
+LOGOS = [("mcgill", "McGill University", 40), ("mila", "Mila", 32), ("amazon", "Amazon", 30), ("hf", "Hugging Face", 30),
+         ("kinova", "Kinova", 17), ("manus", "Manus", 16)]
+logos = "".join(f'<img loading="lazy" src="assets/logos/{n}.png" alt="{esc(a)}" style="height:{h}px">' for n, a, h in LOGOS)
 tiles = "\n".join(f'''<article class="tile"><video muted loop playsinline preload="metadata" poster="assets/clips/{c}.jpg"><source src="assets/clips/{c}.mp4" type="video/mp4"></video>
 <h3>{esc(t)}</h3><p>{esc(line)}</p><div class="meta">{esc(meta)}</div></article>''' for c, t, line, meta in TILES)
 chart = "\n".join(f'''<div class="grp"><div class="name">{esc(t)}</div><div class="bars">
@@ -152,7 +214,7 @@ page = f"""<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/hero/scene/f0000.webp" fetchpriority="high">
 <link rel="stylesheet" href="site.css">
-<script>document.documentElement.classList.add('js'); window.V2 = {json.dumps({"hero": {"n": hero_n, "dir": "assets/hero/scene"}, "phases": {k: list(v) for k, v in PHASES.items()}, "zoom": {"n": 40, "dir": "assets/robots/zoom"}})};</script>
+<script>document.documentElement.classList.add('js'); window.V2 = {json.dumps({"hero": {"n": hero_n, "dir": "assets/hero/scene"}, "phases": {k: list(v) for k, v in PHASES.items()}, "zoom": {"n": 40, "dir": "assets/robots/zoom"}, "t1": T1_DATA, "clips": "assets/clips"})};</script>
 <script defer src="site.js"></script>
 </head>
 <body>
@@ -213,10 +275,11 @@ page = f"""<!DOCTYPE html>
 <section class="pad" id="same"><div class="wrap">
   <p class="eyebrow reveal">Track 1</p>
   <h2 class="headline md reveal">Same task.<br>Any embodiment.</h2>
-  <p class="lede reveal" style="margin-top:18px">Tasks are defined once, with the same reset, observations and success check for a gripper and a hand. Here, two recorded human demonstrations of Pick &amp; Place.</p>
-  <div class="duo reveal">
-    <figure><video muted loop playsinline preload="metadata" data-sync="pp" poster="assets/clips/pickplace_umi.jpg"><source src="assets/clips/pickplace_umi.mp4" type="video/mp4"></video><figcaption><b>UMI gripper.</b> Two fingers, one command.</figcaption></figure>
-    <figure><video muted loop playsinline preload="metadata" data-sync="pp" poster="assets/clips/pickplace_allegro.jpg"><source src="assets/clips/pickplace_allegro.mp4" type="video/mp4"></video><figcaption><b>Allegro hand.</b> Sixteen joints, the same task.</figcaption></figure>
+  <p class="lede reveal" style="margin-top:18px">Each task is defined once, with the same reset, observations and success check for a gripper and a hand. Every pair below is a recorded human demonstration.</p>
+  <div class="seg t1-tabs reveal" role="tablist">{t1_tabs}</div>
+  <div class="duo t1 reveal">
+    <figure><video muted playsinline preload="auto" data-k="grip" poster="assets/clips/t1_reach_grip.jpg"><source src="assets/clips/t1_reach_grip.mp4" type="video/mp4"></video><figcaption><b data-k="grip-name"></b><span data-k="grip-score"></span></figcaption></figure>
+    <figure><video muted playsinline preload="auto" data-k="hand" poster="assets/clips/t1_reach_hand.jpg"><source src="assets/clips/t1_reach_hand.mp4" type="video/mp4"></video><figcaption><b>Allegro hand</b><span data-k="hand-score"></span></figcaption></figure>
   </div>
 </div></section>
 
@@ -262,16 +325,19 @@ page = f"""<!DOCTYPE html>
   <div class="chart observe">
     <div class="legend"><span><i style="background:var(--grip)"></i>Parallel-jaw gripper</span><span><i style="background:var(--hand)"></i>Allegro hand</span></div>
     {chart}
-    <p class="chart-note">Best success rate (%) of five imitation learning baselines per task and embodiment, three seeds with 50 episodes each.</p>
+    <p class="chart-note">Best success rate (%) of the six baselines in the table below, per task and embodiment, three seeds with 50 episodes each.</p>
   </div>
   <h3 class="headline md reveal" style="margin-top:110px;font-size:clamp(30px,3.6vw,48px)">Still far from solved.</h3>
   <div class="hard observe">{hard}</div>
+  <h3 class="headline md reveal" style="margin-top:110px;font-size:clamp(30px,3.6vw,48px)">All {PAIRS} task-embodiment pairs.</h3>
+  <p class="lede reveal" style="margin-top:14px">Success rate (%) of every baseline, mean and standard deviation across three seeds with 50 episodes each. Bold is the best result within each input type.</p>
+  <div class="results reveal">{results_table()}</div>
 </div></section>
 
 <footer><div class="wrap center">
   <h2 class="headline md">DexSuite</h2>
   <div class="ctas" style="justify-content:center"><span class="pill big disabled">Paper, coming soon</span><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
-  <div class="logos"><img loading="lazy" src="../static/images/partners_logo/mcgill.png" alt="McGill University"><img loading="lazy" src="../static/images/partners_logo/mila.png" alt="Mila"><img loading="lazy" src="../static/images/partners_logo/hf.png" alt="Hugging Face"><img class="sm" src="../static/images/partners_logo/kinova.png" alt="Kinova"><img class="sm" src="../static/images/partners_logo/manus.webp" alt="Manus"></div>
+  <div class="logos">{logos}</div>
   <pre class="bib">{esc(bib)}</pre>
   <p class="fine">Every robot and object on this page is a Blender Cycles render of a recorded DexSuite episode, replayed open-loop from the dataset.</p>
 </div></footer>
@@ -285,7 +351,7 @@ def at_root(page):
     import hashlib
     ver = lambda f: hashlib.md5((V2 / f).read_bytes()).hexdigest()[:8]  # noqa: E731  new name per deploy, so no stale CSS/JS
     page = page.replace('href="site.css"', f'href="site.css?v={ver("site.css")}"').replace('src="site.js"', f'src="site.js?v={ver("site.js")}"')
-    for a, c in (('src="assets/', 'src="v2/assets/'), ('poster="assets/', 'poster="v2/assets/'), ('"dir": "assets/', '"dir": "v2/assets/'),
+    for a, c in (('src="assets/', 'src="v2/assets/'), ('poster="assets/', 'poster="v2/assets/'), ('"dir": "assets/', '"dir": "v2/assets/'), ('"clips": "assets/', '"clips": "v2/assets/'),
                  ('href="assets/', 'href="v2/assets/'), ('href="site.css', 'href="v2/site.css'), ('src="site.js', 'src="v2/site.js'), ('href="data.html"', 'href="v2/data.html"'),
                  ('"../static/', '"static/')):
         page = page.replace(a, c)

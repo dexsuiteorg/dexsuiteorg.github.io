@@ -15,6 +15,7 @@ from PIL import Image
 V2 = Path(__file__).resolve().parents[1]
 FR, AS = V2 / "work" / "frames", V2 / "assets"
 CLIPS = ["pickplace_umi", "pickplace_allegro", "pan_allegro", "mug_allegro", "drill_allegro", "fruit_allegro", "toast_sharpa"]
+CLIPS += [f"t1_{t}_{e}" for t in ("reach", "lift", "push", "pickplace", "stack") for e in ("grip", "hand")]   # Track 1 pairs
 
 
 def on_white(p, size=None):

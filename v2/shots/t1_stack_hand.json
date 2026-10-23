@@ -1,0 +1,39 @@
+{
+ "scene": "/efs/projects/fudi/dexsuite_website/v2/work/replays/stack_allegro/scene.json",
+ "out": "/efs/projects/fudi/dexsuite_website/v2/work/frames/t1_stack_hand",
+ "res": [
+  1280,
+  720
+ ],
+ "samples": 48,
+ "camera": {
+  "loc": [
+   1.4304,
+   -0.5821,
+   0.6536
+  ],
+  "target": [
+   0.5175,
+   0.0572,
+   0.11
+  ],
+  "lens": 45
+ },
+ "hide_roles": [
+  "floor",
+  "table"
+ ],
+ "floor_z": -0.01,
+ "floor_center": [
+  0.4,
+  0.0
+ ],
+ "overwrite": false,
+ "materials": {
+  "hand": {
+   "color": "#2b2d32",
+   "rough": 0.42,
+   "coat": 0.25
+  }
+ }
+}
