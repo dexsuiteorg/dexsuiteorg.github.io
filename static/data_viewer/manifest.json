@@ -1,0 +1,843 @@
+{
+ "tasks": [
+  {
+   "key": "reach",
+   "name": "Reach",
+   "track": 1
+  },
+  {
+   "key": "lift",
+   "name": "Lift",
+   "track": 1
+  },
+  {
+   "key": "push",
+   "name": "Push",
+   "track": 1
+  },
+  {
+   "key": "pick_place",
+   "name": "Pick & Place",
+   "track": 1
+  },
+  {
+   "key": "stack",
+   "name": "Stack",
+   "track": 1
+  },
+  {
+   "key": "pick_place_mug",
+   "name": "Rack Mug",
+   "track": 2
+  },
+  {
+   "key": "pick_place_pan",
+   "name": "Move Pan",
+   "track": 2
+  },
+  {
+   "key": "drill_to_point",
+   "name": "Drill to Point",
+   "track": 2
+  },
+  {
+   "key": "pick_place_fruit",
+   "name": "Place Fruits",
+   "track": 2
+  },
+  {
+   "key": "spray_graffiti",
+   "name": "Spray Graffiti",
+   "track": 2
+  },
+  {
+   "key": "put_bread_toaster",
+   "name": "Toast Bread",
+   "track": 2
+  }
+ ],
+ "sets": [
+  {
+   "task": "reach",
+   "embodiment": "Robotiq gripper",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/reach_franka_robotiq",
+   "clips": [
+    {
+     "id": "reach__robotiq__human__ep0",
+     "episode": 0,
+     "seconds": 1.95
+    },
+    {
+     "id": "reach__robotiq__human__ep1",
+     "episode": 1,
+     "seconds": 2.4
+    },
+    {
+     "id": "reach__robotiq__human__ep2",
+     "episode": 2,
+     "seconds": 4.3
+    }
+   ]
+  },
+  {
+   "task": "reach",
+   "embodiment": "Robotiq gripper",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/reach_franka_robotiq_mg",
+   "clips": [
+    {
+     "id": "reach__robotiq__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 2.4
+    },
+    {
+     "id": "reach__robotiq__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 2.25
+    },
+    {
+     "id": "reach__robotiq__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 2.4
+    }
+   ]
+  },
+  {
+   "task": "reach",
+   "embodiment": "Allegro hand",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/reach_franka_allegro",
+   "clips": [
+    {
+     "id": "reach__allegro__human__ep0",
+     "episode": 0,
+     "seconds": 2.9
+    },
+    {
+     "id": "reach__allegro__human__ep1",
+     "episode": 1,
+     "seconds": 2.95
+    },
+    {
+     "id": "reach__allegro__human__ep2",
+     "episode": 2,
+     "seconds": 1.55
+    }
+   ]
+  },
+  {
+   "task": "reach",
+   "embodiment": "Allegro hand",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/reach_franka_allegro_mg",
+   "clips": [
+    {
+     "id": "reach__allegro__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 1.3
+    },
+    {
+     "id": "reach__allegro__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 2.4
+    },
+    {
+     "id": "reach__allegro__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 1.15
+    }
+   ]
+  },
+  {
+   "task": "lift",
+   "embodiment": "UMI gripper",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/lift_franka_franka_umi_tacticle",
+   "clips": [
+    {
+     "id": "lift__umi__human__ep0",
+     "episode": 0,
+     "seconds": 4.2
+    },
+    {
+     "id": "lift__umi__human__ep1",
+     "episode": 1,
+     "seconds": 4.9
+    },
+    {
+     "id": "lift__umi__human__ep2",
+     "episode": 2,
+     "seconds": 3.65
+    }
+   ]
+  },
+  {
+   "task": "lift",
+   "embodiment": "UMI gripper",
+   "tier": "Scripted expert",
+   "hf": "dexsuite/lift_franka_franka_umi_tacticle_scripted",
+   "clips": [
+    {
+     "id": "lift__umi__scripted__ep0",
+     "episode": 0,
+     "seconds": 3.8
+    },
+    {
+     "id": "lift__umi__scripted__ep1",
+     "episode": 1,
+     "seconds": 4.15
+    },
+    {
+     "id": "lift__umi__scripted__ep2",
+     "episode": 2,
+     "seconds": 3.75
+    }
+   ]
+  },
+  {
+   "task": "lift",
+   "embodiment": "UMI gripper",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/lift_franka_franka_umi_tacticle_mg",
+   "clips": [
+    {
+     "id": "lift__umi__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 3.85
+    },
+    {
+     "id": "lift__umi__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 3.9
+    },
+    {
+     "id": "lift__umi__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 3.2
+    }
+   ]
+  },
+  {
+   "task": "lift",
+   "embodiment": "Allegro hand",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/lift_franka_allegro",
+   "clips": [
+    {
+     "id": "lift__allegro__human__ep0",
+     "episode": 0,
+     "seconds": 4.45
+    },
+    {
+     "id": "lift__allegro__human__ep1",
+     "episode": 1,
+     "seconds": 4.45
+    },
+    {
+     "id": "lift__allegro__human__ep2",
+     "episode": 2,
+     "seconds": 3.65
+    }
+   ]
+  },
+  {
+   "task": "lift",
+   "embodiment": "Allegro hand",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/lift_franka_allegro_mg",
+   "clips": [
+    {
+     "id": "lift__allegro__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 3.8
+    },
+    {
+     "id": "lift__allegro__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 4.65
+    },
+    {
+     "id": "lift__allegro__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 2.55
+    }
+   ]
+  },
+  {
+   "task": "push",
+   "embodiment": "UMI gripper",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/push_franka_franka_umi_tacticle",
+   "clips": [
+    {
+     "id": "push__umi__human__ep0",
+     "episode": 0,
+     "seconds": 8.5
+    },
+    {
+     "id": "push__umi__human__ep1",
+     "episode": 1,
+     "seconds": 5.1
+    },
+    {
+     "id": "push__umi__human__ep2",
+     "episode": 2,
+     "seconds": 6.25
+    }
+   ]
+  },
+  {
+   "task": "push",
+   "embodiment": "UMI gripper",
+   "tier": "Scripted expert",
+   "hf": "dexsuite/push_franka_franka_umi_tacticle_scripted",
+   "clips": [
+    {
+     "id": "push__umi__scripted__ep0",
+     "episode": 0,
+     "seconds": 5.45
+    },
+    {
+     "id": "push__umi__scripted__ep1",
+     "episode": 1,
+     "seconds": 4.9
+    },
+    {
+     "id": "push__umi__scripted__ep2",
+     "episode": 2,
+     "seconds": 4.7
+    }
+   ]
+  },
+  {
+   "task": "push",
+   "embodiment": "UMI gripper",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/push_franka_franka_umi_tacticle_mg",
+   "clips": [
+    {
+     "id": "push__umi__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 5.7
+    },
+    {
+     "id": "push__umi__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 4.15
+    },
+    {
+     "id": "push__umi__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 4.7
+    }
+   ]
+  },
+  {
+   "task": "push",
+   "embodiment": "Allegro hand",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/push_franka_allegro",
+   "clips": [
+    {
+     "id": "push__allegro__human__ep0",
+     "episode": 0,
+     "seconds": 2.9
+    },
+    {
+     "id": "push__allegro__human__ep1",
+     "episode": 1,
+     "seconds": 3.3
+    },
+    {
+     "id": "push__allegro__human__ep2",
+     "episode": 2,
+     "seconds": 3.45
+    }
+   ]
+  },
+  {
+   "task": "push",
+   "embodiment": "Allegro hand",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/push_franka_allegro_mg",
+   "clips": [
+    {
+     "id": "push__allegro__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 3.4
+    },
+    {
+     "id": "push__allegro__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 3.9
+    },
+    {
+     "id": "push__allegro__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 4.55
+    }
+   ]
+  },
+  {
+   "task": "pick_place",
+   "embodiment": "UMI gripper",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/pick_place_franka_franka_umi_tacticle",
+   "clips": [
+    {
+     "id": "pick_place__umi__human__ep0",
+     "episode": 0,
+     "seconds": 6.3
+    },
+    {
+     "id": "pick_place__umi__human__ep1",
+     "episode": 1,
+     "seconds": 8.55
+    },
+    {
+     "id": "pick_place__umi__human__ep2",
+     "episode": 2,
+     "seconds": 7.2
+    }
+   ]
+  },
+  {
+   "task": "pick_place",
+   "embodiment": "UMI gripper",
+   "tier": "Scripted expert",
+   "hf": "dexsuite/pick_place_franka_franka_umi_tacticle_scripted",
+   "clips": [
+    {
+     "id": "pick_place__umi__scripted__ep0",
+     "episode": 0,
+     "seconds": 4.75
+    },
+    {
+     "id": "pick_place__umi__scripted__ep1",
+     "episode": 1,
+     "seconds": 4.55
+    },
+    {
+     "id": "pick_place__umi__scripted__ep2",
+     "episode": 2,
+     "seconds": 4.85
+    }
+   ]
+  },
+  {
+   "task": "pick_place",
+   "embodiment": "UMI gripper",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/pick_place_franka_franka_umi_tacticle_mg",
+   "clips": [
+    {
+     "id": "pick_place__umi__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 6.45
+    },
+    {
+     "id": "pick_place__umi__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 7.8
+    },
+    {
+     "id": "pick_place__umi__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 6.6
+    }
+   ]
+  },
+  {
+   "task": "pick_place",
+   "embodiment": "Allegro hand",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/pick_place_franka_allegro",
+   "clips": [
+    {
+     "id": "pick_place__allegro__human__ep0",
+     "episode": 0,
+     "seconds": 4.35
+    },
+    {
+     "id": "pick_place__allegro__human__ep1",
+     "episode": 1,
+     "seconds": 4.0
+    },
+    {
+     "id": "pick_place__allegro__human__ep2",
+     "episode": 2,
+     "seconds": 4.65
+    }
+   ]
+  },
+  {
+   "task": "pick_place",
+   "embodiment": "Allegro hand",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/pick_place_franka_allegro_mg",
+   "clips": [
+    {
+     "id": "pick_place__allegro__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 3.45
+    },
+    {
+     "id": "pick_place__allegro__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 4.15
+    },
+    {
+     "id": "pick_place__allegro__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 3.0
+    }
+   ]
+  },
+  {
+   "task": "stack",
+   "embodiment": "UMI gripper",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/stack_franka_franka_umi_tacticle",
+   "clips": [
+    {
+     "id": "stack__umi__human__ep0",
+     "episode": 0,
+     "seconds": 10.8
+    },
+    {
+     "id": "stack__umi__human__ep1",
+     "episode": 1,
+     "seconds": 9.55
+    },
+    {
+     "id": "stack__umi__human__ep2",
+     "episode": 2,
+     "seconds": 8.6
+    }
+   ]
+  },
+  {
+   "task": "stack",
+   "embodiment": "UMI gripper",
+   "tier": "Scripted expert",
+   "hf": "dexsuite/stack_franka_franka_umi_tacticle_scripted",
+   "clips": [
+    {
+     "id": "stack__umi__scripted__ep0",
+     "episode": 0,
+     "seconds": 8.65
+    },
+    {
+     "id": "stack__umi__scripted__ep1",
+     "episode": 1,
+     "seconds": 8.1
+    },
+    {
+     "id": "stack__umi__scripted__ep2",
+     "episode": 2,
+     "seconds": 8.0
+    }
+   ]
+  },
+  {
+   "task": "stack",
+   "embodiment": "UMI gripper",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/stack_franka_franka_umi_tacticle_mg",
+   "clips": [
+    {
+     "id": "stack__umi__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 8.35
+    },
+    {
+     "id": "stack__umi__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 7.7
+    },
+    {
+     "id": "stack__umi__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 5.9
+    }
+   ]
+  },
+  {
+   "task": "stack",
+   "embodiment": "Allegro hand",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/stack_franka_allegro",
+   "clips": [
+    {
+     "id": "stack__allegro__human__ep0",
+     "episode": 0,
+     "seconds": 19.9
+    },
+    {
+     "id": "stack__allegro__human__ep1",
+     "episode": 1,
+     "seconds": 24.95
+    },
+    {
+     "id": "stack__allegro__human__ep2",
+     "episode": 2,
+     "seconds": 18.0
+    }
+   ]
+  },
+  {
+   "task": "stack",
+   "embodiment": "Allegro hand",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/stack_franka_allegro_mg",
+   "clips": [
+    {
+     "id": "stack__allegro__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 14.0
+    },
+    {
+     "id": "stack__allegro__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 12.7
+    },
+    {
+     "id": "stack__allegro__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 13.65
+    }
+   ]
+  },
+  {
+   "task": "pick_place_mug",
+   "embodiment": "Allegro hand",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/pick_place_mug_franka_allegro",
+   "clips": [
+    {
+     "id": "pick_place_mug__allegro__human__ep0",
+     "episode": 0,
+     "seconds": 7.15
+    },
+    {
+     "id": "pick_place_mug__allegro__human__ep1",
+     "episode": 1,
+     "seconds": 4.95
+    },
+    {
+     "id": "pick_place_mug__allegro__human__ep2",
+     "episode": 2,
+     "seconds": 4.25
+    }
+   ]
+  },
+  {
+   "task": "pick_place_mug",
+   "embodiment": "Allegro hand",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/pick_place_mug_franka_allegro_mg",
+   "clips": [
+    {
+     "id": "pick_place_mug__allegro__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 6.15
+    },
+    {
+     "id": "pick_place_mug__allegro__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 5.0
+    },
+    {
+     "id": "pick_place_mug__allegro__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 6.3
+    }
+   ]
+  },
+  {
+   "task": "pick_place_pan",
+   "embodiment": "Allegro hand",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/pick_place_pan_franka_allegro",
+   "clips": [
+    {
+     "id": "pick_place_pan__allegro__human__ep0",
+     "episode": 0,
+     "seconds": 6.75
+    },
+    {
+     "id": "pick_place_pan__allegro__human__ep1",
+     "episode": 1,
+     "seconds": 7.55
+    },
+    {
+     "id": "pick_place_pan__allegro__human__ep2",
+     "episode": 2,
+     "seconds": 7.7
+    }
+   ]
+  },
+  {
+   "task": "pick_place_pan",
+   "embodiment": "Allegro hand",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/pick_place_pan_franka_allegro_mg",
+   "clips": [
+    {
+     "id": "pick_place_pan__allegro__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 7.15
+    },
+    {
+     "id": "pick_place_pan__allegro__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 6.6
+    },
+    {
+     "id": "pick_place_pan__allegro__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 6.95
+    }
+   ]
+  },
+  {
+   "task": "drill_to_point",
+   "embodiment": "Allegro hand",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/drill_to_point_franka_allegro",
+   "clips": [
+    {
+     "id": "drill_to_point__allegro__human__ep0",
+     "episode": 0,
+     "seconds": 6.55
+    },
+    {
+     "id": "drill_to_point__allegro__human__ep1",
+     "episode": 1,
+     "seconds": 4.4
+    },
+    {
+     "id": "drill_to_point__allegro__human__ep2",
+     "episode": 2,
+     "seconds": 4.85
+    }
+   ]
+  },
+  {
+   "task": "drill_to_point",
+   "embodiment": "Allegro hand",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/drill_to_point_franka_allegro_mg",
+   "clips": [
+    {
+     "id": "drill_to_point__allegro__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 6.25
+    },
+    {
+     "id": "drill_to_point__allegro__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 6.35
+    },
+    {
+     "id": "drill_to_point__allegro__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 10.75
+    }
+   ]
+  },
+  {
+   "task": "pick_place_fruit",
+   "embodiment": "Allegro hand",
+   "tier": "Human teleoperation",
+   "hf": "dexsuite/pick_place_fruit_franka_allegro",
+   "clips": [
+    {
+     "id": "pick_place_fruit__allegro__human__ep0",
+     "episode": 0,
+     "seconds": 8.95
+    },
+    {
+     "id": "pick_place_fruit__allegro__human__ep1",
+     "episode": 1,
+     "seconds": 7.3
+    },
+    {
+     "id": "pick_place_fruit__allegro__human__ep2",
+     "episode": 2,
+     "seconds": 7.3
+    }
+   ]
+  },
+  {
+   "task": "pick_place_fruit",
+   "embodiment": "Allegro hand",
+   "tier": "Machine-generated",
+   "hf": "dexsuite/pick_place_fruit_franka_allegro_mg",
+   "clips": [
+    {
+     "id": "pick_place_fruit__allegro__machine-generated__ep0",
+     "episode": 0,
+     "seconds": 8.05
+    },
+    {
+     "id": "pick_place_fruit__allegro__machine-generated__ep1",
+     "episode": 1,
+     "seconds": 11.5
+    },
+    {
+     "id": "pick_place_fruit__allegro__machine-generated__ep2",
+     "episode": 2,
+     "seconds": 8.0
+    }
+   ]
+  },
+  {
+   "task": "spray_graffiti",
+   "embodiment": "Sharpa hand",
+   "tier": "Scripted expert",
+   "hf": null,
+   "clips": [
+    {
+     "id": "spray_graffiti__sharpa__scripted__ep0",
+     "episode": 0,
+     "seconds": 23.8
+    },
+    {
+     "id": "spray_graffiti__sharpa__scripted__ep1",
+     "episode": 1,
+     "seconds": 22.35
+    },
+    {
+     "id": "spray_graffiti__sharpa__scripted__ep2",
+     "episode": 2,
+     "seconds": 23.1
+    }
+   ]
+  },
+  {
+   "task": "put_bread_toaster",
+   "embodiment": "Sharpa hand",
+   "tier": "Scripted expert",
+   "hf": null,
+   "clips": [
+    {
+     "id": "put_bread_toaster__sharpa__scripted__ep0",
+     "episode": 0,
+     "seconds": 16.9
+    },
+    {
+     "id": "put_bread_toaster__sharpa__scripted__ep1",
+     "episode": 1,
+     "seconds": 16.1
+    },
+    {
+     "id": "put_bread_toaster__sharpa__scripted__ep2",
+     "episode": 2,
+     "seconds": 16.25
+    }
+   ]
+  }
+ ]
+}

@@ -1,1012 +1,279 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="A Unified Simulation Framework for Dexterous Manipulation.">
-    <meta name="keywords" content="content1, content2, content3">
+    <meta name="description" content="An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks. 30 tasks, 10 arms, 12 end-effectors, a benchmark of 16 task-embodiment pairs and 4,700 demonstration episodes.">
+    <meta name="keywords" content="DexSuite, dexterous manipulation, simulation, benchmark, dataset, Genesis, teleoperation, imitation learning">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dexsuite</title>
+    <meta property="og:title" content="DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks">
+    <meta property="og:description" content="An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks.">
+    <meta property="og:image" content="static/images/paper/benchmark.jpg">
+    <title>DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-H0BF1KZ38G"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-H0BF1KZ38G');
     </script>
     <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
     <link rel="stylesheet" href="./static/css/bulma.min.css">
     <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
     <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
     <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="stylesheet" href="./static/css/site.css">
     <link rel="icon" href="./static/images/favicon.svg">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="./static/js/fontawesome.all.min.js"></script>
     <script src="./static/js/bulma-carousel.min.js"></script>
-    <script src="./static/js/bulma-slider.min.js"></script>
-    <script src="./static/js/index.js"></script>
+    <script defer src="./static/js/site.js"></script>
+    <script defer src="./static/js/data_viewer.js"></script>
 </head>
 
 <body>
-    <div class="warning-tag">DO NOT SHARE - UNDER CONSTRUCTION</div>
     <section class="hero">
         <div class="hero-body">
             <div class="container is-max-desktop">
                 <div class="columns is-centered">
                     <div class="column has-text-centered">
-                        <h1 class="title is-1 publication-title has-text-centered mb-2">Dexsuite</h1>
-                        <h2 class="title is-3 publication-title has-text-centered mt-1">
-                            A Unified Simulation Framework for
-                            <br>
-                            Dexterous Manipulation.
-                        </h2>
+                        <h1 class="title is-1 publication-title has-text-centered mb-2">DexSuite</h1>
+                        <h2 class="title is-3 publication-title has-text-centered mt-1">An All-in-One Framework for Dexterous Manipulation<br>Across Arms, Hands, and Tasks</h2>
                         <div class="is-size-5 publication-authors">
-                            <span class="author-block">
-                                <a href="https://google.com">Anonymous</a>
-                                <sup>1</sup>
-                                ,
-                            </span>
-                            <span class="author-block"></span>
-                        </div>
-                        <div class="is-size-5 publication-authors">
-                            <span class="author-block">
-                                Anonymous
-                                <sup>1</sup>
-                                ,
-                            </span>
-                            <!-- <span class="author-block">Center for Intelligent Machines,<sup>2</sup></span>
-            <span class="author-block">Anas Al-Houssaini<sup>3</sup></span> -->
+                            <span class="author-block">Anonymous authors</span>
                         </div>
                         <div class="partner-logos mt-4">
                             <div class="logo-row research">
-                                <img class="logo-mcgill" src="static/images/partners_logo/mcgill.png"
-                                    alt="McGill University logo">
-                                <img class="logo-mila" src="static/images/partners_logo/mila.png" alt="Mila logo">
+                                <img class="logo-mcgill" src="static/images/partners_logo/mcgill.png" alt="McGill University">
+                                <img class="logo-mila" src="static/images/partners_logo/mila.png" alt="Mila">
                             </div>
                             <div class="logo-row industry mt-3">
-                                <img class="logo-hf" src="static/images/partners_logo/hf.png" alt="Hugging Face logo">
-                                <img class="logo-kinova" src="static/images/partners_logo/kinova.png" alt="Kinova logo">
-                                <img class="logo-manus" src="static/images/partners_logo/manus.webp" alt="Manus logo">
+                                <img class="logo-hf" src="static/images/partners_logo/hf.png" alt="Hugging Face">
+                                <img class="logo-kinova" src="static/images/partners_logo/kinova.png" alt="Kinova">
+                                <img class="logo-manus" src="static/images/partners_logo/manus.webp" alt="Manus">
                             </div>
                         </div>
-                        <div class="column has-text-centered">
-                            <div class="publication-links">
-                                <span class="link-block">
-                                    <a href="https://google.com"
-                                        class="external-link button is-normal is-rounded coming-soon"
-                                        aria-disabled="true">
-                                        <span class="icon">
-                                            <i class="fas fa-file-pdf"></i>
-                                        </span>
-                                        <span>Paper (Coming Soon)</span>
-                                    </a>
-                                </span>
-                                <span class="link-block">
-                                    <a href="https://google.com"
-                                        class="external-link button is-normal is-rounded coming-soon"
-                                        aria-disabled="true">
-                                        <span class="icon">
-                                            <i class="fab fa-github"></i>
-                                        </span>
-                                        <span>Code (Coming Soon)</span>
-                                    </a>
-                                </span>
-                                <!-- Dataset Link. -->
-                                <span class="link-block">
-                                    <a href="https://google.com"
-                                        class="external-link button is-normal is-rounded coming-soon"
-                                        aria-disabled="true">
-                                        <span class="icon">
-                                            <i class="far fa-images"></i>
-                                        </span>
-                                        <span>Data (Coming Soon)</span>
-                                    </a>
-                            </div>
+                        <div class="publication-links">
+                            <span class="link-block">
+                                <a class="external-link button is-normal is-rounded coming-soon" aria-disabled="true">
+                                    <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper (coming soon)</span>
+                                </a>
+                            </span>
+                            <span class="link-block">
+                                <a class="external-link button is-normal is-rounded coming-soon" aria-disabled="true">
+                                    <span class="icon"><i class="fab fa-github"></i></span><span>Code (coming soon)</span>
+                                </a>
+                            </span>
+                            <span class="link-block">
+                                <a href="https://huggingface.co/dexsuite" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon"><i class="fas fa-database"></i></span><span>Data</span>
+                                </a>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <section class="hero is-light is-small">
         <div class="hero-body">
             <div class="container">
                 <div id="results-carousel" class="carousel results-carousel">
-                    <div class="item item-steve">
-                        <video poster="" id="steve" autoplay muted loop playsinline height="100%">
-                            <source src="static/videos/mug_pick_place.mp4" type="video/mp4">
+                    <div class="item">
+                        <video poster="static/videos/tasks/pick_place_pan_franka_allegro.jpg" autoplay muted loop playsinline preload="auto">
+                            <source src="static/videos/tasks/pick_place_pan_franka_allegro.mp4" type="video/mp4">
                         </video>
+                        <span class="clip-label">Move Pan <span>Allegro hand</span></span>
                     </div>
-                    <div class="item item-fullbody">
-                        <video poster="" id="fullbody" autoplay muted loop playsinline height="100%">
-                            <source src="static/videos/pan_pick_place.mp4" type="video/mp4">
+                    <div class="item">
+                        <video poster="static/videos/tasks/spray_graffiti_sharpa.jpg" autoplay muted loop playsinline preload="auto">
+                            <source src="static/videos/tasks/spray_graffiti_sharpa.mp4" type="video/mp4">
                         </video>
+                        <span class="clip-label">Spray Graffiti <span>Sharpa hand</span></span>
                     </div>
-                    <div class="item item-shiba">
-                        <video poster="" id="shiba" autoplay muted loop playsinline height="100%">
-                            <source src="static/videos/MakeCoffeeURAllegro.mp4" type="video/mp4">
+                    <div class="item">
+                        <video poster="static/videos/tasks/pick_place_mug_franka_allegro.jpg" autoplay muted loop playsinline preload="auto">
+                            <source src="static/videos/tasks/pick_place_mug_franka_allegro.mp4" type="video/mp4">
                         </video>
+                        <span class="clip-label">Rack Mug <span>Allegro hand</span></span>
                     </div>
-                    <div class="item item-chair-tp">
-                        <video poster="" id="chair-tp" autoplay muted loop playsinline height="100%">
-                            <source src="static/videos/Drillvideo.mp4" type="video/mp4">
+                    <div class="item">
+                        <video poster="static/videos/tasks/put_bread_toaster_sharpa.jpg" autoplay muted loop playsinline preload="auto">
+                            <source src="static/videos/tasks/put_bread_toaster_sharpa.mp4" type="video/mp4">
                         </video>
+                        <span class="clip-label">Toast Bread <span>Sharpa hand</span></span>
+                    </div>
+                    <div class="item">
+                        <video poster="static/videos/tasks/drill_to_point_franka_allegro.jpg" autoplay muted loop playsinline preload="auto">
+                            <source src="static/videos/tasks/drill_to_point_franka_allegro.mp4" type="video/mp4">
+                        </video>
+                        <span class="clip-label">Drill to Point <span>Allegro hand</span></span>
+                    </div>
+                    <div class="item">
+                        <video poster="static/videos/tasks/pick_place_fruit_franka_allegro.jpg" autoplay muted loop playsinline preload="auto">
+                            <source src="static/videos/tasks/pick_place_fruit_franka_allegro.mp4" type="video/mp4">
+                        </video>
+                        <span class="clip-label">Place Fruits <span>Allegro hand</span></span>
+                    </div>
+                    <div class="item">
+                        <video poster="static/videos/tasks/pick_place_franka_franka_umi_tacticle.jpg" autoplay muted loop playsinline preload="auto">
+                            <source src="static/videos/tasks/pick_place_franka_franka_umi_tacticle.mp4" type="video/mp4">
+                        </video>
+                        <span class="clip-label">Pick &amp; Place <span>UMI gripper</span></span>
+                    </div>
+                    <div class="item">
+                        <video poster="static/videos/tasks/lift_franka_allegro.jpg" autoplay muted loop playsinline preload="auto">
+                            <source src="static/videos/tasks/lift_franka_allegro.mp4" type="video/mp4">
+                        </video>
+                        <span class="clip-label">Lift <span>Allegro hand</span></span>
+                    </div>
+                    <div class="item">
+                        <video poster="static/videos/tasks/push_franka_franka_umi_tacticle.jpg" autoplay muted loop playsinline preload="auto">
+                            <source src="static/videos/tasks/push_franka_franka_umi_tacticle.mp4" type="video/mp4">
+                        </video>
+                        <span class="clip-label">Push <span>UMI gripper</span></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section">
+    <section class="section facts-section">
+        <div class="container is-max-desktop">
+            <div class="facts"><div class="fact"><span class="fact-value">30</span><span class="fact-label">tasks</span></div><div class="fact"><span class="fact-value">10</span><span class="fact-label">arms</span></div><div class="fact"><span class="fact-value">12</span><span class="fact-label">end-effectors</span></div><div class="fact"><span class="fact-value">16</span><span class="fact-label">benchmark task-embodiment pairs</span></div><div class="fact"><span class="fact-value">4,700</span><span class="fact-label">episodes</span></div></div>
+        </div>
+    </section>
+
+    <section class="section" id="abstract">
         <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
                 <div class="column is-four-fifths">
                     <h2 class="title is-3">Abstract</h2>
-                    <div class="content has-text-justified">
-                        <p>
-                            Dexterous multi-fingered hands promise far richer manipulation skills than simple parallel
-                            grippers, yet most existing benchmarks and datasets still target low-DoF end-effectors. In
-                            an era where increasingly advanced physical hands are being developed at high speed, we lack
-                            a unified, low-cost simulation and benchmarking environment to study dexterous control. We
-                            introduce
-                            <strong>Dexsuite</strong>
-                            , a modular framework that standardizes observations, action spaces, and evaluation
-                            protocols for multi-fingered hands while remaining easily extensible to new robots,
-                            environments, and tasks. Alongside the framework, we release a curated dataset of over 150k
-                            frames of multi-modal hand interaction, collected with a Manus glove on a suite of
-                            manipulation tasks, providing high-fidelity supervision of finger motion and contact-rich
-                            interactions. DexSuite also offers benchmark tasks and baselines spanning imitation
-                            learning, reinforcement learning, and diffusion policies, enabling fair comparison across
-                            algorithm families and hand representations, and providing a common testbed for systematic
-                            study of robotic dexterity.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <br>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <h2 class="title is-3">DexSuite Framework</h2>
-                    <p>
-                        DexSuite is a unified simulation framework and benchmark for dexterous manipulation. It
-                        separates a Base Environment from modular Tasks and uses robot abstractions to pair any
-                        manipulator with any gripper or multi‑finger hand in single or bimanual settings across rigid,
-                        articulated, and deformable objects.
-                    </p>
-                    <div class="has-text-centered mb-5 mt-4">
-                        <figure class="image is-inline-block">
-                            <img src="/static/images/overview_2.png" alt="DexSuite overview">
-                        </figure>
-                    </div>
+                    <div class="content has-text-justified"><p>Human-level dexterity remains a central open problem in robotics, yet few simulation frameworks cover the full workflow of dexterous manipulation, from setting up a robot to collecting dexterous demonstrations and evaluating policies. We present DexSuite, an all-in-one simulation framework for dexterous manipulation built on the Genesis simulator. DexSuite provides 30 tasks that run with any of its 10 arms paired with any of its 12 end-effectors, from parallel-jaw grippers to dexterous hands, along with a standardized environment API, integrated teleoperation, and simulated tactile sensing. Moreover, we define a benchmark of 16 task-embodiment pairs spanning diverse contact complexities and horizons, and release a dataset of 4,700 successful episodes in simulation from human teleoperation, scripted experts, and learned policies. We release DexSuite as open source and hope others will build on it.</p></div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <h2 class="title is-3">Dataset</h2>
-                    <div class="content has-text-justified">
-                        <p>
-                            We provide a 150k frame dexterity dataset spanning 15 environments with four vision
-                            modalities: RGB, depth, segmentation, and surface normals. The dataset is stored in the
-                            <code>LeRobotDataset</code>
-                            format with episode trajectories, synchronized timestamps, and metadata for single and
-                            bimanual variants. Loaders are included to stream batches for imitation and offline RL. We
-                            also provide utilities to convert to
-                            <code>Robomimic</code>
-                            or
-                            <code>RLDS</code>
-                            dataset.
-                        </p>
-                    </div>
-                    <div class="image-container dataset-grid mt-4">
-                        <div class="dataset-block">
-                            <figure class="image is-inline-block">
-                                <img src="/static/images/teleoperation.png" alt="Operator cockpit view">
-                            </figure>
-                            <p class="dataset-note">We provide multiple teleoperation devices, ranging from simple
-                                keyboard to specialized hardware such as Manus Gloves for Hand data collection.</p>
-                        </div>
-                        <div class="dataset-block">
-                            <figure class="image is-inline-block retargeting-figure">
-                                <img src="/static/images/retargeting.png" alt="Signal routing diagram">
-                            </figure>
-                            <p class="dataset-note">We also provide native integration of retargeting tools both direct
-                                qpos to qpos and more advanced retargeting.</p>
-                        </div>
-                    </div>
-                    <div class="image-container image-stack mt-4">
-                        <div class="has-text-centered mb-2">
-                            <figure class="image is-inline-block vive-gif">
-                                <video class="vive-media" autoplay muted loop playsinline>
-                                    <source src="/static/videos/vivecontroller.mp4" type="video/mp4">
-                                </video>
-                            </figure>
-                        </div>
-                        <p class="dataset-note">Native Vive Tracker/Controller integration for Pose control.</p>
-                        <div class="has-text-centered mb-2">
-                            <figure class="image is-inline-block retarget-video">
-                                <video autoplay muted loop playsinline>
-                                    <source src="/static/videos/manusretarget.mp4" type="video/mp4">
-                                </video>
-                            </figure>
-                        </div>
-                        <p class="dataset-note">Manus glove path from real to simulator using Geometric retargeting,
-                            producing strong teleoperation dexterous hands.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <h2 class="title is-3">Robots</h2>
-                    <p class="content has-text-justified">
-                        DexSuite supports modular manipulators with swappable hands and integrated robots with native
-                        grippers. The catalog covers configurations from Panda with Allegro to dual‑arm presets in one
-                        place.
-                    </p>
-                    <div class="robot-viewer" tabindex="0" aria-label="Robot viewer">
-                        <div class="robot-viewer-stage">
-                            <button class="robot-nav robot-nav-prev" type="button" aria-label="Previous robot">
-                                <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                            </button>
-                            <div class="robot-viewer-track">
-                                <article class="robot-view-slide is-active" data-robot="franka" role="group"
-                                    aria-roledescription="slide" aria-label="Franka Panda">
-                                    <h3 class="robot-view-title title is-3">Franka Panda</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/franka.png" alt="Franka Panda">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="fr3" role="group"
-                                    aria-roledescription="slide" aria-label="Franka FR3">
-                                    <h3 class="robot-view-title title is-3">Franka FR3</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/franka_fr3.png" alt="Franka FR3">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="gen3" role="group"
-                                    aria-roledescription="slide" aria-label="Kinova Gen3">
-                                    <h3 class="robot-view-title title is-3">Kinova Gen3</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/gen3.png" alt="Kinova Gen3">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="inspire-manip" role="group"
-                                    aria-roledescription="slide" aria-label="Inspire Manipulator">
-                                    <h3 class="robot-view-title title is-3">Inspire Manipulator</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/inspire.png" alt="Inspire Manipulator">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="kuka" role="group"
-                                    aria-roledescription="slide" aria-label="KUKA LBR iiwa">
-                                    <h3 class="robot-view-title title is-3">KUKA LBR iiwa</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/kuka.png" alt="KUKA LBR iiwa">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="ur5" role="group"
-                                    aria-roledescription="slide" aria-label="UR5e">
-                                    <h3 class="robot-view-title title is-3">UR5e</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/ur5.png" alt="UR5e">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="ur10" role="group"
-                                    aria-roledescription="slide" aria-label="UR10">
-                                    <h3 class="robot-view-title title is-3">UR10</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/ur10.png" alt="UR10">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="so_100" role="group"
-                                    aria-roledescription="slide" aria-label="SO-100">
-                                    <h3 class="robot-view-title title is-3">SO‑100</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/so_100.png" alt="SO‑100">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="wx250s" role="group"
-                                    aria-roledescription="slide" aria-label="WX250s">
-                                    <h3 class="robot-view-title title is-3">WX250s</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/wx250s.png" alt="WX250s">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="link6" role="group"
-                                    aria-roledescription="slide" aria-label="Link 6">
-                                    <h3 class="robot-view-title title is-3">Link 6</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/link6.png" alt="Link 6">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="z1" role="group"
-                                    aria-roledescription="slide" aria-label="Z1">
-                                    <h3 class="robot-view-title title is-3">Z1</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/z1.png" alt="Z1">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="sawyer" role="group"
-                                    aria-roledescription="slide" aria-label="Sawyer">
-                                    <h3 class="robot-view-title title is-3">Sawyer</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/sawyer.png" alt="Sawyer">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="lite6" role="group"
-                                    aria-roledescription="slide" aria-label="Lite6">
-                                    <h3 class="robot-view-title title is-3">Lite6</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/manipulators/lite6.png" alt="Lite6">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="ability" role="group"
-                                    aria-roledescription="slide" aria-label="Ability">
-                                    <h3 class="robot-view-title title is-3">Ability Hand</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/grippers/ability.png" alt="Ability Hand">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="allegro" role="group"
-                                    aria-roledescription="slide" aria-label="Allegro">
-                                    <h3 class="robot-view-title title is-3">Allegro Hand</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/grippers/allegro.png" alt="Allegro Hand">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="barrett" role="group"
-                                    aria-roledescription="slide" aria-label="Barrett">
-                                    <h3 class="robot-view-title title is-3">Barrett Hand</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/grippers/barrett.png" alt="Barrett Hand">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="dclaw" role="group"
-                                    aria-roledescription="slide" aria-label="DClaw">
-                                    <h3 class="robot-view-title title is-3">DClaw</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/grippers/dclaw.png" alt="DClaw">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="inspire" role="group"
-                                    aria-roledescription="slide" aria-label="Inspire">
-                                    <h3 class="robot-view-title title is-3">Inspire Hand</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/grippers/inspire.png" alt="Inspire Hand">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="leap" role="group"
-                                    aria-roledescription="slide" aria-label="LEAP">
-                                    <h3 class="robot-view-title title is-3">LEAP Hand</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/grippers/leap.png" alt="LEAP Hand">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="robotiq" role="group"
-                                    aria-roledescription="slide" aria-label="Robotiq 2F-85">
-                                    <h3 class="robot-view-title title is-3">Robotiq 2F-85</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/grippers/robotiq.png" alt="Robotiq 2F-85">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="schunk" role="group"
-                                    aria-roledescription="slide" aria-label="Schunk">
-                                    <h3 class="robot-view-title title is-3">Schunk Hand</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/grippers/schunk.png" alt="Schunk">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="shadow" role="group"
-                                    aria-roledescription="slide" aria-label="Shadow">
-                                    <h3 class="robot-view-title title is-3">Shadow Hand</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/grippers/shadow.png" alt="Shadow">
-                                    </div>
-                                </article>
-                                <article class="robot-view-slide" data-robot="umi" role="group"
-                                    aria-roledescription="slide" aria-label="UMI">
-                                    <h3 class="robot-view-title title is-3">UMI Hand</h3>
-                                    <div class="robot-view-media">
-                                        <img src="static/images/grippers/umi.png" alt="UMI">
-                                    </div>
-                                </article>
-                            </div>
-                            <button class="robot-nav robot-nav-next" type="button" aria-label="Next robot">
-                                <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <div class="robot-viewer-dots" role="tablist" aria-label="Select robot">
-                            <button class="robot-view-dot is-active" type="button" aria-label="Franka Panda"
-                                data-target="0" aria-current="true"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Franka FR3"
-                                data-target="1"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Kinova Gen3"
-                                data-target="2"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Inspire Manipulator"
-                                data-target="3"></button>
-                            <button class="robot-view-dot" type="button" aria-label="KUKA LBR iiwa"
-                                data-target="4"></button>
-                            <button class="robot-view-dot" type="button" aria-label="UR5e" data-target="5"></button>
-                            <button class="robot-view-dot" type="button" aria-label="UR10" data-target="6"></button>
-                            <button class="robot-view-dot" type="button" aria-label="SO-100" data-target="7"></button>
-                            <button class="robot-view-dot" type="button" aria-label="WX250s" data-target="8"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Link 6" data-target="9"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Z1" data-target="10"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Sawyer" data-target="11"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Lite6" data-target="12"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Ability Hand"
-                                data-target="13"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Allegro Hand"
-                                data-target="14"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Barrett Hand"
-                                data-target="15"></button>
-                            <button class="robot-view-dot" type="button" aria-label="DClaw" data-target="16"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Inspire Hand"
-                                data-target="17"></button>
-                            <button class="robot-view-dot" type="button" aria-label="LEAP Hand"
-                                data-target="18"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Robotiq 2F-85"
-                                data-target="19"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Schunk Hand"
-                                data-target="20"></button>
-                            <button class="robot-view-dot" type="button" aria-label="Shadow Hand"
-                                data-target="21"></button>
-                            <button class="robot-view-dot" type="button" aria-label="UMI Hand"
-                                data-target="22"></button>
-                        </div>
-                    </div>
-                    <div class="robot-cta">
-                        <p class="has-text-centered mb-0">
-                            Mix and match manipulators and grippers. Not all hands are compatible with all manipulators.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- <section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Bimanual</h2>
-        <p class="content has-text-justified">
-          Choose any two manipulators and any two grippers or hands. DexSuite mirrors tool‑center points, synchronizes controllers, and writes shared logs so the same task definition runs on dual hands, dual grippers, or mixed pairings without extra code.
-        </p>
-      </div>
-    </div>
-  </div>
-</section> -->
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <h2 class="title is-3">Any Robot Setup</h2>
-                    <p class="content has-text-justified">
-                        Our environment initialization function allows you to make any environment, with custom
-                        Simulator, Robot, and Cameras without ever touching Dexsuite code. We also provide a web based
-                        environemnt maker that allows user to make any config, copy-paste the code and run it.
-                    </p>
-                    <div class="columns is-variable is-6 mt-4">
-                        <div class="column">
-                            <div class="setup-card has-text-centered">
-                                <h3 class="title is-4">Droid</h3>
-                                <figure class="setup-card-figure">
-                                    <img src="static/images/environments/droid.jpg" alt="Droid robot setup">
-                                </figure>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="setup-card has-text-centered">
-                                <h3 class="title is-4">Aloha</h3>
-                                <figure class="setup-card-figure">
-                                    <img src="static/images/environments/aloha.jpg" alt="Aloha robot setup">
-                                </figure>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered">
-                <div class="column is-full-width has-text-centered">
-                    <h2 class="title is-3">Environment Visualizer</h2>
-                    <p>Select an environment to preview it before the table.</p>
-                    <div class="columns is-centered">
-                        <div class="column is-four-fifths">
-                            <div class="select is-small is-rounded">
-                                <select id="single-menu-qpred">
-                                    <option value="pick_place_pan" selected="selected">Pick and Place Pan</option>
-                                    <option value="reach">Reach</option>     <!-- TODO -->
-                                    <option value="lift">Lift</option>
-                                    <option value="pick_place">Pick and Place</option> <!-- TODO -->
-                                    <option value="push">Push</option>
-                                    <option value="stack">Stack</option>
-                                    <option value="pick_place_mug">Pick and Place Mug</option>
-                                    <option value="drill_to_point">Drill to Point</option>
-                                    <option value="pick_place_fruit">Pick and Place Fruit</option>
-                                    <option value="make_coffee">Make Coffee</option>
-                                    <option value="tool_hang">Tool Hang</option>
-                                    <option value="spread_butter">Spread Butter</option>
-                                    <option value="cable_routing">Routing Cable</option>
-                                    <option value="bimanual_reach">Bimanual Reach</option>   <!-- TODO -->
-                                    <option value="bimanual_lift">Bimanual Lift Cube</option>    <!-- TODO -->
-                                    <option value="bimanual_push">Bimanual Push Cube</option>   <!-- TODO -->
-                                    <option value="drill_wood">Drill to Wood Block</option>      <!-- TODO -->
-                                    <option value="hand_over_pan">Hand Over Pan</option>     
-                                    <option value="hand_over_mug">Hand Over Mug</option>      
-                                    <option value="pick_place_pot">Pick and Place Pot</option>    
-                                    <option value="close_sunglasses">Close Sunglasses</option>    <!-- TODO -->
-                                    <option value="folding_shirt">Folding Shirt</option> 
-                                </select>
-                            </div>
-                            <div class="environment-preview mt-4">
-                                <figure class="image">
-                                    <img id="environment-preview" src="" alt="Environment preview">
-                                </figure>
-                                <p id="environment-preview-caption" class="has-text-weight-semibold mt-2">Pick and Place
-                                    Pan</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <h2 class="title is-3">Available Environments</h2>
-                    <p class="content has-text-justified">
-                        The suite provides single-arm and bimanual environments across rigid, articulated, and
-                        deformable object tasks.
-                    </p>
-                    <div class="table-container">
-                        <table class="table is-fullwidth is-striped">
-                            <thead>
-                                <tr>
-                                    <th>Environment</th>
-                                    <th>Mode</th>
-                                    <th>Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Single-arm – Rigid -->
-                                <tr>
-                                    <td>Reach</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Push</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Lift</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Pick Place</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Pick Place Fruit</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Pick Place Mug</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Pick Place Pan</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Stack</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Make Coffee</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Drill to Point</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Tool Hang</td>
-                                    <td>Single-arm</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <!-- Bimanual – Rigid -->
-                                <tr>
-                                    <td>Bimanual Reach</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Bimanual Push</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Bimanual Lift</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Bimanual Pick Place</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Bimanual Pick Place Mug</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Bimanual Pick Place Pan</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Bimanual Pick Place Pot</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Bimanual Stack</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Bimanual Stack Mid Air</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Bimanual Make Coffee</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <tr>
-                                    <td>Bimanual Drill to Point</td>
-                                    <td>Bimanual</td>
-                                    <td>Rigid</td>
-                                </tr>
-                                <!-- Bimanual – Articulated -->
-                                <tr>
-                                    <td>Bimanual Fold Glasses</td>
-                                    <td>Bimanual</td>
-                                    <td>Articulated</td>
-                                </tr>
-                                <!-- Single-arm – Articulated -->
-                                <tr>
-                                    <td>Open Jar</td>
-                                    <td>Single-arm</td>
-                                    <td>Articulated</td>
-                                </tr>
-                                <tr>
-                                    <td>Close Jar</td>
-                                    <td>Single-arm</td>
-                                    <td>Articulated</td>
-                                </tr>
-                                <tr>
-                                    <td>Open Faucet</td>
-                                    <td>Single-arm</td>
-                                    <td>Articulated</td>
-                                </tr>
-                                <tr>
-                                    <td>Close Faucet</td>
-                                    <td>Single-arm</td>
-                                    <td>Articulated</td>
-                                </tr>
-                                <!-- Single-arm – Deformable -->
-                                <tr>
-                                    <td>Cable Routing</td>
-                                    <td>Single-arm</td>
-                                    <td>Deformable</td>
-                                </tr>
-                                <tr>
-                                    <td>Cut Butter</td>
-                                    <td>Single-arm</td>
-                                    <td>Deformable</td>
-                                </tr>
-                                <tr>
-                                    <td>MPM Sponge Drop</td>
-                                    <td>Single-arm</td>
-                                    <td>Deformable</td>
-                                </tr>
-                                <tr>
-                                    <td>Pour Water</td>
-                                    <td>Single-arm</td>
-                                    <td>Deformable</td>
-                                </tr>
-                                <tr>
-                                    <td>Spread Butter</td>
-                                    <td>Single-arm</td>
-                                    <td>Deformable</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <h2 class="title is-3">Benchmarks</h2>
-                    <div class="content">
-                        <h3 class="title is-4">Imitation Learning</h3>
-                        <p>
-                            Teleoperation datasets power the imitation learning suite. We provide glove‑conditioned
-                            demonstrations, dataset utilities, and offline evaluation scripts so you can train
-                            supervised policies before running closed‑loop simulation.
-                        </p>
-                        <div class="table-container">
-                            <h4 class="title is-5">Robotiq</h4>
-                            <table class="table is-fullwidth is-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Task</th>
-                                        <th>BC-G</th>
-                                        <th>BC-GMM</th>
-                                        <th>Transformer</th>
-                                        <th>Diffusion</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Reach</td>
-                                        <td>91 ± 4</td>
-                                        <td>82 ± 4</td>
-                                        <td>99 ± 1</td>
-                                        <td>71 ± 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lift</td>
-                                        <td>71 ± 2</td>
-                                        <td>71 ± 5</td>
-                                        <td>87 ± 3</td>
-                                        <td>29 ± 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Push</td>
-                                        <td>43 ± 5</td>
-                                        <td>51 ± 2</td>
-                                        <td>45 ± 6</td>
-                                        <td>57 ± 8</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pick&amp;Place</td>
-                                        <td>61 ± 6</td>
-                                        <td>63 ± 5</td>
-                                        <td>69 ± 4</td>
-                                        <td>66 ± 7</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Stack</td>
-                                        <td>2 ± 1</td>
-                                        <td>0 ± 0</td>
-                                        <td>5 ± 2</td>
-                                        <td>1 ± 1</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="table-container">
-                            <h4 class="title is-5">Allegro</h4>
-                            <table class="table is-fullwidth is-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Task</th>
-                                        <th>BC-G</th>
-                                        <th>BC-GMM</th>
-                                        <th>Transformer</th>
-                                        <th>Diffusion</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Reach</td>
-                                        <td>63 ± 10</td>
-                                        <td>71 ± 10</td>
-                                        <td>79 ± 4</td>
-                                        <td>59 ± 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lift</td>
-                                        <td>73 ± 8</td>
-                                        <td>40 ± 4</td>
-                                        <td>65 ± 4</td>
-                                        <td>69 ± 3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Push</td>
-                                        <td>40 ± 5</td>
-                                        <td>24 ± 7</td>
-                                        <td>58 ± 5</td>
-                                        <td>55 ± 8</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pick&amp;Place</td>
-                                        <td>18 ± 5</td>
-                                        <td>29 ± 8</td>
-                                        <td>35 ± 1</td>
-                                        <td>19 ± 4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Stack</td>
-                                        <td>0 ± 0</td>
-                                        <td>0 ± 0</td>
-                                        <td>0 ± 0</td>
-                                        <td>1 ± 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rack Mug</td>
-                                        <td>37 ± 7</td>
-                                        <td>55 ± 4</td>
-                                        <td>53 ± 3</td>
-                                        <td>38 ± 6</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Move Pan</td>
-                                        <td>4 ± 2</td>
-                                        <td>68 ± 11</td>
-                                        <td>60 ± 7</td>
-                                        <td>50 ± 8</td>
-                                    </tr>
-                                    <tr>
-                                        <td>DrilltoPoint</td>
-                                        <td>38 ± 7</td>
-                                        <td>62 ± 3</td>
-                                        <td>59 ± 4</td>
-                                        <td>83 ± 9</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Place Fruits</td>
-                                        <td>0 ± 0</td>
-                                        <td>0 ± 0</td>
-                                        <td>2 ± 0</td>
-                                        <td>9 ± 3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bimanual Stack Mid Air</td>
-                                        <td>0 ± 0</td>
-                                        <td>0 ± 0</td>
-                                        <td>0 ± 0</td>
-                                        <td>0 ± 0</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <h2 class="title is-3">Reinforcement Learning</h2>
 
+    <section class="section" id="framework">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">DexSuite Framework</h2>
+            <div class="content has-text-justified"><p>DexSuite is a simulation framework built on top of Genesis. Genesis provides the underlying physics, rendering, asset loading, and parallel simulation, while DexSuite provides the manipulation layer needed to turn these primitives into reproducible robot learning experiments. This layer includes a library of tasks and robot embodiments, embodiment-independent task definitions, modular arm and end-effector composition, workspace-aware initialization, tactile sensing, teleoperation, and a unified Gymnasium API. DexSuite further provides a benchmark and curated dataset of dexterous manipulation demonstrations for training and evaluation.</p></div>
+            <figure class="image paper-figure"><img src="static/images/paper/overview.png" alt="DexSuite architecture" loading="lazy"></figure>
+        </div>
+    </section>
 
-                    <section class="section">
-                        <div class="columns is-centered">
-                            <div class="column is-three-quarters">
-                                <figure class="image">
-                                    <img src="static/images/environments/para_env.png" alt="Franka Black">
-                                </figure>
-                            </div>
+    <section class="section" id="data-collection">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Data Collection</h2>
+            <h3 class="title is-5">Teleoperation</h3>
+            <div class="content has-text-justified"><p>DexSuite supports teleoperation for both arm and finger control. Arm pose can be controlled with a SpaceMouse, HTC Vive, or Meta Quest controllers, while finger motion can be captured using MediaPipe, Leap Motion, Meta Quest hand tracking, or Manus MetaGlove Pro gloves. Related systems such as BiDex and TeleDex teleoperate dexterous hands with motion-capture gloves and smartphones.</p></div>
+            <div class="columns is-vcentered">
+                <div class="column"><figure class="image paper-figure"><img src="static/images/paper/teleoperation_devices.png" alt="Teleoperation devices integrated in DexSuite" loading="lazy"></figure></div>
+                <div class="column"><figure class="image paper-figure"><img src="static/images/retargeting.png" alt="Direct joint mapping or geometric retargeting to the robot hand" loading="lazy"></figure></div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <video class="media-video" autoplay muted loop playsinline preload="metadata"><source src="static/videos/vivecontroller.mp4" type="video/mp4"></video>
+                    <p class="media-caption">Vive tracker and controller for the wrist pose and the gripper.</p>
+                </div>
+                <div class="column">
+                    <video class="media-video" autoplay muted loop playsinline preload="metadata"><source src="static/videos/manusretarget.mp4" type="video/mp4"></video>
+                    <p class="media-caption">Manus glove to Allegro joint commands through geometric retargeting.</p>
+                </div>
+            </div>
+            <h3 class="title is-5 mt-5">Tactile sensing</h3>
+            <div class="content has-text-justified"><p>DexSuite simulates the FlexiTac tactile sensor. A tactile pad is a grid of taxels on a flat elastomer, 12 by 32 at 2 mm spacing by default as on the real pad, and each taxel converts its penetration into nearby objects into a normal and a friction force. Pads can be declared on any end-effector link with a flat contact surface, with configurable grid size and spacing. We ship tactile pads on a UMI-style parallel-jaw gripper and on a tactile ALOHA manipulator, and the scripted gripper demonstrations record both pads at every step. The Sharpa demonstrations record per-finger contact forces instead.</p></div>
+            <figure class="image paper-figure narrow"><img src="static/images/paper/tac_fig_annotated.png" alt="Simulated FlexiTac readings on the UMI-style gripper" loading="lazy"></figure>
+        </div>
+    </section>
+
+    <section class="section" id="dataset">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Dataset</h2>
+            <div class="columns is-vcentered">
+                <div class="column is-7 content has-text-justified">
+                    <p>We release 4,700 successful episodes covering the 16 task-embodiment pairs of the benchmark, collected across three tiers: human teleoperation, scripted experts, and learned-policy rollouts. Together, these tiers support a range of data regimes within a single benchmark. The human tier comprises 700 demonstrations on the Robotiq, UMI, and Allegro embodiments. The scripted tier adds 1,200 demonstrations using the UMI gripper and Sharpa hand. The machine-generated tier contributes 2,800 successful policy rollouts.</p>
+                    <p>All trajectories share a common observation and action format containing proprioception, object states, and front- and wrist-camera observations. Scripted tactile configurations additionally include fingertip tactile readings. The dataset is released in LeRobot format, as well as HDF5 format compatible with robomimic.</p>
+                    <p><a href="https://huggingface.co/dexsuite" target="_blank" rel="noopener">Browse the datasets on Hugging Face <i class="fas fa-arrow-right"></i></a></p>
+                </div>
+                <div class="column is-5"><figure class="image"><img src="static/images/paper/dataset_wheel.png" alt="Dataset composition by tier, embodiment and task" loading="lazy"></figure></div>
+            </div>
+
+            <h3 class="title is-4 mt-6" id="data-viewer">Data Viewer</h3>
+            <p class="has-text-centered dv-intro">Sample episodes from the dataset, with the front and wrist cameras and the tool center point trajectory.</p>
+            <div class="data-viewer" id="dv">
+                <div class="dv-tasks" id="dv-tasks"></div>
+                <div class="columns dv-body">
+                    <div class="column is-7">
+                        <div class="dv-video-wrap">
+                            <video id="dv-video" muted autoplay loop playsinline preload="auto"></video>
+                            <div class="dv-cams"><span>Front camera</span><span>Wrist camera</span></div>
                         </div>
-                    </section>
-
-
-                    <div class="content">
-                        <p>
-                            DexSuite provides vectorized rollouts and a unified reward API. PPO and SAC recipes are
-                            tuned for rigid and deformable manipulation.
-                        </p>
-                        <div class="table-container">
-                            <h4 class="title is-5">RL‑evaluated Environments</h4>
-                            <table class="table is-fullwidth is-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Environment</th>
-                                        <th>PPO</th>
-                                        <th>SAC</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Reach</th>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Lift</th>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Stack</th>
-                                        <td>&nbsp;</td>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="dv-chart-wrap">
+                            <p class="dv-chart-title">Tool center point position relative to the first frame (cm)</p>
+                            <div class="dv-legend" id="dv-legend"></div>
+                            <svg id="dv-chart" role="img" aria-label="Tool center point trajectory"></svg>
+                            <div class="dv-tooltip" id="dv-tooltip" hidden></div>
                         </div>
+                    </div>
+                    <div class="column is-5">
+                        <h4 class="dv-task-name" id="dv-name"></h4>
+                        <p class="dv-blurb" id="dv-blurb"></p>
+                        <div class="dv-control"><span class="dv-label">Embodiment</span><div class="dv-options" id="dv-emb"></div></div>
+                        <div class="dv-control"><span class="dv-label">Source</span><div class="dv-options" id="dv-tier"></div></div>
+                        <div class="dv-control"><span class="dv-label">Episode</span><div class="dv-options" id="dv-ep"></div></div>
+                        <table class="dv-facts"><tbody id="dv-facts"></tbody></table>
+                        <a class="button is-small is-rounded is-dark" id="dv-hf" target="_blank" rel="noopener">
+                            <span class="icon"><i class="fas fa-database"></i></span><span>This dataset on Hugging Face</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <section class="section" id="benchmark">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Benchmark</h2>
+            <div class="content has-text-justified">
+                <p>To address the three questions raised in the introduction, namely the embodiment gap, robustness to long horizons, and contact-rich capability, the benchmark contains 11 tasks organized into two evaluation tracks. Five tasks are simple enough to be attempted with either end-effector and are completed with both a parallel-jaw gripper and the Allegro hand. The other six are completed with a dexterous hand only, because their geometry precludes the use of a simple gripper. Four of them use the Allegro hand and the final two use the Sharpa hand due to their extreme geometric complexity. This gives 16 task-embodiment pairs.</p>
+                <p><strong>Track 1. Cross-embodiment evaluation.</strong> The five shared tasks use identical task definitions and success criteria for both end-effectors. <strong>Track 2. Multi-fingered dexterous capability.</strong> The six hand-only tasks target stable grasping, constrained transport, tool use, multi-object interaction, and long-horizon manipulation.</p>
+            </div>
+            <figure class="image paper-figure wide"><img src="static/images/paper/benchmark.jpg" alt="The 11 benchmark tasks" loading="lazy"></figure>
+
+            <h3 class="title is-4 mt-6">Imitation learning baselines</h3>
+            <p class="table-caption">Baseline results on the DexSuite benchmark. Success rates (%) are the mean ± standard deviation across three seeds with 50 episodes each. Track 1 tasks are completed with both the parallel-jaw gripper and the Allegro hand, and Track 2 tasks with a dexterous hand only, the Allegro hand or the Sharpa hand for <em>Spray Graffiti</em> and <em>Toast Bread</em>. Bold indicates the best result within each observation modality for each task-embodiment pair.</p>
+            <div class="table-container"><table class="table is-fullwidth results-table"><thead><tr class="track-row"><th></th><th colspan="5"><span>Track 1</span></th><th colspan="3"><span>Track 2</span></th></tr><tr class="group-row"><th></th><th colspan="5"><span>Parallel-Jaw Gripper</span></th><th colspan="3"><span>Allegro Hand</span></th></tr><tr><th>Model / input</th><th>Reach</th><th>Lift</th><th>Push</th><th>Pick &amp; Place</th><th>Stack</th><th>Rack Mug</th><th>Move Pan</th><th>Drill to Point</th></tr></thead><tbody><tr><td>BC-G <span class="obs">(state)</span></td><td>78<span class="sd">&thinsp;&plusmn;&thinsp;5</span></td><td>31<span class="sd">&thinsp;&plusmn;&thinsp;5</span></td><td>27<span class="sd">&thinsp;&plusmn;&thinsp;6</span></td><td>49<span class="sd">&thinsp;&plusmn;&thinsp;14</span></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td>25<span class="sd">&thinsp;&plusmn;&thinsp;8</span></td><td>5<span class="sd">&thinsp;&plusmn;&thinsp;5</span></td><td>1<span class="sd">&thinsp;&plusmn;&thinsp;1</span></td></tr><tr><td>BC-GMM <span class="obs">(state)</span></td><td>76<span class="sd">&thinsp;&plusmn;&thinsp;2</span></td><td>32<span class="sd">&thinsp;&plusmn;&thinsp;5</span></td><td>23<span class="sd">&thinsp;&plusmn;&thinsp;6</span></td><td>24<span class="sd">&thinsp;&plusmn;&thinsp;6</span></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td>28<span class="sd">&thinsp;&plusmn;&thinsp;2</span></td><td>13<span class="sd">&thinsp;&plusmn;&thinsp;6</span></td><td>5<span class="sd">&thinsp;&plusmn;&thinsp;2</span></td></tr><tr><td>BC-T <span class="obs">(state)</span></td><td>90<span class="sd">&thinsp;&plusmn;&thinsp;2</span></td><td>57<span class="sd">&thinsp;&plusmn;&thinsp;8</span></td><td>48<span class="sd">&thinsp;&plusmn;&thinsp;4</span></td><td>64<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td>2<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td>58<span class="sd">&thinsp;&plusmn;&thinsp;3</span></td><td>68<span class="sd">&thinsp;&plusmn;&thinsp;16</span></td><td>47<span class="sd">&thinsp;&plusmn;&thinsp;8</span></td></tr><tr><td>Diffusion <span class="obs">(state)</span></td><td><strong>100<span class="sd">&thinsp;&plusmn;&thinsp;0</span></strong></td><td><strong>72<span class="sd">&thinsp;&plusmn;&thinsp;3</span></strong></td><td><strong>63<span class="sd">&thinsp;&plusmn;&thinsp;2</span></strong></td><td><strong>65<span class="sd">&thinsp;&plusmn;&thinsp;5</span></strong></td><td><strong>16<span class="sd">&thinsp;&plusmn;&thinsp;2</span></strong></td><td><strong>82<span class="sd">&thinsp;&plusmn;&thinsp;2</span></strong></td><td><strong>69<span class="sd">&thinsp;&plusmn;&thinsp;6</span></strong></td><td><strong>50<span class="sd">&thinsp;&plusmn;&thinsp;2</span></strong></td></tr><tr class="modality-break"><td>ACT <span class="obs">(image)</span></td><td>76<span class="sd">&thinsp;&plusmn;&thinsp;6</span></td><td><strong>73<span class="sd">&thinsp;&plusmn;&thinsp;6</span></strong></td><td><strong>50<span class="sd">&thinsp;&plusmn;&thinsp;2</span></strong></td><td><strong>66<span class="sd">&thinsp;&plusmn;&thinsp;4</span></strong></td><td>1<span class="sd">&thinsp;&plusmn;&thinsp;1</span></td><td>37<span class="sd">&thinsp;&plusmn;&thinsp;6</span></td><td><strong>89<span class="sd">&thinsp;&plusmn;&thinsp;3</span></strong></td><td><strong>43<span class="sd">&thinsp;&plusmn;&thinsp;3</span></strong></td></tr><tr><td>Diffusion <span class="obs">(image)</span></td><td><strong>80<span class="sd">&thinsp;&plusmn;&thinsp;6</span></strong></td><td>54<span class="sd">&thinsp;&plusmn;&thinsp;8</span></td><td>33<span class="sd">&thinsp;&plusmn;&thinsp;6</span></td><td>45<span class="sd">&thinsp;&plusmn;&thinsp;4</span></td><td><strong>2<span class="sd">&thinsp;&plusmn;&thinsp;0</span></strong></td><td><strong>56<span class="sd">&thinsp;&plusmn;&thinsp;3</span></strong></td><td>72<span class="sd">&thinsp;&plusmn;&thinsp;14</span></td><td>32<span class="sd">&thinsp;&plusmn;&thinsp;4</span></td></tr></tbody></table></div>
+<div class="table-container"><table class="table is-fullwidth results-table"><thead><tr class="track-row"><th></th><th colspan="5"><span>Track 1</span></th><th colspan="3"><span>Track 2</span></th></tr><tr class="group-row"><th></th><th colspan="6"><span>Allegro Hand</span></th><th colspan="2"><span>Sharpa Hand</span></th></tr><tr><th>Model / input</th><th>Reach</th><th>Lift</th><th>Push</th><th>Pick &amp; Place</th><th>Stack</th><th>Place Fruits</th><th>Spray Graffiti</th><th>Toast Bread</th></tr></thead><tbody><tr><td>BC-G <span class="obs">(state)</span></td><td>82<span class="sd">&thinsp;&plusmn;&thinsp;9</span></td><td>21<span class="sd">&thinsp;&plusmn;&thinsp;2</span></td><td>46<span class="sd">&thinsp;&plusmn;&thinsp;7</span></td><td>15<span class="sd">&thinsp;&plusmn;&thinsp;4</span></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td>1<span class="sd">&thinsp;&plusmn;&thinsp;1</span></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td></tr><tr><td>BC-GMM <span class="obs">(state)</span></td><td>75<span class="sd">&thinsp;&plusmn;&thinsp;4</span></td><td>43<span class="sd">&thinsp;&plusmn;&thinsp;8</span></td><td>47<span class="sd">&thinsp;&plusmn;&thinsp;5</span></td><td>35<span class="sd">&thinsp;&plusmn;&thinsp;5</span></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td>3<span class="sd">&thinsp;&plusmn;&thinsp;1</span></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td></tr><tr><td>BC-T <span class="obs">(state)</span></td><td>88<span class="sd">&thinsp;&plusmn;&thinsp;2</span></td><td>47<span class="sd">&thinsp;&plusmn;&thinsp;6</span></td><td>60<span class="sd">&thinsp;&plusmn;&thinsp;7</span></td><td><strong>76<span class="sd">&thinsp;&plusmn;&thinsp;5</span></strong></td><td>1<span class="sd">&thinsp;&plusmn;&thinsp;1</span></td><td><strong>9<span class="sd">&thinsp;&plusmn;&thinsp;2</span></strong></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td></tr><tr><td>Diffusion <span class="obs">(state)</span></td><td><strong>97<span class="sd">&thinsp;&plusmn;&thinsp;1</span></strong></td><td><strong>65<span class="sd">&thinsp;&plusmn;&thinsp;8</span></strong></td><td><strong>68<span class="sd">&thinsp;&plusmn;&thinsp;5</span></strong></td><td>67<span class="sd">&thinsp;&plusmn;&thinsp;3</span></td><td><strong>9<span class="sd">&thinsp;&plusmn;&thinsp;5</span></strong></td><td>7<span class="sd">&thinsp;&plusmn;&thinsp;3</span></td><td><strong>0.7<span class="sd">&thinsp;&plusmn;&thinsp;1</span></strong></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td></tr><tr class="modality-break"><td>ACT <span class="obs">(image)</span></td><td><strong>73<span class="sd">&thinsp;&plusmn;&thinsp;1</span></strong></td><td>45<span class="sd">&thinsp;&plusmn;&thinsp;5</span></td><td><strong>66<span class="sd">&thinsp;&plusmn;&thinsp;6</span></strong></td><td><strong>60<span class="sd">&thinsp;&plusmn;&thinsp;7</span></strong></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td><strong>27<span class="sd">&thinsp;&plusmn;&thinsp;5</span></strong></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td></tr><tr><td>Diffusion <span class="obs">(image)</span></td><td>61<span class="sd">&thinsp;&plusmn;&thinsp;2</span></td><td><strong>58<span class="sd">&thinsp;&plusmn;&thinsp;12</span></strong></td><td>62<span class="sd">&thinsp;&plusmn;&thinsp;3</span></td><td>52<span class="sd">&thinsp;&plusmn;&thinsp;11</span></td><td><strong>1<span class="sd">&thinsp;&plusmn;&thinsp;1</span></strong></td><td>5<span class="sd">&thinsp;&plusmn;&thinsp;1</span></td><td><strong>0.7<span class="sd">&thinsp;&plusmn;&thinsp;1</span></strong></td><td>0<span class="sd">&thinsp;&plusmn;&thinsp;0</span></td></tr></tbody></table></div>
+
+            <h3 class="title is-4 mt-6">Where the policies fail</h3>
+            <p class="has-text-centered dv-intro">Fifty diagnostic rollouts of the low-dimensional diffusion policy per task-embodiment pair, split by the stage in which each episode ends. Successes are in blue.</p>
+            <figure class="image paper-figure narrow"><img src="static/images/paper/task_stages.png" alt="Stage-wise outcomes of the diffusion policies" loading="lazy"></figure>
+        </div>
+    </section>
+
     <section class="section" id="BibTeX">
         <div class="container is-max-desktop content">
             <h2 class="title">BibTeX</h2>
-            <pre>
-                        <code>
-  @article{articlename,
-    author    = {Anonymous},
-    title     = {Dexsuite.},
-    journal   = {TBD},
-    year      = {2025},
-  }
-                        </code>
-                    </pre>
+            <pre><code>@article{dexsuite2026,
+  author  = {Anonymous},
+  title   = {DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks},
+  journal = {Under review},
+  year    = {2026},
+}</code></pre>
         </div>
     </section>
+
     <footer class="footer">
         <div class="container">
-            <div class="columns is-centered">
-                <div class="column">
-                    <div class="content has-text-centered">
-                        <p>
-                            Website template borrowed from
-                            <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>
-                            made by the amazing
-                            <a href="https://keunhong.com/">Keunhong Park</a>
-                            .
-                        </p>
-                    </div>
-                </div>
+            <div class="content has-text-centered">
+                <p>Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> by <a href="https://keunhong.com/">Keunhong Park</a>.</p>
             </div>
         </div>
     </footer>
+    <script>window.DEXSUITE_TASKS = [{"key": "reach", "name": "Reach", "track": 1, "blurb": "Bring the tool center point to a random target in the workspace.", "seconds": 5, "success": "TCP within 5 cm of target", "stages": ["approach"]}, {"key": "lift", "name": "Lift", "track": 1, "blurb": "Grasp the cube and hold it above the table.", "seconds": 30, "success": "cube raised to z \u2265 0.215 m, xy within 5 cm of spawn", "stages": ["approach", "grasp", "lift"]}, {"key": "push", "name": "Push", "track": 1, "blurb": "Slide the cube to the goal without lifting it.", "seconds": 10, "success": "cube within 3 cm of goal 0.20 m away", "stages": ["approach", "grasp", "transport", "place"]}, {"key": "pick_place", "name": "Pick & Place", "track": 1, "blurb": "Pick up the cube and set it down on the goal.", "seconds": 10, "success": "cube within 3 cm of goal", "stages": ["approach", "grasp", "lift", "transport", "place"]}, {"key": "stack", "name": "Stack", "track": 1, "blurb": "Stack two cubes onto a third, in order.", "seconds": 30, "success": "B on A and C on B, each within 2 cm xy and 1 cm z", "stages": ["approach", "grasp", "lift", "transport", "place", "second object"]}, {"key": "pick_place_mug", "name": "Rack Mug", "track": 2, "blurb": "Pick up the mug, place it in the rack and let go.", "seconds": 20, "success": "mug inside rack footprint (4 cm margin), \u2265 5 cm below rack top, TCP clear of rack", "stages": ["approach", "grasp", "lift", "transport", "place", "release"]}, {"key": "pick_place_pan", "name": "Move Pan", "track": 2, "blurb": "Lift the pan off the hot plate and set it on the mat.", "seconds": 25, "success": "pan inside mat footprint (4 cm margin), base within 2 cm of mat top", "stages": ["approach", "grasp", "lift", "transport", "place"]}, {"key": "drill_to_point", "name": "Drill to Point", "track": 2, "blurb": "Pick up the drill and align its tip with the target.", "seconds": 15, "success": "drill tip within 3 cm of target, pitch and yaw within 20\u00b0", "stages": ["approach", "grasp", "lift", "transport", "place"]}, {"key": "pick_place_fruit", "name": "Place Fruits", "track": 2, "blurb": "Put the apple and the lemon into the bowl.", "seconds": 20, "success": "apple and lemon inside bowl footprint (4 cm margin), \u2265 1 cm below rim, TCP clear of bowl", "stages": ["approach", "grasp", "lift", "transport", "place", "release", "second object"]}, {"key": "spray_graffiti", "name": "Spray Graffiti", "track": 2, "blurb": "Grasp the aerosol can and fill the stencil outline on the sheet of paper.", "seconds": 30, "success": "stencil interior \u2265 60% painted with \u2264 35% of the paint outside", "stages": ["approach", "grasp", "aim", "fill"]}, {"key": "put_bread_toaster", "name": "Toast Bread", "track": 2, "blurb": "Stand the slice of bread in a toaster slot and push the lever down.", "seconds": 30, "success": "toast upright in a slot \u2265 3 cm below the rim, lever \u2265 80% down, toast at rest", "stages": ["approach", "grasp", "insert", "press lever"]}];</script>
 </body>
 
 </html>
