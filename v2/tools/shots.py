@@ -21,7 +21,7 @@ CLIPS = {
     "pickplace_allegro": {"camera": {"loc": [1.40, -1.00, 0.75], "target": [0.36, 0.06, 0.18], "lens": 42}},
     "pickplace_umi": {"camera": {"loc": [1.40, -1.00, 0.75], "target": [0.36, 0.06, 0.18], "lens": 42}},
     "toast_sharpa": {"camera": {"loc": [1.30, -1.05, 0.78], "target": [0.47, 0.0, 0.24], "lens": 40}, "floor_z": -0.004,
-                     "lights": "SHARPA"},
+                     "lights": "TOAST"},
     "spray_sharpa": {"camera": {"loc": [1.25, -0.95, 0.62], "target": [0.5, -0.1, 0.12], "lens": 45}, "floor_z": -0.006,
                      "lights": "SHARPA"},
 }
@@ -63,11 +63,18 @@ SHARPA_LIGHTS = [
     {"type": "AREA", "energy": 280, "size": 1.2, "loc": [-0.2, 2.0, 1.8], "target": [0.5, 0, 0.3]},
 ]
 
+# The toaster stands on short feet and the Sharpa key light throws its shadow behind it, out of view, so it read as
+# hovering. A small overhead light puts a contact shadow under the rim; the key is dimmed to keep the exposure.
+TOAST_LIGHTS = [dict(SHARPA_LIGHTS[0], energy=330), *SHARPA_LIGHTS[1:],
+                {"type": "AREA", "energy": 420, "size": 0.5, "loc": [0.60, 0.24, 2.4], "target": [0.60, 0.24, 0.0]}]
+
 
 def main():
     for c in CLIPS.values():
         if c.get("lights") == "SHARPA":
             c["lights"] = SHARPA_LIGHTS
+        elif c.get("lights") == "TOAST":
+            c["lights"] = TOAST_LIGHTS
     for name in [n for n in CLIPS if n.endswith("_allegro") or n.endswith("_umi")]:
         CLIPS[name]["camera"] = auto_wide(W / "replays" / name / "scene.json")
         if name.endswith("_allegro"):
