@@ -188,7 +188,7 @@ section { position: relative; }
 footer { padding: 90px 0 60px; background: var(--bg-2); }
 .logos { display: flex; flex-wrap: wrap; gap: 30px 40px; align-items: center; justify-content: center; margin: 46px 0 40px; }
 .logos img { width: auto; }
-pre.bib { background: #fff; border-radius: 16px; padding: 22px; font-size: 13px; line-height: 1.55; white-space: pre-wrap; overflow-x: auto; color: var(--ink-2); }
+pre.bib { text-align: left; max-width: 980px; margin: 48px auto 0; background: #fff; border-radius: 16px; padding: 26px 30px; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-x: auto; color: var(--ink); }
 .fine { font-size: 12px; color: var(--ink-3); margin-top: 26px; text-align: center; }
 
 @media (max-width: 900px) {

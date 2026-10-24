@@ -185,7 +185,6 @@ tiers = "\n".join(f'''<div class="tier"><div class="row"><span>{label}</span><b>
 bib = f"""@article{{dexsuite2026,
   author  = {{Anonymous}},
   title   = {{{TITLE}}},
-  journal = {{Under review}},
   year    = {{2026}},
 }}"""
 

@@ -205,6 +205,12 @@ def main():
             paper = env.unwrapped.canvas.entity
             paper.set_pos(torch.tensor(rec["obs.state.other.paper_pos"][i], dtype=torch.float32))
             paper.set_quat(torch.tensor(rec["obs.state.other.paper_quat"][i], dtype=torch.float32))
+        if a.task == "put_bread_toaster" and "obs.state.other.toast_pos" in rec:
+            # toast_pos is the centre of the slice's bounding box, not its link origin: shift the link so the
+            # box centre lands on the recorded point (without this the slice sat 3 cm off, outside the fingers)
+            toast = env.unwrapped.toast
+            off = to_np(toast.get_AABB()).reshape(2, 3).mean(0) - to_np(toast.get_pos()).reshape(-1)[:3]
+            toast.set_pos(torch.tensor(rec["obs.state.other.toast_pos"][i] - off, dtype=torch.float32))
         if a.task == "put_bread_toaster":
             ts = env.unwrapped.toaster
             for jname, key in (("lever", "lever_q"), ("dial", "dial_q")):
