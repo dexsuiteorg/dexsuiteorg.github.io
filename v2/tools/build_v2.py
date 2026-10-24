@@ -119,7 +119,7 @@ TILES = [  # clip, task, line, meta
 ]
 ABSTRACT = re.sub(r"\s+", " ", re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", TEX, re.S).group(1)).strip()
 ABSTRACT = ABSTRACT.replace("{,}", ",").replace("~", " ").replace("\\%", "%")
-T1 = [  # clip key, tab label, gripper used in the dataset; scores are Table II (best baseline per embodiment)
+T1 = [  # clip key, tab label, gripper used in the dataset
     ("reach", "Reach", "Robotiq 2F-85"), ("lift", "Lift", "UMI gripper"), ("push", "Push", "UMI gripper"),
     ("pickplace", "Pick & Place", "UMI gripper"), ("stack", "Stack", "UMI gripper"),
 ]
@@ -167,8 +167,7 @@ ee_imgs = "\n".join(
 ee_list = "\n".join(f'<li{" class=on" if i == 0 else ""}>{esc(n)}</li>' for i, (k, n, kind) in enumerate(EES))
 arms = "\n".join(f'<figure class="reveal"><img src="assets/arms/{k}.webp" alt="{esc(n)} with an Allegro hand" loading="lazy"><figcaption>{esc(n)}</figcaption></figure>'
                  for k, n in ARM_NAMES if (V2 / f"assets/arms/{k}.webp").exists())
-T1_DATA = [{"key": k, "grip": g, "gs": TRACK1[j][1], "hs": TRACK1[j][2], "fast": k == "stack"} for j, (k, _, g) in enumerate(T1)]
-assert [t for t, _, _ in TRACK1] == [lab for _, lab, _ in T1], (TRACK1, T1)
+T1_DATA = [{"key": k, "grip": g} for k, _, g in T1]
 t1_tabs = "".join(f'<button type="button" role="tab" data-i="{j}"{" class=on" if j == 0 else ""}>{esc(lab)}</button>' for j, (_, lab, _) in enumerate(T1))
 LOGOS = [("mcgill", "McGill University", 40), ("mila", "Mila", 32), ("amazon", "Amazon", 30), ("hf", "Hugging Face", 30),
          ("kinova", "Kinova", 17), ("manus", "Manus", 16)]
@@ -278,8 +277,8 @@ page = f"""<!DOCTYPE html>
   <p class="lede reveal" style="margin-top:18px">Each task is defined once, with the same reset, observations and success check for a gripper and a hand. Every pair below is a recorded human demonstration.</p>
   <div class="seg t1-tabs reveal" role="tablist">{t1_tabs}</div>
   <div class="duo t1 reveal">
-    <figure><video muted playsinline preload="auto" data-k="grip" poster="assets/clips/t1_reach_grip.jpg"><source src="assets/clips/t1_reach_grip.mp4" type="video/mp4"></video><figcaption><b data-k="grip-name"></b><span data-k="grip-score"></span></figcaption></figure>
-    <figure><video muted playsinline preload="auto" data-k="hand" poster="assets/clips/t1_reach_hand.jpg"><source src="assets/clips/t1_reach_hand.mp4" type="video/mp4"></video><figcaption><b>Allegro hand</b><span data-k="hand-score"></span></figcaption></figure>
+    <figure><video muted playsinline preload="auto" data-k="grip" poster="assets/clips/t1_reach_grip.jpg"><source src="assets/clips/t1_reach_grip.mp4" type="video/mp4"></video><figcaption><b data-k="grip-name"></b></figcaption></figure>
+    <figure><video muted playsinline preload="auto" data-k="hand" poster="assets/clips/t1_reach_hand.jpg"><source src="assets/clips/t1_reach_hand.mp4" type="video/mp4"></video><figcaption><b>Allegro hand</b></figcaption></figure>
   </div>
 </div></section>
 
@@ -339,11 +338,18 @@ page = f"""<!DOCTYPE html>
   <div class="ctas" style="justify-content:center"><span class="pill big disabled">Paper, coming soon</span><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
   <div class="logos">{logos}</div>
   <pre class="bib">{esc(bib)}</pre>
-  <p class="fine">Every robot and object on this page is a Blender Cycles render of a recorded DexSuite episode, replayed open-loop from the dataset.</p>
 </div></footer>
 </body>
 </html>
 """
+
+
+
+import sys  # noqa: E402
+sys.path.insert(0, str(Path(__file__).parent))
+from brand import brand  # noqa: E402
+
+page = brand(page)
 
 
 def at_root(page):

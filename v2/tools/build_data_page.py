@@ -124,5 +124,9 @@ page = f"""<!DOCTYPE html>
 </body>
 </html>
 """
+import sys  # noqa: E402
+sys.path.insert(0, str(Path(__file__).parent))
+from brand import brand  # noqa: E402
+page = brand(page)
 (V2 / "data.html").write_text(page, encoding="utf-8")
 print("v2/data.html", len(page) // 1024, "KB,", len(tasks), "tasks")

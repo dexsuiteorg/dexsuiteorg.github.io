@@ -296,8 +296,6 @@
       var t = V2.t1[i];
       tabs.forEach(function (b, j) { b.classList.toggle('on', j === i); b.setAttribute('aria-selected', j === i); });
       $('[data-k="grip-name"]', box).textContent = t.grip;
-      $('[data-k="grip-score"]', box).textContent = 'Best policy ' + t.gs + '%' + (t.fast ? '   2\u00d7 speed' : '');
-      $('[data-k="hand-score"]', box).textContent = 'Best policy ' + t.hs + '%' + (t.fast ? '   2\u00d7 speed' : '');
       box.classList.add('swap');
       setTimeout(function () {
         ['grip', 'hand'].forEach(function (e) { var v = vids[e]; v.poster = src(t.key, e) + '.jpg'; v.src = src(t.key, e) + '.mp4'; v.load(); });

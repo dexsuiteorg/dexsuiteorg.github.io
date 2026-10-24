@@ -242,8 +242,6 @@ pre.bib { background: #fff; border-radius: 16px; padding: 22px; font-size: 13px;
 .duo.t1 { margin-top: 22px; }
 .duo.t1 video { transition: opacity .35s ease; }
 .duo.t1.swap video { opacity: 0; }
-.duo.t1 figcaption { display: flex; justify-content: space-between; align-items: baseline; }
-.duo.t1 figcaption span { font-variant-numeric: tabular-nums; color: var(--ink-3); font-size: 14px; }
 @media (max-width: 900px) { .seg button { padding: 7px 12px; font-size: 14px; } }
 
 /* full benchmark table: a light single-hue shade per cell (success rate), the numbers stay in ink */
@@ -265,3 +263,6 @@ table.res tbody tr:not(.grp):hover td { box-shadow: inset 0 0 0 1.5px rgba(42, 1
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%), linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
   -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%), linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%);
   mask-composite: intersect; }
+
+/* the name in DexSuite blue wherever it appears, same gradient as the wordmark */
+.ds { background: linear-gradient(100deg, #1468b8 0%, #289be4 60%, #45b2ee 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }

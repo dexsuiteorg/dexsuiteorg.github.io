@@ -21,13 +21,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="v2/assets/hero/scene/f0000.webp" fetchpriority="high">
-<link rel="stylesheet" href="v2/site.css?v=3881b366">
-<script>document.documentElement.classList.add('js'); window.V2 = {"hero": {"n": 239, "dir": "v2/assets/hero/scene"}, "phases": {"own": ["Robots", "Every arm.", "Robots that come with their own gripper run every task as they are."], "arm": ["Modular arms", "Every arm.", "Modular arms take any end-effector. Here, each one carries the same Robotiq 2F-85."], "hand": ["End-effectors", "Every hand.", "And every end-effector mounts on the same arm, from parallel-jaw grippers to a 22-joint hand."]}, "zoom": {"n": 40, "dir": "v2/assets/robots/zoom"}, "t1": [{"key": "reach", "grip": "Robotiq 2F-85", "gs": 100.0, "hs": 97.0, "fast": false}, {"key": "lift", "grip": "UMI gripper", "gs": 73.0, "hs": 65.0, "fast": false}, {"key": "push", "grip": "UMI gripper", "gs": 63.0, "hs": 68.0, "fast": false}, {"key": "pickplace", "grip": "UMI gripper", "gs": 66.0, "hs": 76.0, "fast": false}, {"key": "stack", "grip": "UMI gripper", "gs": 16.0, "hs": 9.0, "fast": true}], "clips": "v2/assets/clips"};</script>
-<script defer src="v2/site.js?v=c397f6e7"></script>
+<link rel="stylesheet" href="v2/site.css?v=8cecb58c">
+<script>document.documentElement.classList.add('js'); window.V2 = {"hero": {"n": 239, "dir": "v2/assets/hero/scene"}, "phases": {"own": ["Robots", "Every arm.", "Robots that come with their own gripper run every task as they are."], "arm": ["Modular arms", "Every arm.", "Modular arms take any end-effector. Here, each one carries the same Robotiq 2F-85."], "hand": ["End-effectors", "Every hand.", "And every end-effector mounts on the same arm, from parallel-jaw grippers to a 22-joint hand."]}, "zoom": {"n": 40, "dir": "v2/assets/robots/zoom"}, "t1": [{"key": "reach", "grip": "Robotiq 2F-85"}, {"key": "lift", "grip": "UMI gripper"}, {"key": "push", "grip": "UMI gripper"}, {"key": "pickplace", "grip": "UMI gripper"}, {"key": "stack", "grip": "UMI gripper"}], "clips": "v2/assets/clips"};</script>
+<script defer src="v2/site.js?v=c7a33eb6"></script>
 </head>
 <body>
 <nav class="nav">
-  <a class="brand" href="#hero">DexSuite</a>
+  <a class="brand" href="#hero"><span class="ds">DexSuite</span></a>
   <div class="links"><a href="#robots">Robots</a><a href="#dexterity">Tasks</a><a href="#data">Data</a><a href="v2/data.html">Data viewer</a><a href="#benchmark">Benchmark</a>
   <a class="pill" href="https://huggingface.co/dexsuite" target="_blank" rel="noopener">Get the data</a></div>
 </nav>
@@ -51,9 +51,9 @@
 
 <section class="pad" id="paper"><div class="wrap">
   <h2 class="headline reveal">Built for real dexterity.</h2>
-  <p class="paper-meta reveal"><b>DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks</b><br>Anonymous authors, under review</p>
-  <p class="statement" style="margin-top:110px"><span class="w">DexSuite</span> <span class="w">brings</span> <span class="w">the</span> <span class="w">robot,</span> <span class="w">the</span> <span class="w">tasks,</span> <span class="w">teleoperation,</span> <span class="w">tactile</span> <span class="w">sensing,</span> <span class="w">the</span> <span class="w">data</span> <span class="w">and</span> <span class="w">the</span> <span class="w">evaluation</span> <span class="w">into</span> <span class="w">one</span> <span class="w">stack.</span> <span class="w">Any</span> <span class="w">of</span> <span class="w">its</span> <span class="w">tasks</span> <span class="w">runs</span> <span class="w">with</span> <span class="w">any</span> <span class="w">arm</span> <span class="w">and</span> <span class="w">any</span> <span class="w">hand.</span></p>
-  <details class="abs"><summary>Read the abstract</summary><p>Human-level dexterity remains a central open problem in robotics, yet few simulation frameworks cover the full workflow of dexterous manipulation, from setting up a robot to collecting dexterous demonstrations and evaluating policies. We present DexSuite, an all-in-one simulation framework for dexterous manipulation built on the Genesis simulator. DexSuite provides 30 tasks that run with any of its 10 arms paired with any of its 12 end-effectors, from parallel-jaw grippers to dexterous hands, along with a standardized environment API, integrated teleoperation, and simulated tactile sensing. Moreover, we define a benchmark of 16 task-embodiment pairs spanning diverse contact complexities and horizons, and release a dataset of 4,700 successful episodes in simulation from human teleoperation, scripted experts, and learned policies. We release DexSuite as open source and hope others will build on it.</p></details>
+  <p class="paper-meta reveal"><b><span class="ds">DexSuite</span>: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks</b><br>Anonymous authors, under review</p>
+  <p class="statement" style="margin-top:110px"><span class="w"><span class="ds">DexSuite</span></span> <span class="w">brings</span> <span class="w">the</span> <span class="w">robot,</span> <span class="w">the</span> <span class="w">tasks,</span> <span class="w">teleoperation,</span> <span class="w">tactile</span> <span class="w">sensing,</span> <span class="w">the</span> <span class="w">data</span> <span class="w">and</span> <span class="w">the</span> <span class="w">evaluation</span> <span class="w">into</span> <span class="w">one</span> <span class="w">stack.</span> <span class="w">Any</span> <span class="w">of</span> <span class="w">its</span> <span class="w">tasks</span> <span class="w">runs</span> <span class="w">with</span> <span class="w">any</span> <span class="w">arm</span> <span class="w">and</span> <span class="w">any</span> <span class="w">hand.</span></p>
+  <details class="abs"><summary>Read the abstract</summary><p>Human-level dexterity remains a central open problem in robotics, yet few simulation frameworks cover the full workflow of dexterous manipulation, from setting up a robot to collecting dexterous demonstrations and evaluating policies. We present <span class="ds">DexSuite</span>, an all-in-one simulation framework for dexterous manipulation built on the Genesis simulator. <span class="ds">DexSuite</span> provides 30 tasks that run with any of its 10 arms paired with any of its 12 end-effectors, from parallel-jaw grippers to dexterous hands, along with a standardized environment API, integrated teleoperation, and simulated tactile sensing. Moreover, we define a benchmark of 16 task-embodiment pairs spanning diverse contact complexities and horizons, and release a dataset of 4,700 successful episodes in simulation from human teleoperation, scripted experts, and learned policies. We release <span class="ds">DexSuite</span> as open source and hope others will build on it.</p></details>
 </div></section>
 
 <section id="robots">
@@ -106,8 +106,8 @@
   <p class="lede reveal" style="margin-top:18px">Each task is defined once, with the same reset, observations and success check for a gripper and a hand. Every pair below is a recorded human demonstration.</p>
   <div class="seg t1-tabs reveal" role="tablist"><button type="button" role="tab" data-i="0" class=on>Reach</button><button type="button" role="tab" data-i="1">Lift</button><button type="button" role="tab" data-i="2">Push</button><button type="button" role="tab" data-i="3">Pick &amp; Place</button><button type="button" role="tab" data-i="4">Stack</button></div>
   <div class="duo t1 reveal">
-    <figure><video muted playsinline preload="auto" data-k="grip" poster="v2/assets/clips/t1_reach_grip.jpg"><source src="v2/assets/clips/t1_reach_grip.mp4" type="video/mp4"></video><figcaption><b data-k="grip-name"></b><span data-k="grip-score"></span></figcaption></figure>
-    <figure><video muted playsinline preload="auto" data-k="hand" poster="v2/assets/clips/t1_reach_hand.jpg"><source src="v2/assets/clips/t1_reach_hand.mp4" type="video/mp4"></video><figcaption><b>Allegro hand</b><span data-k="hand-score"></span></figcaption></figure>
+    <figure><video muted playsinline preload="auto" data-k="grip" poster="v2/assets/clips/t1_reach_grip.jpg"><source src="v2/assets/clips/t1_reach_grip.mp4" type="video/mp4"></video><figcaption><b data-k="grip-name"></b></figcaption></figure>
+    <figure><video muted playsinline preload="auto" data-k="hand" poster="v2/assets/clips/t1_reach_hand.jpg"><source src="v2/assets/clips/t1_reach_hand.mp4" type="video/mp4"></video><figcaption><b>Allegro hand</b></figcaption></figure>
   </div>
 </div></section>
 
@@ -191,7 +191,7 @@
 </div></section>
 
 <footer><div class="wrap center">
-  <h2 class="headline md">DexSuite</h2>
+  <h2 class="headline md"><span class="ds">DexSuite</span></h2>
   <div class="ctas" style="justify-content:center"><span class="pill big disabled">Paper, coming soon</span><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="https://huggingface.co/dexsuite" target="_blank" rel="noopener">Data</a></div>
   <div class="logos"><img loading="lazy" src="v2/assets/logos/mcgill.png" alt="McGill University" style="height:40px"><img loading="lazy" src="v2/assets/logos/mila.png" alt="Mila" style="height:32px"><img loading="lazy" src="v2/assets/logos/amazon.png" alt="Amazon" style="height:30px"><img loading="lazy" src="v2/assets/logos/hf.png" alt="Hugging Face" style="height:30px"><img loading="lazy" src="v2/assets/logos/kinova.png" alt="Kinova" style="height:17px"><img loading="lazy" src="v2/assets/logos/manus.png" alt="Manus" style="height:16px"></div>
   <pre class="bib">@article{dexsuite2026,
@@ -200,7 +200,6 @@
   journal = {Under review},
   year    = {2026},
 }</pre>
-  <p class="fine">Every robot and object on this page is a Blender Cycles render of a recorded DexSuite episode, replayed open-loop from the dataset.</p>
 </div></footer>
 </body>
 </html>
