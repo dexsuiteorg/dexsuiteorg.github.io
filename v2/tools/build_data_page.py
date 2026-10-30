@@ -45,6 +45,8 @@ page = f"""<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DexSuite Data Viewer</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H0BF1KZ38G"></script>
+<script>window.dataLayer = window.dataLayer || []; function gtag() {{ dataLayer.push(arguments); }} gtag('js', new Date()); gtag('config', 'G-H0BF1KZ38G');</script>
 <meta name="description" content="Browse episodes of the DexSuite dataset: front and wrist cameras, the tool center point trajectory and hand closure, for every benchmark task-embodiment pair.">
 <link rel="icon" href="../static/images/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

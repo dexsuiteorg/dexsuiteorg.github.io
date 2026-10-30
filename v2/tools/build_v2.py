@@ -194,6 +194,8 @@ page = f"""<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(TITLE)}</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H0BF1KZ38G"></script>
+<script>window.dataLayer = window.dataLayer || []; function gtag() {{ dataLayer.push(arguments); }} gtag('js', new Date()); gtag('config', 'G-H0BF1KZ38G');</script>
 <meta name="description" content="{esc(TITLE)}. {N_TASKS} tasks, {ARMS} arms, {EFFECTORS} end-effectors, {PAIRS} benchmark task-embodiment pairs, {EPISODES} episodes.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
