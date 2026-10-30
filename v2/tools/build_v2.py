@@ -182,11 +182,18 @@ total = sum(TIERS.values())
 tiers = "\n".join(f'''<div class="tier"><div class="row"><span>{label}</span><b>{v:,}</b></div><div class="bar"><i data-w="{100 * v / total:.1f}"></i></div></div>'''
                   for label, v in (("Human teleoperation", TIERS["human"]), ("Scripted experts", TIERS["scripted"]),
                                    ("Machine-generated", TIERS["machine"])))
-bib = f"""@article{{dexsuite2026,
-  author  = {{Anonymous}},
-  title   = {{{TITLE}}},
-  year    = {{2026}},
-}}"""
+AUTHORS = "Anas Houssaini, Hugo He, Junming Shi, Amin Abyaneh, Ricardo Chahine, Shuo Wen, Mohamad H. Danesh, Charles-Étienne Fréchette, Mariana Sosa Guzman, Mathias Desrochers, Rayan Houssaini, Adam Landa, Theophile Soulie, Charlotte Morissette, Annie Tims, Martino Russi, Jonathan Lussier, Gregory Dudek, Doina Precup, Julen Urain, Hsiu-Chin Lin, David Meger"
+ARXIV = "https://arxiv.org/abs/2610.37799"
+bib = """@article{houssaini2026dexsuite,
+  title   = {DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks},
+  author  = {Houssaini, Anas and He, Hugo and Shi, Junming and Abyaneh, Amin and Chahine, Ricardo and Wen, Shuo and
+             Danesh, Mohamad H. and Fr{\\'e}chette, Charles-{\\'E}tienne and Sosa Guzman, Mariana and Desrochers, Mathias and
+             Houssaini, Rayan and Landa, Adam and Soulie, Theophile and Morissette, Charlotte and Tims, Annie and
+             Russi, Martino and Lussier, Jonathan and Dudek, Gregory and Precup, Doina and Urain, Julen and Lin, Hsiu-Chin and
+             Meger, David},
+  journal = {arXiv preprint arXiv:2610.37799},
+  year    = {2026}
+}"""
 
 page = f"""<!DOCTYPE html>
 <html lang="en">
@@ -243,7 +250,7 @@ page = f"""<!DOCTYPE html>
 
 <section class="pad" id="paper"><div class="wrap">
   <h2 class="headline reveal">Built for real dexterity.</h2>
-  <p class="paper-meta reveal"><b>{esc(TITLE)}</b><br>Anonymous authors, under review</p>
+  <p class="paper-meta reveal"><b>{esc(TITLE)}</b><br>{esc(AUTHORS)}<br><a href="{ARXIV}" target="_blank" rel="noopener">arXiv:2610.37799</a></p>
   <p class="statement" style="margin-top:110px">{words(STATEMENT)}</p>
   <details class="abs"><summary>Read the abstract</summary><p>{esc(ABSTRACT)}</p></details>
 </div></section>
@@ -336,7 +343,7 @@ page = f"""<!DOCTYPE html>
 
 <footer><div class="wrap center">
   <h2 class="headline md">DexSuite</h2>
-  <div class="ctas" style="justify-content:center"><span class="pill big disabled">Paper, coming soon</span><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
+  <div class="ctas" style="justify-content:center"><a class="pill big" href="{ARXIV}" target="_blank" rel="noopener">Paper</a><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
   <div class="logos">{logos}</div>
   <pre class="bib">{esc(bib)}</pre>
 </div></footer>
