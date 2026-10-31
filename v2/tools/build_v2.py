@@ -237,7 +237,7 @@ page = f"""<!DOCTYPE html>
         <span data-from="0.34" data-to="0.68" class="grey">Simulated, teleoperated, benchmarked.</span>
         <span data-from="0.68" data-to="1.01">All in one framework.</span>
       </div>
-      <div class="hero-ctas"><a class="pill big" href="{HF}" target="_blank" rel="noopener">Get the data</a><span class="pill big ghost disabled-ghost">Paper, coming soon</span></div>
+      <div class="hero-ctas"><a class="pill big" href="{HF}" target="_blank" rel="noopener">Get the data</a><a class="pill big ghost" href="{ARXIV}" target="_blank" rel="noopener">Paper</a></div>
     </div>
     <div class="progress"><i></i></div>
     <button class="scroll-hint" type="button" aria-label="Scroll down"><span>Scroll</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
