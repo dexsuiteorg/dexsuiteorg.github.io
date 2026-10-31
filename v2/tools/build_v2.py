@@ -186,11 +186,7 @@ AUTHORS = "Anas Houssaini, Hugo He, Junming Shi, Amin Abyaneh, Ricardo Chahine, 
 ARXIV = "https://arxiv.org/abs/2610.37799"
 bib = """@article{houssaini2026dexsuite,
   title   = {DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks},
-  author  = {Houssaini, Anas and He, Hugo and Shi, Junming and Abyaneh, Amin and Chahine, Ricardo and Wen, Shuo and
-             Danesh, Mohamad H. and Fr{\\'e}chette, Charles-{\\'E}tienne and Sosa Guzman, Mariana and Desrochers, Mathias and
-             Houssaini, Rayan and Landa, Adam and Soulie, Theophile and Morissette, Charlotte and Tims, Annie and
-             Russi, Martino and Lussier, Jonathan and Dudek, Gregory and Precup, Doina and Urain, Julen and Lin, Hsiu-Chin and
-             Meger, David},
+  author  = {Houssaini, Anas and He, Hugo and Shi, Junming and Abyaneh, Amin and Chahine, Ricardo and Wen, Shuo and Danesh, Mohamad H. and Fr{\\'e}chette, Charles-{\\'E}tienne and Sosa Guzman, Mariana and Desrochers, Mathias and Houssaini, Rayan and Landa, Adam and Soulie, Theophile and Morissette, Charlotte and Tims, Annie and Russi, Martino and Lussier, Jonathan and Dudek, Gregory and Precup, Doina and Urain, Julen and Lin, Hsiu-Chin and Meger, David},
   journal = {arXiv preprint arXiv:2610.37799},
   year    = {2026}
 }"""
