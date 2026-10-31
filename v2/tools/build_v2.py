@@ -184,6 +184,7 @@ tiers = "\n".join(f'''<div class="tier"><div class="row"><span>{label}</span><b>
                                    ("Machine-generated", TIERS["machine"])))
 AUTHORS = "Anas Houssaini, Hugo He, Junming Shi, Amin Abyaneh, Ricardo Chahine, Shuo Wen, Mohamad H. Danesh, Charles-Étienne Fréchette, Mariana Sosa Guzman, Mathias Desrochers, Rayan Houssaini, Adam Landa, Theophile Soulie, Charlotte Morissette, Annie Tims, Martino Russi, Jonathan Lussier, Gregory Dudek, Doina Precup, Julen Urain, Hsiu-Chin Lin, David Meger"
 ARXIV = "https://arxiv.org/abs/2610.37799"
+CODE = "https://github.com/anashoussaini/Dexsuite"
 bib = """@article{houssaini2026dexsuite,
   title   = {DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks},
   author  = {Houssaini, Anas and He, Hugo and Shi, Junming and Abyaneh, Amin and Chahine, Ricardo and Wen, Shuo and Danesh, Mohamad H. and Fr{\\'e}chette, Charles-{\\'E}tienne and Sosa Guzman, Mariana and Desrochers, Mathias and Houssaini, Rayan and Landa, Adam and Soulie, Theophile and Morissette, Charlotte and Tims, Annie and Russi, Martino and Lussier, Jonathan and Dudek, Gregory and Precup, Doina and Urain, Julen and Lin, Hsiu-Chin and Meger, David},
@@ -237,7 +238,7 @@ page = f"""<!DOCTYPE html>
         <span data-from="0.34" data-to="0.68" class="grey">Simulated, teleoperated, benchmarked.</span>
         <span data-from="0.68" data-to="1.01">All in one framework.</span>
       </div>
-      <div class="hero-ctas"><a class="pill big" href="{HF}" target="_blank" rel="noopener">Get the data</a><a class="pill big ghost" href="{ARXIV}" target="_blank" rel="noopener">Paper</a></div>
+      <div class="hero-ctas"><a class="pill big" href="{HF}" target="_blank" rel="noopener">Get the data</a><a class="pill big ghost" href="{ARXIV}" target="_blank" rel="noopener">Paper</a><a class="pill big ghost" href="{CODE}" target="_blank" rel="noopener">Code</a></div>
     </div>
     <div class="progress"><i></i></div>
     <button class="scroll-hint" type="button" aria-label="Scroll down"><span>Scroll</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
@@ -339,7 +340,7 @@ page = f"""<!DOCTYPE html>
 
 <footer><div class="wrap center">
   <h2 class="headline md">DexSuite</h2>
-  <div class="ctas" style="justify-content:center"><a class="pill big" href="{ARXIV}" target="_blank" rel="noopener">Paper</a><span class="pill big disabled">Code, coming soon</span><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
+  <div class="ctas" style="justify-content:center"><a class="pill big" href="{ARXIV}" target="_blank" rel="noopener">Paper</a><a class="pill big" href="{CODE}" target="_blank" rel="noopener">Code</a><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
   <div class="logos">{logos}</div>
   <pre class="bib">{esc(bib)}</pre>
 </div></footer>
