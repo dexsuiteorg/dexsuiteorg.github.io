@@ -117,8 +117,8 @@ TILES = [  # clip, task, line, meta
     ("fruit_allegro", "Place Fruits", "Put the apple and the lemon into the bowl, one after the other.", "Allegro hand, human teleoperation"),
     ("toast_sharpa", "Toast Bread", "Stand the slice in a toaster slot and push the lever down.", "Sharpa hand, scripted expert"),
 ]
-ABSTRACT = re.sub(r"\s+", " ", re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", TEX, re.S).group(1)).strip()
-ABSTRACT = ABSTRACT.replace("{,}", ",").replace("~", " ").replace("\\%", "%")
+# the arXiv v1 abstract as arxiv.org/abs/2610.37799 shows it (its last sentence, a link to this page, left out)
+ABSTRACT = ("Human-level dexterity remains a central open problem in robotics, yet few simulation frameworks cover the full workflow of dexterous manipulation, from setting up a robot to collecting dexterous demonstrations and evaluating policies. We present DexSuite, an all-in-one simulation framework for dexterous manipulation built on the Genesis simulator. DexSuite provides 30 tasks and assembles its 10 arms and 12 end-effectors, from parallel-jaw grippers to dexterous hands, into more than 100 single-arm robots and thousands of bimanual pairs. It also ships a standardized environment API, integrated teleoperation, and simulated tactile sensing. Moreover, we define a benchmark of 16 task-embodiment pairs spanning diverse contact complexities and horizons, and release a dataset of 4,700 successful episodes in simulation from human teleoperation, scripted experts, and learned policies. We release DexSuite as open source and hope others will build on it.")
 T1 = [  # clip key, tab label, gripper used in the dataset
     ("reach", "Reach", "Robotiq 2F-85"), ("lift", "Lift", "UMI gripper"), ("push", "Push", "UMI gripper"),
     ("pickplace", "Pick & Place", "UMI gripper"), ("stack", "Stack", "UMI gripper"),
@@ -185,6 +185,7 @@ tiers = "\n".join(f'''<div class="tier"><div class="row"><span>{label}</span><b>
 AUTHORS = "Anas Houssaini, Hugo He, Junming Shi, Amin Abyaneh, Ricardo Chahine, Shuo Wen, Mohamad H. Danesh, Charles-Étienne Fréchette, Mariana Sosa Guzman, Mathias Desrochers, Rayan Houssaini, Adam Landa, Theophile Soulie, Charlotte Morissette, Annie Tims, Martino Russi, Jonathan Lussier, Gregory Dudek, Doina Precup, Julen Urain, Hsiu-Chin Lin, David Meger"
 ARXIV = "https://arxiv.org/abs/2610.37799"
 CODE = "https://github.com/anashoussaini/Dexsuite"
+DOCS = "https://dexsuite.readthedocs.io/"
 bib = """@article{houssaini2026dexsuite,
   title   = {DexSuite: An All-in-One Framework for Dexterous Manipulation Across Arms, Hands, and Tasks},
   author  = {Houssaini, Anas and He, Hugo and Shi, Junming and Abyaneh, Amin and Chahine, Ricardo and Wen, Shuo and Danesh, Mohamad H. and Fr{\\'e}chette, Charles-{\\'E}tienne and Sosa Guzman, Mariana and Desrochers, Mathias and Houssaini, Rayan and Landa, Adam and Soulie, Theophile and Morissette, Charlotte and Tims, Annie and Russi, Martino and Lussier, Jonathan and Dudek, Gregory and Precup, Doina and Urain, Julen and Lin, Hsiu-Chin and Meger, David},
@@ -224,7 +225,7 @@ page = f"""<!DOCTYPE html>
 <body>
 <nav class="nav">
   <a class="brand" href="#hero">DexSuite</a>
-  <div class="links"><a href="#robots">Robots</a><a href="#dexterity">Tasks</a><a href="#data">Data</a><a href="data.html">Data viewer</a><a href="#benchmark">Benchmark</a>
+  <div class="links"><a href="#robots">Robots</a><a href="#dexterity">Tasks</a><a href="#data">Data</a><a href="data.html">Data viewer</a><a href="#benchmark">Benchmark</a><a href="{DOCS}" target="_blank" rel="noopener">Docs</a>
   <a class="pill" href="{HF}" target="_blank" rel="noopener">Get the data</a></div>
 </nav>
 
@@ -238,7 +239,7 @@ page = f"""<!DOCTYPE html>
         <span data-from="0.34" data-to="0.68" class="grey">Simulated, teleoperated, benchmarked.</span>
         <span data-from="0.68" data-to="1.01">All in one framework.</span>
       </div>
-      <div class="hero-ctas"><a class="pill big" href="{HF}" target="_blank" rel="noopener">Get the data</a><a class="pill big ghost" href="{ARXIV}" target="_blank" rel="noopener">Paper</a><a class="pill big ghost" href="{CODE}" target="_blank" rel="noopener">Code</a></div>
+      <div class="hero-ctas"><a class="pill big" href="{HF}" target="_blank" rel="noopener">Get the data</a><a class="pill big ghost" href="{ARXIV}" target="_blank" rel="noopener">Paper</a><a class="pill big ghost" href="{CODE}" target="_blank" rel="noopener">Code</a><a class="pill big ghost" href="{DOCS}" target="_blank" rel="noopener">Docs</a></div>
     </div>
     <div class="progress"><i></i></div>
     <button class="scroll-hint" type="button" aria-label="Scroll down"><span>Scroll</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
@@ -340,7 +341,7 @@ page = f"""<!DOCTYPE html>
 
 <footer><div class="wrap center">
   <h2 class="headline md">DexSuite</h2>
-  <div class="ctas" style="justify-content:center"><a class="pill big" href="{ARXIV}" target="_blank" rel="noopener">Paper</a><a class="pill big" href="{CODE}" target="_blank" rel="noopener">Code</a><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
+  <div class="ctas" style="justify-content:center"><a class="pill big" href="{ARXIV}" target="_blank" rel="noopener">Paper</a><a class="pill big" href="{CODE}" target="_blank" rel="noopener">Code</a><a class="pill big" href="{DOCS}" target="_blank" rel="noopener">Docs</a><a class="pill big" href="{HF}" target="_blank" rel="noopener">Data</a></div>
   <div class="logos">{logos}</div>
   <pre class="bib">{esc(bib)}</pre>
 </div></footer>
